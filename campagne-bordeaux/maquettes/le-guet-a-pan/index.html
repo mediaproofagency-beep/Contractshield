@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Guet-A-Pan — cuisine de marché, four Josper — Marché des Capucins, Bordeaux</title>
+<meta name="description" content="Le Guet-A-Pan, place des Capucins à Bordeaux : on achète le matin aux étals d'à côté, on cuit au four Josper. Tapas, grillades, esprit copains.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --encre:#16130F; --craie:#FDFCFA; --braise:#D93B18;
+  --fonte:#4A4238; --zinc:#DCDDD8;
+  --marge:clamp(1rem,5vw,4rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--craie); color:var(--encre);
+  font:400 clamp(1rem,.95rem + .3vw,1.125rem)/1.6 "Public Sans",system-ui,sans-serif;
+}
+h1,h2,h3,.dsp{font-family:"Archivo Black","Public Sans",system-ui,sans-serif;
+  font-weight:400; letter-spacing:-.02em; line-height:.95; text-transform:uppercase; margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--braise); outline-offset:3px}
+.enveloppe{max-width:1080px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--braise);color:#fff;padding:.6rem 1rem}
+
+/* ---------- bandeau ---------- */
+header{border-bottom:3px solid var(--encre)}
+.entete{display:flex; flex-wrap:wrap; gap:.75rem 1.5rem; align-items:baseline;
+  justify-content:space-between; padding:1.25rem 0 1rem}
+.enseigne{font-size:clamp(2rem,9vw,4.25rem)}
+.coord{font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fonte)}
+.coord a{text-decoration-thickness:2px; text-underline-offset:3px}
+.bandeau{background:var(--braise); color:#fff; overflow:hidden; border-top:3px solid var(--encre)}
+.bandeau p{margin:0; padding:.55rem 0; white-space:nowrap; font-family:"Archivo Black",sans-serif;
+  font-size:clamp(.9rem,2.6vw,1.4rem); letter-spacing:.06em;
+  animation:defile 24s linear infinite}
+.bandeau span{padding:0 1.5rem}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- accroche ---------- */
+.accroche{padding:clamp(2.5rem,8vw,5rem) 0 clamp(2rem,6vw,3.5rem);
+  border-bottom:1px solid var(--zinc)}
+.accroche h2{font-size:clamp(1.8rem,7vw,3.4rem); max-width:16ch}
+.accroche h2 em{font-style:normal; color:var(--braise)}
+.accroche p{max-width:52ch; margin:1.5rem 0 0; font-size:1.05em}
+.chiffres{display:flex; flex-wrap:wrap; gap:2rem; margin-top:2.25rem; padding:0; list-style:none}
+.chiffres b{display:block; font-family:"Archivo Black",sans-serif; font-size:2rem; line-height:1}
+.chiffres span{font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--fonte)}
+
+/* ---------- plan ---------- */
+.plan{padding:clamp(2.5rem,8vw,4.5rem) 0; border-bottom:1px solid var(--zinc)}
+.plan h2{font-size:clamp(1.4rem,5vw,2.4rem)}
+.plan>p{max-width:56ch; color:var(--fonte)}
+.grille-plan{display:grid; gap:clamp(1.5rem,4vw,3rem); margin-top:2rem;
+  grid-template-columns:minmax(0,1fr)}
+@media(min-width:820px){.grille-plan{grid-template-columns:1.15fr .85fr; align-items:start}}
+.carte-svg{border:3px solid var(--encre); background:#fff}
+.carte-svg svg{display:block; width:100%; height:auto}
+.pt circle{fill:#fff; stroke:var(--encre); stroke-width:2.5; transition:fill .15s, r .15s}
+.pt text{font:700 13px "Public Sans",sans-serif; fill:var(--encre)}
+.pt.on circle{fill:var(--braise); r:15}
+.pt.on text{fill:#fff}
+.nous rect{fill:var(--encre)}
+.nous text{font:700 12px "Public Sans",sans-serif; fill:#fff; letter-spacing:.08em}
+ol.etals{list-style:none; margin:0; padding:0; counter-reset:e}
+ol.etals li{border-top:1px solid var(--zinc)}
+ol.etals li:last-child{border-bottom:1px solid var(--zinc)}
+ol.etals button{width:100%; display:grid; grid-template-columns:2.1rem 1fr auto; gap:.9rem;
+  align-items:baseline; padding:.85rem .25rem; background:none; border:0; cursor:pointer;
+  font:inherit; text-align:left; color:inherit}
+ol.etals button:hover{background:#F3F1EC}
+ol.etals .num{font-family:"Archivo Black",sans-serif; color:var(--braise)}
+ol.etals .quoi{display:block; font-size:.85rem; color:var(--fonte)}
+ol.etals .m{font-size:.8rem; letter-spacing:.08em; color:var(--fonte); white-space:nowrap}
+
+/* ---------- josper ---------- */
+.josper{background:var(--encre); color:var(--craie); padding:clamp(2.5rem,8vw,5rem) 0}
+.josper .enveloppe{display:grid; gap:2rem}
+@media(min-width:820px){.josper .enveloppe{grid-template-columns:1fr 1fr; align-items:center}}
+.josper h2{font-size:clamp(1.8rem,7vw,3.2rem); color:#fff}
+.josper h2 em{font-style:normal; color:var(--braise)}
+.josper p{color:#CFC9C0; max-width:46ch}
+.jauge{display:flex; gap:.35rem; align-items:flex-end; height:120px; margin-top:1.5rem}
+.jauge i{flex:1; background:linear-gradient(to top,var(--braise),#F4A11E); display:block}
+@media(prefers-reduced-motion:no-preference){.jauge i{animation:vibre 2.4s ease-in-out infinite}}
+@keyframes vibre{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.86)}}
+
+/* ---------- carte ---------- */
+.carte{padding:clamp(2.5rem,8vw,4.5rem) 0}
+.carte h2{font-size:clamp(1.4rem,5vw,2.4rem); margin-bottom:1.5rem}
+.cols{display:grid; gap:clamp(1.5rem,4vw,2.5rem); grid-template-columns:minmax(0,1fr)}
+@media(min-width:720px){.cols{grid-template-columns:repeat(3,1fr)}}
+.col h3{font-size:.8rem; letter-spacing:.16em; color:var(--braise); border-bottom:3px solid var(--braise);
+  padding-bottom:.5rem; margin-bottom:1rem}
+.col ul{list-style:none; margin:0; padding:0}
+.col li{display:flex; justify-content:space-between; gap:1rem; padding:.5rem 0;
+  border-bottom:1px dotted var(--zinc)}
+.col li span:last-child{font-variant-numeric:tabular-nums; color:var(--fonte)}
+.avert{margin-top:1.5rem; font-size:.85rem; color:var(--fonte)}
+
+/* ---------- venir ---------- */
+.venir{background:var(--zinc); padding:clamp(2.5rem,8vw,4.5rem) 0}
+.venir .enveloppe{display:grid; gap:2rem}
+@media(min-width:720px){.venir .enveloppe{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-size:.8rem; letter-spacing:.16em; margin-bottom:.75rem}
+.venir p{margin:0; line-height:1.5}
+.tel{display:inline-block; margin-top:.5rem; background:var(--encre); color:#fff;
+  padding:.7rem 1.2rem; font-family:"Archivo Black",sans-serif; text-decoration:none;
+  font-size:1.05rem; letter-spacing:.02em}
+.tel:hover{background:var(--braise)}
+.avalider{display:inline-block; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+  background:var(--braise); color:#fff; padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:var(--encre); color:#9C958B; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#carte">Aller à la carte</a>
+
+<header>
+  <div class="enveloppe entete">
+    <h1 class="enseigne">Le Guet-A-Pan</h1>
+    <p class="coord">Marché des Capucins, Bordeaux · <a href="tel:+33603283089">06&nbsp;03&nbsp;28&nbsp;30&nbsp;89</a></p>
+  </div>
+  <div class="bandeau" aria-hidden="true">
+    <p><span>Un petit coup et ça repart</span><span>★</span><span>Un petit coup et ça repart</span><span>★</span><span>Un petit coup et ça repart</span><span>★</span><span>Un petit coup et ça repart</span><span>★</span></p>
+  </div>
+</header>
+
+<main>
+<section class="accroche enveloppe">
+  <h2>On achète à 8&nbsp;h. <em>On sert à midi.</em></h2>
+  <p>Le Guet-A-Pan est dans le marché, pas à côté. Le poisson vient de l'écailler à
+     douze mètres, la viande du boucher d'en face, les légumes de l'étal du fond.
+     Ce qui reste à faire, c'est le feu : un four Josper au charbon, 350°, et rien
+     d'autre. Paul tient la maison depuis le début.</p>
+  <ul class="chiffres">
+    <li><b>4,2</b><span>sur Google</span></li>
+    <li><b>223</b><span>avis</span></li>
+    <li><b>350°</b><span>four Josper</span></li>
+    <li><b>12&nbsp;m</b><span>du premier fournisseur</span></li>
+  </ul>
+</section>
+
+<section class="plan enveloppe" aria-labelledby="t-plan">
+  <h2 id="t-plan">Nos fournisseurs tiennent dans le même bâtiment</h2>
+  <p>Le marché des Capucins fait 3 500 m². Notre carte en occupe une petite partie —
+     celle-ci. Passez sur un étal pour le situer.</p>
+
+  <div class="grille-plan">
+    <div class="carte-svg">
+      <svg viewBox="0 0 460 320" role="img" aria-label="Plan schématique du marché des Capucins situant Le Guet-A-Pan et six étals fournisseurs">
+        <rect x="14" y="14" width="432" height="292" fill="#fff" stroke="#16130F" stroke-width="3"/>
+        <path d="M14 96H446M14 224H446M160 14V306M300 14V306" stroke="#DCDDD8" stroke-width="2"/>
+        <text x="24" y="294" font-family="Public Sans" font-size="11" fill="#4A4238" letter-spacing="1.5">PLACE DES CAPUCINS — 33800 BORDEAUX</text>
+        <g class="nous">
+          <rect x="196" y="146" width="92" height="34" rx="2"/>
+          <text x="242" y="167" text-anchor="middle">NOUS</text>
+        </g>
+        <g class="pt" data-pt="1"><circle cx="322" cy="150" r="13"/><text x="322" y="155" text-anchor="middle">1</text></g>
+        <g class="pt" data-pt="2"><circle cx="92"  cy="60"  r="13"/><text x="92"  y="65"  text-anchor="middle">2</text></g>
+        <g class="pt" data-pt="3"><circle cx="230" cy="60"  r="13"/><text x="230" y="65"  text-anchor="middle">3</text></g>
+        <g class="pt" data-pt="4"><circle cx="392" cy="196" r="13"/><text x="392" y="201" text-anchor="middle">4</text></g>
+        <g class="pt" data-pt="5"><circle cx="92"  cy="256" r="13"/><text x="92"  y="261" text-anchor="middle">5</text></g>
+        <g class="pt" data-pt="6"><circle cx="238" cy="256" r="13"/><text x="238" y="261" text-anchor="middle">6</text></g>
+      </svg>
+    </div>
+
+    <ol class="etals" id="etals">
+      <li><button type="button" data-pt="1"><span class="num">1</span><span><b>L'écailler</b><span class="quoi">Huîtres du Bassin, bulots, le poisson du jour</span></span><span class="m">12 m</span></button></li>
+      <li><button type="button" data-pt="2"><span class="num">2</span><span><b>Le boucher</b><span class="quoi">Bœuf pour le Josper, échine, brochettes</span></span><span class="m">40 m</span></button></li>
+      <li><button type="button" data-pt="3"><span class="num">3</span><span><b>Le maraîcher</b><span class="quoi">Ce qui va sur la planche à midi</span></span><span class="m">30 m</span></button></li>
+      <li><button type="button" data-pt="4"><span class="num">4</span><span><b>Le fromager</b><span class="quoi">Brebis des Pyrénées, tomme, la planche du soir</span></span><span class="m">55 m</span></button></li>
+      <li><button type="button" data-pt="5"><span class="num">5</span><span><b>Le charcutier</b><span class="quoi">Jambon coupé au couteau, chorizo pour les tapas</span></span><span class="m">60 m</span></button></li>
+      <li><button type="button" data-pt="6"><span class="num">6</span><span><b>Le caviste</b><span class="quoi">Les six vins au verre, tous du coin</span></span><span class="m">25 m</span></button></li>
+    </ol>
+  </div>
+</section>
+
+<section class="josper" aria-labelledby="t-josper">
+  <div class="enveloppe">
+    <div>
+      <h2>Le four <em>Josper</em>, et c'est tout</h2>
+      <p>Un four fermé au charbon de bois. La viande y prend en quatre minutes ce
+         qu'une plancha ne donne jamais : une croûte, et le jus qui reste dedans.
+         Pas de gaz, pas de sauce pour rattraper. C'est la seule cuisson de la
+         maison, et elle décide de la carte.</p>
+    </div>
+    <div class="jauge" aria-hidden="true">
+      <i style="height:44%"></i><i style="height:72%"></i><i style="height:56%"></i>
+      <i style="height:88%"></i><i style="height:64%"></i><i style="height:100%"></i>
+      <i style="height:76%"></i><i style="height:50%"></i><i style="height:82%"></i>
+    </div>
+  </div>
+</section>
+
+<section class="carte enveloppe" id="carte" aria-labelledby="t-carte">
+  <h2 id="t-carte">La carte <span class="avalider">à valider</span></h2>
+  <div class="cols">
+    <div class="col">
+      <h3>SUR LE POUCE</h3>
+      <ul>
+        <li><span>Chorizo grillé au Josper</span><span>7 €</span></li>
+        <li><span>Six huîtres, l'étal d'à côté</span><span>12 €</span></li>
+        <li><span>Croquettes de la maison</span><span>6 €</span></li>
+        <li><span>Jambon coupé au couteau</span><span>9 €</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>AU FEU</h3>
+      <ul>
+        <li><span>Bavette, beurre d'ail</span><span>19 €</span></li>
+        <li><span>Poisson du jour entier</span><span>21 €</span></li>
+        <li><span>Brochette d'échine, piquillos</span><span>17 €</span></li>
+        <li><span>Légumes du marché braisés</span><span>13 €</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>À PARTAGER</h3>
+      <ul>
+        <li><span>La planche du fromager</span><span>16 €</span></li>
+        <li><span>La grande planche mixte</span><span>24 €</span></li>
+        <li><span>Verre de rouge du caviste</span><span>4 €</span></li>
+        <li><span>Le café, debout au comptoir</span><span>1,50 €</span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="avert">Carte d'exemple écrite à partir de votre fiche Google et des avis clients.
+     Les plats et les prix sont à remplacer par les vôtres.</p>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="enveloppe">
+    <div>
+      <h3 id="t-venir">OÙ</h3>
+      <p>Marché des Capucins<br>Place des Capucins<br>33800 Bordeaux</p>
+    </div>
+    <div>
+      <h3>QUAND <span class="avalider">à confirmer</span></h3>
+      <p>Aux heures du marché, midi et service du soir.<br>
+         Vos horaires réels prennent cette place.</p>
+    </div>
+    <div>
+      <h3>RÉSERVER</h3>
+      <p>Une table, un service, une planche à emporter&nbsp;:</p>
+      <a class="tel" href="tel:+33603283089">06 03 28 30 89</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="enveloppe">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: tous les éléments visuels de cette page sont dessinés (SVG et CSS).
+       Un reportage photo du marché et du four les remplacera.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var boutons = document.querySelectorAll('#etals button');
+  var points  = document.querySelectorAll('.pt');
+  function allumer(id){
+    points.forEach(function(p){ p.classList.toggle('on', p.dataset.pt === id); });
+  }
+  boutons.forEach(function(b){
+    ['mouseenter','focus','click'].forEach(function(e){
+      b.addEventListener(e, function(){ allumer(b.dataset.pt); });
+    });
+    ['mouseleave','blur'].forEach(function(e){
+      b.addEventListener(e, function(){ allumer(null); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

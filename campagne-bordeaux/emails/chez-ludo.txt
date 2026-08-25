@@ -1,0 +1,30 @@
+# Bar des Capucins - Chez Ludo
+# variante        : A — aucun site
+# vérifié sans site : oui
+# corps            : 100 mots (plafond 120), un seul lien, aucune image
+# maquette         : maquettes/chez-ludo/index.html
+# Les {{PLACEHOLDERS}} sont remplis par scripts/3-envoyer.py depuis data/expediteur.json
+
+OBJET: une page pour Chez Ludo
+
+Bonjour Ludo,
+
+Je suis passé sur votre fiche Google — 4,9 sur 116 avis, et une cuisine ouverte
+de 22 h à 4 h. À Bordeaux, vous êtes seuls à faire ça.
+
+Quand quelqu'un cherche où manger à une heure du matin, il n'y a rien à ouvrir.
+
+J'ai pris une heure pour dessiner ce à quoi pourrait ressembler votre site :
+{{URL_MAQUETTE}}
+
+La page affiche l'heure qu'il est et dit si la cuisine tourne encore.
+
+C'est une maquette, pas un devis. Si ça ne vous parle pas, supprimez ce
+message. Sinon, on en discute dix minutes.
+
+{{EXPEDITEUR_PRENOM}}, MediaProof Agency
+
+--
+MediaProof Agency — {{ADRESSE_AGENCE}} — SIREN {{SIREN}}
+Vos coordonnées sont issues de votre fiche Google Business Profile.
+Ne plus recevoir de message : {{URL_DESINSCRIPTION}}

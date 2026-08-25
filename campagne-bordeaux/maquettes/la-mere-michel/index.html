@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Mère Michel — crêperie face à la flèche Saint-Michel, Bordeaux</title>
+<meta name="description" content="La Mère Michel, 22 place Meynard à Bordeaux. Crêperie-galetterie ouverte de 8 h à 23 h 30, sept jours sur sept, avec terrasse face à la flèche Saint-Michel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ardoise:#2B3A5C; --jour:#F7F9FC; --caramel:#A9701F;
+  --pierre:#7C889E; --sarrasin:#4A3E30;
+  --marge:clamp(1rem,5vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--jour); color:var(--ardoise);
+  font:400 clamp(1rem,.95rem + .3vw,1.08rem)/1.65 "Nunito Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif; font-weight:700; line-height:1.05;
+  letter-spacing:-.015em; margin:0}
+a{color:var(--caramel)}
+:focus-visible{outline:3px solid var(--caramel); outline-offset:3px}
+.env{max-width:1020px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--ardoise);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.3rem 0; border-bottom:1px solid #DCE2EC}
+.top h1{font-size:clamp(1.3rem,4.5vw,1.9rem)}
+.top p{margin:0; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pierre)}
+
+/* --- journee --- */
+.journee{padding:clamp(2rem,6vw,3.5rem) 0 clamp(2.5rem,7vw,4rem)}
+.journee h2{font-size:clamp(1.8rem,7vw,3.3rem); max-width:16ch}
+.journee h2 em{font-style:italic; color:var(--caramel)}
+.journee>.env>p{max-width:48ch; margin:1.1rem 0 0; color:#4E5A72}
+.amplitude{display:inline-block; margin-top:1.25rem; background:var(--ardoise); color:#fff;
+  font-family:Fraunces,serif; font-weight:700; font-size:clamp(1.1rem,4vw,1.5rem);
+  padding:.55rem 1.1rem}
+.amplitude small{display:block; font-family:"Nunito Sans",sans-serif; font-weight:600;
+  font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; opacity:.75; margin-top:.2rem}
+
+.fleche-bloc{display:grid; gap:clamp(1.5rem,4vw,3rem); margin-top:clamp(2rem,5vw,3rem)}
+@media(min-width:820px){.fleche-bloc{grid-template-columns:.42fr .58fr; align-items:stretch}}
+.fleche{display:flex; justify-content:center}
+.fleche svg{height:100%; max-height:460px; width:auto; max-width:100%; display:block}
+.moments{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; justify-content:space-between; gap:1px;
+  background:#DCE2EC; border:1px solid #DCE2EC}
+.moments li{background:var(--jour); padding:1.15rem 1.2rem; display:grid;
+  grid-template-columns:4.2rem 1fr; gap:1rem; align-items:start}
+.moments .h{font-family:Fraunces,serif; font-weight:700; font-size:1.25rem; color:var(--caramel); line-height:1.1}
+.moments h3{font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+  font-family:"Nunito Sans",sans-serif; font-weight:800; color:var(--pierre)}
+.moments p{margin:.35rem 0 0; font-size:.95rem; color:#4E5A72}
+.moments b{color:var(--ardoise)}
+
+/* --- galettes --- */
+.galettes{background:var(--sarrasin); color:#EDE6DC; padding:clamp(2.5rem,8vw,4.5rem) 0}
+.galettes h2{color:#fff; font-size:clamp(1.5rem,5.5vw,2.4rem)}
+.galettes>.env>p{color:#C4B8A8; max-width:50ch; margin:.8rem 0 1.75rem}
+.liste{list-style:none; margin:0; padding:0}
+.liste li{display:flex; flex-wrap:wrap; gap:.4rem 1rem; align-items:baseline;
+  padding:1rem 0; border-bottom:1px solid #5D5044}
+.liste .n{font-family:Fraunces,serif; font-weight:700; font-size:1.15rem; flex:1 1 15rem; color:#fff}
+.liste .d{flex:2 1 20rem; font-size:.92rem; color:#C4B8A8}
+.liste .p{font-weight:800; color:#E8B45C; font-variant-numeric:tabular-nums}
+.galettes .note{font-size:.85rem; color:#A99A88; margin-top:1.25rem}
+
+/* --- terrasse --- */
+.terrasse{padding:clamp(2.5rem,8vw,4.5rem) 0}
+.terrasse .env{display:grid; gap:2rem; align-items:center}
+@media(min-width:800px){.terrasse .env{grid-template-columns:1fr 1fr}}
+.terrasse h2{font-size:clamp(1.5rem,5.5vw,2.5rem); max-width:16ch}
+.terrasse h2 em{font-style:italic; color:var(--caramel)}
+.terrasse p{margin:1rem 0 0; max-width:44ch; color:#4E5A72}
+.place svg{width:100%; height:auto; display:block}
+
+/* --- venir --- */
+.venir{background:var(--ardoise); color:#D6DEEC; padding:clamp(2.5rem,7vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:"Nunito Sans",sans-serif; font-weight:800; font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase; color:#93A2BC; margin-bottom:.6rem}
+.venir p{margin:0; color:#EAF0F8}
+.jours{list-style:none; margin:0; padding:0}
+.jours li{display:flex; justify-content:space-between; gap:1rem; padding:.28rem 0;
+  border-bottom:1px solid #3C4E75; font-size:.95rem}
+.jours b{color:#E8B45C; font-weight:600}
+.tel{display:inline-block; margin-top:.6rem; background:var(--caramel); color:#fff;
+  font-family:Fraunces,serif; font-weight:700; font-size:1.1rem; padding:.75rem 1.2rem; text-decoration:none}
+.tel:hover{background:#fff; color:var(--ardoise)}
+.avalider{display:inline-block; font-family:"Nunito Sans",sans-serif; font-weight:800; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--caramel); color:#fff;
+  padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:#1E2942; color:#8494B0; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#galettes">Aller aux galettes</a>
+
+<header class="env top">
+  <h1>La Mère Michel</h1>
+  <p>Crêperie-galetterie · 22 place Meynard, Bordeaux</p>
+</header>
+
+<main>
+<section class="journee" aria-labelledby="t-jour">
+  <div class="env">
+    <h2 id="t-jour">Ici la journée ne s'arrête <em>jamais à 14 h</em>.</h2>
+    <p>Le café de 8 h, la galette de midi, la crêpe de 16 h et le cidre de
+       23 h se servent dans la même salle, à la même table, sans coupure et
+       sans jour de fermeture. C'est rare, et c'est ce qu'une page doit dire
+       en premier.</p>
+    <p class="amplitude">8 h → 23 h 30<small>SEPT JOURS SUR SEPT</small></p>
+
+    <div class="fleche-bloc">
+      <div class="fleche" aria-hidden="true">
+        <svg viewBox="0 0 160 460" fill="none">
+          <path d="M80 12 108 96H52L80 12Z" fill="#2B3A5C"/>
+          <path d="M52 96h56v34H52zM58 130h44v300H58z" fill="#2B3A5C"/>
+          <path d="M70 150h20v34H70zM70 200h20v34H70zM70 250h20v34H70zM70 300h20v34H70z" fill="#F7F9FC"/>
+          <path d="M40 430h80v18H40z" fill="#2B3A5C"/>
+          <path d="M80 4v10" stroke="#A9701F" stroke-width="3"/>
+          <g stroke="#A9701F" stroke-width="2">
+            <path d="M120 120h22M120 210h22M120 300h22M120 400h22"/>
+          </g>
+          <g font-family="Nunito Sans" font-size="12" font-weight="700" fill="#A9701F">
+            <text x="146" y="124">23h30</text>
+            <text x="146" y="214">20h</text>
+            <text x="146" y="304">16h</text>
+            <text x="146" y="404">8h</text>
+          </g>
+          <path d="M28 448h104" stroke="#7C889E" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <ol class="moments">
+        <li><span class="h">8 h</span><div><h3>Le café</h3><p>Le premier de la place. Café, jus pressé, <b>crêpe au sucre</b> pour ceux qui commencent tôt. La terrasse prend le soleil du matin.</p></div></li>
+        <li><span class="h">12 h</span><div><h3>Le déjeuner</h3><p>Les galettes de sarrasin. La <b>trois fromages</b> et la <b>magret-miel-moutarde</b> partent en premier — c'est ce que vos avis répètent.</p></div></li>
+        <li><span class="h">16 h</span><div><h3>Le goûter</h3><p>L'heure où presque tout Saint-Michel est fermé. Ici, la <b>crêpe caramel beurre salé</b> et un thé, jusqu'au service du soir.</p></div></li>
+        <li><span class="h">20 h</span><div><h3>Le dîner</h3><p>Galette complète, bolée de cidre, dernière crêpe à <b>23 h 30</b>. La flèche est éclairée, la terrasse aussi.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="galettes" id="galettes" aria-labelledby="t-gal">
+  <div class="env">
+    <h2 id="t-gal">Les galettes et les crêpes <span class="avalider">à valider</span></h2>
+    <p>Sarrasin pour le salé, froment pour le sucré. Pâte faite sur place,
+       reposée la veille.</p>
+    <ul class="liste">
+      <li><span class="n">La trois fromages</span><span class="d">Emmental, chèvre, bleu, salade — celle que les avis citent</span><span class="p">11,50 €</span></li>
+      <li><span class="n">Magret, miel, moutarde</span><span class="d">Magret fumé, miel des Landes, moutarde à l'ancienne</span><span class="p">13,50 €</span></li>
+      <li><span class="n">La complète</span><span class="d">Jambon, œuf, emmental — le classique bien fait</span><span class="p">10 €</span></li>
+      <li><span class="n">La forestière</span><span class="d">Champignons, crème, persillade, comté</span><span class="p">12 €</span></li>
+      <li><span class="n">Caramel beurre salé</span><span class="d">Caramel maison, fleur de sel, servie brûlante</span><span class="p">7 €</span></li>
+      <li><span class="n">Sucre-citron</span><span class="d">Deux ingrédients, rien à cacher</span><span class="p">4,50 €</span></li>
+      <li><span class="n">La bolée de cidre</span><span class="d">Brut ou doux, 25 cl</span><span class="p">4 €</span></li>
+    </ul>
+    <p class="note">Carte d'exemple écrite à partir de votre fiche Google et des avis clients.
+       Vos galettes et vos prix prennent cette place.</p>
+  </div>
+</section>
+
+<section class="terrasse" aria-labelledby="t-ter">
+  <div class="env">
+    <div>
+      <h2 id="t-ter">La terrasse regarde <em>la flèche</em></h2>
+      <p>Cent quatorze mètres de pierre, en face, et une place qui vit du matin au
+         soir : le marché, les bouquinistes, les gens qui traversent. On ne
+         choisit pas cette table pour être au calme — on la choisit pour voir
+         passer Saint-Michel.</p>
+      <p style="font-size:.92rem;color:var(--pierre)">4,3 sur Google · 589 avis · terrasse toute l'année</p>
+    </div>
+    <div class="place" aria-hidden="true">
+      <svg viewBox="0 0 420 220" fill="none">
+        <path d="M0 190h420" stroke="#7C889E" stroke-width="2"/>
+        <path d="M300 190V70l18-46 18 46v120z" fill="#2B3A5C" opacity=".9"/>
+        <path d="M310 100h16v20h-16zM310 134h16v20h-16z" fill="#F7F9FC"/>
+        <g fill="#DCE2EC">
+          <rect x="24" y="128" width="70" height="62"/><rect x="102" y="112" width="58" height="78"/>
+          <rect x="168" y="140" width="64" height="50"/><rect x="240" y="120" width="46" height="70"/>
+        </g>
+        <g stroke="#A9701F" stroke-width="2">
+          <circle cx="60" cy="170" r="11"/><path d="M60 181v9M49 190h22"/>
+          <circle cx="130" cy="172" r="11"/><path d="M130 183v7M119 190h22"/>
+          <circle cx="200" cy="170" r="11"/><path d="M200 181v9M189 190h22"/>
+        </g>
+        <path d="M0 206h420" stroke="#DCE2EC" stroke-width="8"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">Ouvert</h3>
+      <ul class="jours">
+        <li><span>Lundi au dimanche</span><b>8h – 23h30</b></li>
+        <li><span>Jours fériés</span><b>8h – 23h30</b></li>
+        <li><span>Fermeture annuelle</span><span class="avalider">à confirmer</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>L'adresse</h3>
+      <p>22 place Meynard<br>33000 Bordeaux<br>
+         <span style="color:#93A2BC">Quartier Saint-Michel</span></p>
+    </div>
+    <div>
+      <h3>Réserver la terrasse</h3>
+      <p style="color:#93A2BC;font-size:.95rem">Les tables du premier rang partent tôt&nbsp;:</p>
+      <a class="tel" href="tel:+33557956799">05 57 95 67 99</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: la flèche, la place et les gradations sont dessinées en SVG.</p>
+  </div>
+</footer>
+</body>
+</html>

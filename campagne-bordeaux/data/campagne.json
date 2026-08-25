@@ -1,0 +1,20 @@
+{
+  "campagne": "MediaProof — maquettes offertes restaurants Bordeaux",
+  "ouverte_le": "2026-08-25",
+  "indicateur_principal": "Le clic sur la maquette. Une ouverture ne vaut rien ; un clic veut dire qu'il a regardé.",
+  "objectif": "10 maquettes → 1 ou 2 rendez-vous. C'est le taux normal et il suffit.",
+  "cadence": "5 à 8 envois par jour maximum sur un domaine neuf. Relance unique à J+6.",
+  "envois": [
+    {"slug": "le-guet-a-pan",      "statut": "pret_a_envoyer",  "bloque_par": null,                          "variante": "B", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "chez-ludo",          "statut": "sans_email",      "bloque_par": "aucun email public",          "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "chez-jean-mi",       "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "l-assiette-du-coin", "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "l-oustaou",          "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "casa-gatti",         "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "le-calixte",         "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "la-mere-michel",     "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "toopita",            "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null},
+    {"slug": "dat-viet",           "statut": "en_attente",      "bloque_par": "verification + email",        "variante": "A", "envoye_le": null, "relance_le": null, "ouvertures": 0, "clics": 0, "reponse": null}
+  ],
+  "statuts_possibles": ["en_attente", "sans_email", "pret_a_envoyer", "envoye", "relance", "repondu", "rendez_vous", "desinscrit", "exclu"]
+}

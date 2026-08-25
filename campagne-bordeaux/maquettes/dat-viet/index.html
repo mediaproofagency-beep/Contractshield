@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dat Viet Chartrons — phở du Nord, rue Notre-Dame, Bordeaux</title>
+<meta name="description" content="Dat Viet Chartrons, 133 rue Notre-Dame à Bordeaux. Cuisine du Nord du Vietnam : phở au bouillon d'os longuement mijoté, bún chả, nem. 4,8 sur Google.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --anis:#241813; --porcelaine:#F2F3F0; --bouillon:#C08A2A;
+  --herbe:#4E7A4B; --fumee:#6E6A63;
+  --marge:clamp(1rem,5vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--porcelaine); color:var(--anis);
+  font:400 clamp(1rem,.95rem + .3vw,1.1rem)/1.7 "Source Serif 4",Georgia,serif}
+h1,h2,h3{font-family:"Be Vietnam Pro",system-ui,sans-serif; font-weight:800;
+  line-height:1.08; letter-spacing:-.02em; margin:0}
+a{color:var(--bouillon)}
+:focus-visible{outline:3px solid var(--bouillon); outline-offset:3px}
+.env{max-width:1020px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--anis);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.3rem 0}
+.top h1{font-size:clamp(1.3rem,4.5vw,1.9rem)}
+.top p{margin:0; font-family:"Be Vietnam Pro",sans-serif; font-weight:500;
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--fumee)}
+
+/* --- planche --- */
+.planche{background:var(--anis); color:#EFE7DC; padding:clamp(2.25rem,7vw,4rem) 0 clamp(2rem,6vw,3rem)}
+.planche h2{color:#fff; font-size:clamp(1.8rem,7vw,3.2rem); max-width:15ch}
+.planche h2 em{font-style:normal; color:var(--bouillon)}
+.planche>.env>p{max-width:46ch; margin:1.1rem 0 0; color:#C6BCAF}
+.bol{margin-top:clamp(1.5rem,4vw,2.5rem)}
+.bol svg{display:block; width:100%; height:auto}
+.bol .lab{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:13px; fill:#EFE7DC}
+.bol .lab2{font-family:"Be Vietnam Pro",sans-serif; font-weight:500; font-size:11px; fill:#A2988B}
+.duree{display:flex; flex-wrap:wrap; gap:1.75rem; margin:2rem 0 0; padding:0; list-style:none}
+.duree b{display:block; font-family:"Be Vietnam Pro",sans-serif; font-weight:800;
+  font-size:1.7rem; line-height:1; color:var(--bouillon)}
+.duree span{font-family:"Be Vietnam Pro",sans-serif; font-weight:500; font-size:.66rem;
+  letter-spacing:.14em; text-transform:uppercase; color:#A2988B}
+
+/* --- absents --- */
+.absents{padding:clamp(2.5rem,8vw,4rem) 0}
+.absents h2{font-size:clamp(1.5rem,5.5vw,2.5rem); max-width:18ch}
+.absents>.env>p{max-width:52ch; margin:1rem 0 1.75rem; color:#453A33}
+.non{display:grid; gap:1px; background:#DDDED9; border:1px solid #DDDED9; list-style:none; margin:0; padding:0}
+@media(min-width:720px){.non{grid-template-columns:repeat(3,1fr)}}
+.non li{background:var(--porcelaine); padding:1.3rem 1.2rem}
+.non .x{display:inline-flex; align-items:center; justify-content:center; width:1.6rem; height:1.6rem;
+  border:2px solid #B4453C; color:#B4453C; font-family:"Be Vietnam Pro",sans-serif;
+  font-weight:800; border-radius:50%; margin-bottom:.6rem}
+.non h3{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:1.05rem}
+.non p{margin:.4rem 0 0; font-size:.94rem; color:var(--fumee)}
+.oui{margin-top:1.5rem; padding:1.2rem 1.3rem; background:#EAF0E8; border-left:4px solid var(--herbe)}
+.oui b{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; display:block; margin-bottom:.3rem}
+
+/* --- carte --- */
+.carte{background:#E9EAE5; padding:clamp(2.5rem,8vw,4rem) 0}
+.carte h2{font-size:clamp(1.5rem,5.5vw,2.4rem)}
+.carte>.env>p{color:var(--fumee); max-width:50ch; margin:.8rem 0 1.75rem}
+.liste{list-style:none; margin:0; padding:0}
+.liste li{display:flex; flex-wrap:wrap; gap:.35rem 1rem; align-items:baseline;
+  padding:1rem 0; border-bottom:1px solid #D3D5CD}
+.liste .n{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:1.1rem; flex:1 1 13rem}
+.liste .d{flex:2 1 20rem; font-size:.92rem; color:var(--fumee)}
+.liste .p{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; color:var(--bouillon);
+  font-variant-numeric:tabular-nums}
+.note{font-size:.85rem; color:var(--fumee); margin-top:1.25rem}
+
+/* --- patron --- */
+.patron{padding:clamp(2.5rem,8vw,4rem) 0}
+.patron .env{display:grid; gap:2rem; align-items:center}
+@media(min-width:800px){.patron .env{grid-template-columns:1.1fr .9fr}}
+.patron h2{font-size:clamp(1.5rem,5.5vw,2.4rem); max-width:15ch}
+.patron h2 em{font-style:normal; color:var(--herbe)}
+.patron p{margin:1rem 0 0; max-width:44ch; color:#453A33}
+.vapeur svg{width:100%; max-width:300px; height:auto; display:block}
+
+/* --- venir --- */
+.venir{background:var(--anis); color:#C6BCAF; padding:clamp(2.5rem,7vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase; color:#A2988B; margin-bottom:.6rem}
+.venir p{margin:0; color:#EFE7DC}
+.tel{display:inline-block; margin-top:.6rem; background:var(--bouillon); color:var(--anis);
+  font-family:"Be Vietnam Pro",sans-serif; font-weight:800; font-size:1.05rem;
+  padding:.75rem 1.2rem; text-decoration:none}
+.tel:hover{background:#fff}
+.avalider{display:inline-block; font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--bouillon); color:var(--anis);
+  padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:#150D0A; color:#8A8078; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#carte">Aller à la carte</a>
+
+<header class="env top">
+  <h1>Dat Viet Chartrons</h1>
+  <p>Cuisine du Nord Vietnam · 133 rue Notre-Dame, Bordeaux</p>
+</header>
+
+<main>
+<section class="planche" aria-labelledby="t-bol">
+  <div class="env">
+    <h2 id="t-bol">Un bouillon. Six heures. <em>Rien à rajouter dedans.</em></h2>
+    <p>Os de bœuf, gingembre et oignon brûlés au chalumeau, badiane, cannelle,
+       cardamome noire. On écume, on ne fait pas bouillir, on attend. Le reste du
+       bol n'est là que pour ne pas gêner le bouillon.</p>
+
+    <div class="bol">
+      <svg viewBox="0 0 900 340" role="img" aria-label="Coupe annotée d'un bol de phở : bouillon d'os, bánh phở, bœuf saignant, oignon, coriandre et ciboule">
+        <!-- bol -->
+        <path d="M270 150h360c0 90-60 150-180 150S270 240 270 150Z" fill="#3A2A21" stroke="#C08A2A" stroke-width="3"/>
+        <path d="M258 150h384" stroke="#C08A2A" stroke-width="3" stroke-linecap="round"/>
+        <path d="M330 300h240" stroke="#C08A2A" stroke-width="3" stroke-linecap="round"/>
+        <!-- bouillon -->
+        <path d="M282 168h336c-6 74-58 122-168 122s-162-48-168-122Z" fill="#8A6320" opacity=".85"/>
+        <!-- nouilles -->
+        <path d="M330 206c30-10 60-10 90 0s60 10 90 0 60-10 60-2" stroke="#EFE7DC" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M320 224c30-10 60-10 90 0s60 10 90 0 60-10 68-2" stroke="#EFE7DC" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- boeuf -->
+        <path d="M390 178c22-8 44-8 62 2-16 10-44 12-62-2Z" fill="#B4453C"/>
+        <path d="M472 172c22-8 44-8 62 2-16 10-44 12-62-2Z" fill="#B4453C"/>
+        <!-- oignon -->
+        <circle cx="360" cy="182" r="9" fill="none" stroke="#EFE7DC" stroke-width="2"/>
+        <circle cx="360" cy="182" r="4" fill="none" stroke="#EFE7DC" stroke-width="2"/>
+        <!-- herbes -->
+        <path d="M520 190c8-6 16-6 22 0M534 186v8M556 196c8-6 16-6 22 0" stroke="#4E7A4B" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- vapeur -->
+        <path d="M400 130c0-16 14-16 14-32s-14-16-14-30M450 124c0-16 14-16 14-32s-14-16-14-30M500 130c0-16 14-16 14-32s-14-16-14-30"
+              stroke="#6E6A63" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- annotations gauche -->
+        <g stroke="#6E6A63" stroke-width="1.5">
+          <path d="M300 214H150M330 182H150M282 262H150"/>
+        </g>
+        <g class="lab" text-anchor="end">
+          <text x="140" y="210">bánh phở</text>
+          <text x="140" y="178">oignon blanc</text>
+          <text x="140" y="258">le bouillon</text>
+        </g>
+        <g class="lab2" text-anchor="end">
+          <text x="140" y="226">nouilles de riz plates, fraîches</text>
+          <text x="140" y="194">émincé très fin, cru</text>
+          <text x="140" y="274">os de bœuf, six heures, écumé</text>
+        </g>
+        <!-- annotations droite -->
+        <g stroke="#6E6A63" stroke-width="1.5">
+          <path d="M534 178h216M578 196h172M478 96h272"/>
+        </g>
+        <g class="lab">
+          <text x="758" y="174">bœuf saignant</text>
+          <text x="758" y="192">coriandre, ciboule</text>
+          <text x="758" y="92">la vapeur</text>
+        </g>
+        <g class="lab2">
+          <text x="758" y="190">posé cru, cuit par le bouillon</text>
+          <text x="758" y="208">coupées à la minute</text>
+          <text x="758" y="108">le bol part brûlant, sinon il repart</text>
+        </g>
+      </svg>
+    </div>
+
+    <ul class="duree">
+      <li><b>6 h</b><span>de bouillon</span></li>
+      <li><b>4,8</b><span>sur Google</span></li>
+      <li><b>165</b><span>avis</span></li>
+      <li><b>Hanoï</b><span>l'école de la maison</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="absents" aria-labelledby="t-abs">
+  <div class="env">
+    <h2 id="t-abs">Ce qui n'est pas dans le bol</h2>
+    <p>Le phở du Sud arrive avec une assiette d'accompagnements et deux sauces à
+       verser dedans. Celui du Nord, non. Ce n'est pas un oubli, c'est la
+       recette : si le bouillon est juste, il n'a besoin de rien.</p>
+
+    <ul class="non">
+      <li><span class="x" aria-hidden="true">✕</span><h3>Pousses de soja</h3><p>Elles refroidissent le bouillon et couvrent le gingembre. À Hanoï, on ne les sert pas.</p></li>
+      <li><span class="x" aria-hidden="true">✕</span><h3>Sauce hoisin</h3><p>Sucrée, épaisse : elle efface six heures de travail en deux cuillères.</p></li>
+      <li><span class="x" aria-hidden="true">✕</span><h3>Basilic thaï</h3><p>C'est l'herbe du Sud. Ici, coriandre et ciboule, coupées au moment.</p></li>
+    </ul>
+
+    <p class="oui"><b>Ce qu'il y a sur la table, en revanche :</b>
+       un quartier de citron vert, du piment frais, du vinaigre d'ail — et le
+       patron qui passe demander si le bouillon est assez chaud.</p>
+  </div>
+</section>
+
+<section class="carte" id="carte" aria-labelledby="t-carte">
+  <div class="env">
+    <h2 id="t-carte">La carte <span class="avalider">à valider</span></h2>
+    <p>Courte, du Nord, et sans plat « pour faire plaisir à tout le monde ».</p>
+    <ul class="liste">
+      <li><span class="n">Phở bò</span><span class="d">Bouillon d'os, bœuf saignant, bánh phở, coriandre, ciboule</span><span class="p">14 €</span></li>
+      <li><span class="n">Phở gà</span><span class="d">La version poulet fermier, bouillon plus clair</span><span class="p">13 €</span></li>
+      <li><span class="n">Bún chả</span><span class="d">Porc grillé au charbon, vermicelles, herbes, sauce tiède — le plat de Hanoï</span><span class="p">15 €</span></li>
+      <li><span class="n">Nem rán (4 pièces)</span><span class="d">Roulés à la main, porc et champignons noirs, salade</span><span class="p">8 €</span></li>
+      <li><span class="n">Bún bò Nam Bộ</span><span class="d">Bœuf sauté, cacahuètes, oignons frits, vermicelles froids</span><span class="p">14 €</span></li>
+      <li><span class="n">Café đá</span><span class="d">Filtre vietnamien, lait concentré, glace</span><span class="p">4,50 €</span></li>
+    </ul>
+    <p class="note">Carte d'exemple écrite à partir de votre fiche Google et des avis clients.
+       Vos plats, vos prix et vos écritures en vietnamien prennent cette place.</p>
+  </div>
+</section>
+
+<section class="patron" aria-labelledby="t-patron">
+  <div class="env">
+    <div>
+      <h2 id="t-patron">Le patron est <em>en salle</em>, tous les services</h2>
+      <p>C'est la phrase qui revient le plus dans vos avis, et c'est aussi ce
+         qu'aucun site de restaurant ne dit jamais. Il explique la différence
+         entre le Nord et le Sud, il demande si c'est assez chaud, il conseille
+         le bún chả à ceux qui hésitent.</p>
+      <p>Une page qui raconte ça fait venir des gens qui savent déjà à qui ils
+         vont parler en entrant.</p>
+    </div>
+    <div class="vapeur" aria-hidden="true">
+      <svg viewBox="0 0 300 220" fill="none" stroke="#4E7A4B" stroke-width="2.5" stroke-linecap="round">
+        <path d="M110 60c0-20 18-20 18-40s-18-20-18-38M150 54c0-20 18-20 18-40s-18-20-18-38M190 60c0-20 18-20 18-40s-18-20-18-38" stroke="#C08A2A"/>
+        <path d="M70 92h160c0 62-36 96-80 96s-80-34-80-96Z"/>
+        <path d="M58 92h184M104 188h92" />
+        <path d="M120 126c20-8 40-8 60 0" stroke="#241813"/>
+        <path d="M40 150c-14 8-14 26 0 34M260 150c14 8 14 26 0 34" stroke="#6E6A63" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">L'adresse</h3>
+      <p>133 rue Notre-Dame<br>33300 Bordeaux<br>
+         <span style="color:#A2988B">Quartier des Chartrons</span></p>
+    </div>
+    <div>
+      <h3>Les services <span class="avalider">à confirmer</span></h3>
+      <p>Midi et soir.<br>
+         <span style="color:#A2988B">Vos jours et horaires réels prennent cette place.</span></p>
+    </div>
+    <div>
+      <h3>Réserver, emporter</h3>
+      <p style="color:#A2988B;font-size:.95rem">Le bouillon voyage mal&nbsp;: on le donne à part.</p>
+      <a class="tel" href="tel:+33547740447">05 47 74 04 47</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: la coupe du bol et la vapeur sont dessinées en SVG.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "genere_le": "2026-08-25 22:44",
+  "regle": "Aucune adresse devinee. Chaque entree porte la source ou elle a ete lue.",
+  "contacts": [
+    {
+      "slug": "le-guet-a-pan",
+      "nom": "Le Guet-A-Pan",
+      "email": "paulbatsalle@yahoo.fr",
+      "source": "infobel",
+      "source_libelle": "Infobel",
+      "confiance": "moyenne",
+      "vu_le": "2026-08-26",
+      "prenom_contact": "Paul",
+      "variante_email": "B",
+      "verifie_sans_site": true
+    }
+  ]
+}

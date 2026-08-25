@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'assiette du coin — le menu de la semaine — 200 avenue Thiers, Bordeaux</title>
+<meta name="description" content="L'assiette du coin, 200 avenue Thiers à Bordeaux : cuisine maison et bio, menu complet à 21 €, changé chaque semaine. Le midi, du lundi au vendredi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#23438A; --papier:#FAFBF6; --reglure:#D8E1EE;
+  --jardin:#46702F; --mine:#454A41;
+  --marge:clamp(1rem,4vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:#1E2418;
+  background-color:var(--papier);
+  background-image:
+    linear-gradient(var(--reglure) 1px, transparent 1px),
+    linear-gradient(90deg, var(--reglure) 1px, transparent 1px);
+  background-size:26px 26px;
+  font:400 clamp(1rem,.95rem + .3vw,1.1rem)/1.65 Newsreader,Georgia,serif;
+}
+h1,h2,h3,.dsp{font-family:"Bricolage Grotesque",system-ui,sans-serif;
+  font-weight:800; line-height:1.02; letter-spacing:-.02em; margin:0}
+a{color:var(--bleu)}
+:focus-visible{outline:3px solid var(--bleu); outline-offset:3px}
+.env{max-width:1080px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--bleu);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.4rem 0}
+.top h1{font-size:clamp(1.5rem,5vw,2.2rem); color:var(--bleu)}
+.top p{margin:0; font-family:"Bricolage Grotesque",sans-serif; font-weight:500;
+  font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mine)}
+
+/* --- tampon semaine --- */
+.tampon{border:3px solid var(--bleu); background:rgba(255,255,255,.75);
+  padding:clamp(1.1rem,3.5vw,1.6rem); display:flex; flex-wrap:wrap;
+  gap:1rem; align-items:center; justify-content:space-between;
+  transform:rotate(-.35deg)}
+.tampon .lbl{font-family:"Bricolage Grotesque",sans-serif; font-weight:500;
+  font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; color:var(--mine)}
+.tampon .sem{font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+  font-size:clamp(1.3rem,5vw,2.4rem); color:var(--bleu); line-height:1; margin:.25rem 0 0;
+  text-transform:uppercase}
+.tampon .tarif{font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+  font-size:clamp(1.6rem,6vw,2.6rem); color:#fff; background:var(--jardin);
+  padding:.35rem .8rem; line-height:1; white-space:nowrap}
+.tampon .tarif small{display:block; font-size:.55rem; letter-spacing:.16em; font-weight:500}
+
+/* --- grille semaine --- */
+.semaine{padding:clamp(1.75rem,5vw,2.75rem) 0 clamp(2rem,6vw,3rem)}
+.grille{display:grid; gap:1px; background:var(--reglure); border:1px solid var(--reglure); margin-top:1.5rem}
+@media(min-width:860px){.grille{grid-template-columns:repeat(5,1fr)}}
+.jour{background:rgba(255,255,255,.86); padding:1.15rem 1rem; display:flex; flex-direction:column; gap:.9rem}
+.jour.auj{background:#fff; box-shadow:inset 0 0 0 3px var(--bleu)}
+.jour h3{font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--bleu);
+  font-weight:700; display:flex; justify-content:space-between; align-items:center}
+.jour.auj h3::after{content:"aujourd'hui"; font-size:.58rem; letter-spacing:.1em;
+  background:var(--bleu); color:#fff; padding:.1rem .35rem; font-weight:500}
+.jour dl{margin:0}
+.jour dt{font-family:"Bricolage Grotesque",sans-serif; font-weight:500; font-size:.62rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--mine); margin-top:.7rem}
+.jour dd{margin:.1rem 0 0; font-size:.98rem; line-height:1.4}
+.jour .veg{color:var(--jardin); font-weight:500; font-size:.72rem; letter-spacing:.06em}
+
+.bascule{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.5rem; align-items:center}
+.bascule button{font:500 .82rem/1 "Bricolage Grotesque",sans-serif; letter-spacing:.06em;
+  text-transform:uppercase; padding:.7rem 1.1rem; border:2px solid var(--bleu);
+  background:transparent; color:var(--bleu); cursor:pointer}
+.bascule button[aria-pressed="true"]{background:var(--bleu); color:#fff}
+.bascule span{font-size:.85rem; color:var(--mine); font-style:italic}
+
+/* --- argument --- */
+.change{background:var(--bleu); color:#EAF0FA; padding:clamp(2.5rem,7vw,4rem) 0}
+.change .env{display:grid; gap:1.75rem}
+@media(min-width:840px){.change .env{grid-template-columns:1fr 1fr; align-items:center}}
+.change h2{color:#fff; font-size:clamp(1.5rem,5.5vw,2.5rem)}
+.change p{margin:1rem 0 0; max-width:44ch; color:#CBD9F0}
+.change code{display:block; background:#152C5E; color:#BFE0A8; padding:1.1rem 1.2rem;
+  font:400 .82rem/1.7 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-x:auto;
+  white-space:pre; border-left:4px solid var(--jardin)}
+
+/* --- maison --- */
+.maison{padding:clamp(2.5rem,7vw,4rem) 0}
+.maison h2{font-size:clamp(1.5rem,5.5vw,2.4rem); color:var(--bleu); max-width:20ch}
+.maison .deux{display:grid; gap:1.5rem; margin-top:1.5rem}
+@media(min-width:780px){.maison .deux{grid-template-columns:1fr 1fr}}
+.maison p{margin:0}
+.puces{list-style:none; margin:0; padding:0}
+.puces li{padding:.55rem 0 .55rem 1.6rem; border-bottom:1px solid var(--reglure); position:relative}
+.puces li::before{content:""; position:absolute; left:0; top:1.05rem; width:.6rem; height:.6rem;
+  background:var(--jardin)}
+
+/* --- venir --- */
+.venir{border-top:3px solid var(--bleu); padding:clamp(2.5rem,7vw,3.5rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--mine); margin-bottom:.6rem}
+.venir p{margin:0}
+.tel{display:inline-block; margin-top:.6rem; background:var(--jardin); color:#fff;
+  font-family:"Bricolage Grotesque",sans-serif; font-weight:700; font-size:1.05rem;
+  padding:.75rem 1.2rem; text-decoration:none}
+.tel:hover{background:var(--bleu)}
+.avalider{display:inline-block; font-family:"Bricolage Grotesque",sans-serif; font-weight:500;
+  font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  background:var(--jardin); color:#fff; padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:#1E2418; color:#A9B0A2; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#semaine">Aller au menu de la semaine</a>
+
+<header class="env top">
+  <h1>L'assiette du coin</h1>
+  <p>Cuisine maison &amp; bio · 200 av. Thiers, Bordeaux</p>
+</header>
+
+<main>
+<section class="env semaine" id="semaine" aria-labelledby="t-sem">
+  <div class="tampon">
+    <div>
+      <p class="lbl" id="t-sem">Menu de la semaine</p>
+      <p class="sem" id="dates">Semaine du 25 au 29 août</p>
+    </div>
+    <p class="tarif">21 €<small>MENU COMPLET</small></p>
+  </div>
+
+  <div class="grille" id="grille"></div>
+
+  <div class="bascule">
+    <button type="button" data-sem="0" aria-pressed="true">Cette semaine</button>
+    <button type="button" data-sem="1" aria-pressed="false">La semaine prochaine</button>
+    <span>— c'est exactement comme ça que le menu se change, en ligne.</span>
+  </div>
+</section>
+
+<section class="change" aria-labelledby="t-chg">
+  <div class="env">
+    <div>
+      <h2 id="t-chg">Changer la semaine prend deux minutes</h2>
+      <p>Pas de graphiste à rappeler, pas de PDF à refaire, pas d'image à
+         recadrer. Le menu est une liste : vous remplacez les lignes, vous
+         enregistrez, la page est à jour — et Google la relit.</p>
+      <p>C'est la seule chose que ce site doit savoir faire vraiment bien, parce
+         que c'est la seule que vous ferez toutes les semaines.</p>
+    </div>
+    <code>semaines[0] = {
+  dates: "du 1er au 5 septembre",
+  lundi: {
+    entree:  "Velouté de courgettes, menthe",
+    plat:    "Poulet fermier, ratatouille",
+    dessert: "Pêches rôties au thym"
+  },
+  mardi: { … }
+}</code>
+  </div>
+</section>
+
+<section class="maison env" aria-labelledby="t-maison">
+  <h2 id="t-maison">Une salle en pierre, une terrasse, et une seule personne aux fourneaux</h2>
+  <div class="deux">
+    <p>La maison sert le midi, du lundi au vendredi. C'est court, c'est assumé :
+       tout est fait sur place le matin même, et la carte s'arrête quand les
+       produits s'arrêtent. Les murs sont en pierre, les poutres sont
+       apparentes, et la terrasse prend le soleil au déjeuner.</p>
+    <ul class="puces">
+      <li>Produits bio, fournisseurs choisis un par un</li>
+      <li>Menu complet — entrée, plat, dessert — à 21 €</li>
+      <li>Une option végétarienne chaque jour</li>
+      <li>4,8 / 5 sur Google, 92 avis</li>
+      <li>Terrasse, salle en pierre, 30 couverts</li>
+    </ul>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">Le service</h3>
+      <p><b>Lundi – vendredi, le midi.</b><br>
+         Fermé le week-end.<br>
+         <span style="color:var(--mine)">Horaires précis <span class="avalider">à confirmer</span></span></p>
+    </div>
+    <div>
+      <h3>L'adresse</h3>
+      <p>200 avenue Thiers<br>33100 Bordeaux<br>
+         <span style="color:var(--mine)">Bastide / Thiers</span></p>
+    </div>
+    <div>
+      <h3>Réserver une table</h3>
+      <p>Le midi se remplit vite&nbsp;:</p>
+      <a class="tel" href="tel:+33647482478">06 47 48 24 78</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.
+       Les menus affichés sont des exemples écrits à partir de votre fiche Google.</p>
+    <p>Aucune photographie&nbsp;: quadrillage, tampon et grille sont en CSS.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var MOIS = ["janvier","février","mars","avril","mai","juin","juillet",
+              "août","septembre","octobre","novembre","décembre"];
+  var JOURS = ["lundi","mardi","mercredi","jeudi","vendredi"];
+
+  var semaines = [
+    {
+      lundi:    {e:"Velouté de courgettes, menthe du jardin", p:"Poulet fermier rôti, ratatouille", d:"Pêches rôties au thym", v:false},
+      mardi:    {e:"Carottes râpées, cumin, citron",          p:"Risotto de petit épeautre, courge", d:"Fromage blanc, miel des Landes", v:true},
+      mercredi: {e:"Œuf mollet, crème d'herbes",              p:"Filet de merlu, haricots verts",    d:"Tarte fine aux prunes", v:false},
+      jeudi:    {e:"Gaspacho de tomates anciennes",           p:"Blanquette de veau bio, riz",       d:"Mousse au chocolat noir", v:false},
+      vendredi: {e:"Betteraves, chèvre frais, noix",          p:"Curry de légumes et pois chiches",  d:"Salade de melon, verveine", v:true}
+    },
+    {
+      lundi:    {e:"Soupe froide de concombre, aneth",        p:"Épaule d'agneau confite, semoule",  d:"Crumble aux mirabelles", v:false},
+      mardi:    {e:"Tomates, burrata, basilic",               p:"Lasagnes d'aubergines",             d:"Panna cotta au lait de brebis", v:true},
+      mercredi: {e:"Terrine de campagne, cornichons",         p:"Dos de cabillaud, fenouil rôti",    d:"Poire pochée au vin", v:false},
+      jeudi:    {e:"Salade de lentilles vertes",              p:"Sauté de porc au paprika, chou",    d:"Riz au lait, caramel", v:false},
+      vendredi: {e:"Melon, jambon de pays",                   p:"Galette de sarrasin aux légumes",   d:"Sorbet cassis maison", v:true}
+    }
+  ];
+
+  var grille = document.getElementById('grille');
+  var champDates = document.getElementById('dates');
+  var boutons = document.querySelectorAll('.bascule button');
+  var aujIndex = (new Date().getDay() + 6) % 7;   // 0 = lundi
+
+  function lundiDe(decalage){
+    var d = new Date();
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * decalage);
+    return d;
+  }
+  function libelleSemaine(decalage){
+    var l = lundiDe(decalage), v = new Date(l); v.setDate(l.getDate() + 4);
+    var debut = l.getMonth() === v.getMonth()
+      ? l.getDate()
+      : l.getDate() + ' ' + MOIS[l.getMonth()];
+    return 'Semaine du ' + debut + ' au ' + v.getDate() + ' ' + MOIS[v.getMonth()];
+  }
+
+  function afficher(decalage){
+    var s = semaines[decalage];
+    champDates.textContent = libelleSemaine(decalage);
+    grille.innerHTML = '';
+    JOURS.forEach(function(nom, i){
+      var m = s[nom];
+      var el = document.createElement('div');
+      el.className = 'jour' + (decalage === 0 && i === aujIndex ? ' auj' : '');
+      el.innerHTML =
+        '<h3>' + nom + '</h3>' +
+        '<dl>' +
+          '<dt>Entrée</dt><dd>' + m.e + '</dd>' +
+          '<dt>Plat</dt><dd>' + m.p + (m.v ? ' <span class="veg">· végétarien</span>' : '') + '</dd>' +
+          '<dt>Dessert</dt><dd>' + m.d + '</dd>' +
+        '</dl>';
+      grille.appendChild(el);
+    });
+  }
+
+  boutons.forEach(function(b){
+    b.addEventListener('click', function(){
+      boutons.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      afficher(Number(b.dataset.sem));
+    });
+  });
+
+  afficher(0);
+})();
+</script>
+</body>
+</html>

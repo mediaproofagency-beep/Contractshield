@@ -1,0 +1,31 @@
+# DAT VIET CHARTRONS
+# variante        : A — aucun site
+# vérifié sans site : NON — ne pas envoyer avant 1-verifier.py
+# corps            : 97 mots (plafond 120), un seul lien, aucune image
+# maquette         : maquettes/dat-viet/index.html
+# Les {{PLACEHOLDERS}} sont remplis par scripts/3-envoyer.py depuis data/expediteur.json
+
+OBJET: une page pour Dat Viet
+
+Bonjour,
+
+Je suis passé sur votre fiche Google — 4,8 sur 165 avis, et beaucoup parlent de
+vous, en salle, qui expliquez les plats.
+
+Ce que vous racontez à chaque table n'existe nulle part en ligne.
+
+J'ai pris une heure pour dessiner ce à quoi pourrait ressembler votre site :
+{{URL_MAQUETTE}}
+
+Le bol y est annoté, avec une section sur ce que le phở du Nord ne contient
+pas — soja, hoisin, basilic.
+
+C'est une maquette, pas un devis. Si ça ne vous parle pas, supprimez ce
+message. Sinon, on en discute dix minutes.
+
+{{EXPEDITEUR_PRENOM}}, MediaProof Agency
+
+--
+MediaProof Agency — {{ADRESSE_AGENCE}} — SIREN {{SIREN}}
+Vos coordonnées sont issues de votre fiche Google Business Profile.
+Ne plus recevoir de message : {{URL_DESINSCRIPTION}}

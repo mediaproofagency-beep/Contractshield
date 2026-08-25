@@ -1,0 +1,14 @@
+# Relance J+6, une seule. 28 mots.
+
+OBJET: Re: une page pour Chez Ludo
+
+Bonjour Ludo, je remonte mon message au cas où. La maquette reste en ligne
+quinze jours : {{URL_MAQUETTE}}. Sans réponse je n'insiste pas.
+Bonne continuation.
+
+{{EXPEDITEUR_PRENOM}}, MediaProof Agency
+
+--
+MediaProof Agency — {{ADRESSE_AGENCE}} — SIREN {{SIREN}}
+Vos coordonnées sont issues de votre fiche Google Business Profile.
+Ne plus recevoir de message : {{URL_DESINSCRIPTION}}

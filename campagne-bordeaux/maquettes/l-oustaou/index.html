@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Oustaou — troquet landais, quai des Chartrons, Bordeaux</title>
+<meta name="description" content="L'Oustaou, troquet landais au 106 quai des Chartrons à Bordeaux. Planches à partager, bières et cocktails, de 15 h à 2 h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Mulish:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pin:#24382C; --ecorce:#16211B; --armagnac:#C8862F;
+  --lin:#F1EBDF; --brume:#9DAE9F;
+  --marge:clamp(1rem,5vw,3.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--pin); color:var(--lin);
+  font:400 clamp(1rem,.95rem + .3vw,1.1rem)/1.7 Mulish,system-ui,sans-serif}
+h1,h2,h3,.dsp{font-family:"Alfa Slab One",Georgia,serif; font-weight:400;
+  line-height:1; letter-spacing:0; margin:0}
+a{color:var(--armagnac)}
+:focus-visible{outline:3px solid var(--armagnac); outline-offset:3px}
+.env{max-width:960px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--armagnac);color:var(--ecorce);padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.3rem 0; border-bottom:1px solid #35513E}
+.top h1{font-size:clamp(1.2rem,4.5vw,1.7rem); letter-spacing:.02em}
+.top p{margin:0; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--brume)}
+
+/* --- entree de dictionnaire --- */
+.entree{padding:clamp(2.5rem,8vw,4.5rem) 0 clamp(1.5rem,4vw,2.5rem)}
+.mot{font-family:"Alfa Slab One",serif; font-size:clamp(3rem,16vw,7.5rem);
+  line-height:.85; color:var(--armagnac); margin:0; letter-spacing:-.01em}
+.phon{font-family:Mulish,sans-serif; font-size:clamp(.9rem,3vw,1.2rem); color:var(--brume);
+  margin:.7rem 0 0; letter-spacing:.04em}
+.phon em{font-style:italic}
+.def{font-size:clamp(1.15rem,4vw,1.6rem); line-height:1.45; max-width:26ch; margin:1.4rem 0 0}
+.def b{color:var(--armagnac); font-weight:800}
+.sous{max-width:50ch; margin:1.2rem 0 0; color:#D6D0C4}
+
+.pins{margin-top:2.5rem}
+.pins svg{display:block; width:100%; height:auto}
+
+/* --- lexique --- */
+.lex{background:var(--ecorce); padding:clamp(2.5rem,8vw,4.5rem) 0}
+.lex h2{font-size:clamp(1.3rem,5vw,2.1rem); color:var(--lin)}
+.lex>.env>p{color:var(--brume); max-width:52ch; margin:.9rem 0 2rem}
+.dico{display:grid; gap:1px; background:#25352B; border-top:1px solid #25352B; border-bottom:1px solid #25352B}
+@media(min-width:760px){.dico{grid-template-columns:1fr 1fr}}
+.art{background:var(--ecorce); padding:1.5rem 1.35rem}
+.art h3{font-family:"Alfa Slab One",serif; font-size:1.5rem; color:var(--armagnac)}
+.art .g{display:block; font-family:Mulish,sans-serif; font-weight:400; font-size:.78rem;
+  color:var(--brume); letter-spacing:.05em; margin-top:.35rem}
+.art p{margin:.8rem 0 0}
+.art .ex{margin-top:.7rem; padding-left:.9rem; border-left:3px solid var(--armagnac);
+  font-style:italic; color:#D6D0C4; font-size:.95rem}
+.art .ex b{font-style:normal; color:var(--lin)}
+
+/* --- planches --- */
+.planches{padding:clamp(2.5rem,8vw,4.5rem) 0}
+.planches h2{font-size:clamp(1.5rem,5.5vw,2.4rem)}
+.planches>.env>p{color:var(--brume); max-width:50ch; margin:.8rem 0 1.75rem}
+.pl{list-style:none; margin:0; padding:0}
+.pl li{display:flex; flex-wrap:wrap; gap:.4rem 1rem; align-items:baseline;
+  padding:1.05rem 0; border-bottom:1px solid #35513E}
+.pl .n{font-family:"Alfa Slab One",serif; font-size:1.2rem; flex:1 1 13rem; color:var(--lin)}
+.pl .d{flex:2 1 20rem; color:var(--brume); font-size:.92rem}
+.pl .p{font-weight:800; color:var(--armagnac); font-variant-numeric:tabular-nums}
+.note{font-size:.85rem; color:var(--brume); margin-top:1.25rem}
+
+/* --- venir --- */
+.venir{background:var(--armagnac); color:var(--ecorce); padding:clamp(2.5rem,8vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:Mulish,sans-serif; font-weight:800; font-size:.72rem;
+  letter-spacing:.2em; text-transform:uppercase; margin-bottom:.6rem}
+.venir p{margin:0}
+.amplitude{font-family:"Alfa Slab One",serif; font-size:clamp(1.6rem,6vw,2.4rem); line-height:1}
+.tel{display:inline-block; margin-top:.6rem; background:var(--ecorce); color:var(--armagnac);
+  font-family:"Alfa Slab One",serif; font-size:1.1rem; padding:.7rem 1.15rem; text-decoration:none}
+.tel:hover{background:var(--pin); color:var(--lin)}
+.avalider{display:inline-block; font-family:Mulish,sans-serif; font-weight:800; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--ecorce); color:var(--armagnac);
+  padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:var(--ecorce); color:var(--brume); font-size:.82rem; padding:2rem 0}
+footer strong{color:var(--lin)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#lexique">Aller au lexique</a>
+
+<header class="env top">
+  <h1>L'Oustaou</h1>
+  <p>Troquet landais · 106 quai des Chartrons, Bordeaux</p>
+</header>
+
+<main>
+<section class="entree env" aria-labelledby="t-mot">
+  <p class="mot" id="t-mot">oustaou</p>
+  <p class="phon">\us.taw\ &nbsp;·&nbsp; <em>n. m.</em> &nbsp;·&nbsp; gascon</p>
+  <p class="def">« <b>La maison</b> ». Pas le restaurant, pas l'établissement.
+     La maison.</p>
+  <p class="sous">C'est le seul mot qu'il faut connaître avant de pousser la
+     porte. Le reste — les planches, les bières, l'heure à laquelle ça se
+     remplit — se trouve plus bas, dans le lexique.</p>
+
+  <div class="pins" aria-hidden="true">
+    <svg viewBox="0 0 800 120" fill="none">
+      <g stroke="#3E5B45" stroke-width="2">
+        <path d="M40 120V54M40 54l-16 16M40 54l16 16M40 74l-22 20M40 74l22 20"/>
+        <path d="M130 120V38M130 38l-20 20M130 38l20 20M130 62l-26 24M130 62l26 24"/>
+        <path d="M225 120V60M225 60l-14 14M225 60l14 14M225 78l-20 18M225 78l20 18"/>
+        <path d="M320 120V30M320 30l-22 22M320 30l22 22M320 56l-28 26M320 56l28 26"/>
+        <path d="M415 120V52M415 52l-17 17M415 52l17 17M415 72l-23 21M415 72l23 21"/>
+        <path d="M510 120V42M510 42l-19 19M510 42l19 19M510 64l-25 23M510 64l25 23"/>
+        <path d="M605 120V64M605 64l-13 13M605 64l13 13M605 80l-19 17M605 80l19 17"/>
+        <path d="M700 120V34M700 34l-21 21M700 34l21 21M700 58l-27 25M700 58l27 25"/>
+        <path d="M775 120V58M775 58l-15 15M775 58l15 15M775 76l-21 19M775 76l21 19"/>
+      </g>
+      <path d="M0 119h800" stroke="#C8862F" stroke-width="2"/>
+    </svg>
+  </div>
+</section>
+
+<section class="lex" id="lexique" aria-labelledby="t-lex">
+  <div class="env">
+    <h2 id="t-lex">Petit lexique avant de venir</h2>
+    <p>Six mots, six choses à savoir sur la maison. Les définitions sont
+       sérieuses ; les exemples, eux, sont vrais.</p>
+
+    <div class="dico">
+      <article class="art">
+        <h3>gavé<span class="g">\ga.ve\ · adv. · Sud-Ouest</span></h3>
+        <p>Très, beaucoup. Adverbe d'intensité, employé partout entre Bordeaux et
+           Mont-de-Marsan, jamais au-delà.</p>
+        <p class="ex">« Le vendredi à 19 h c'est <b>gavé</b> plein — passez avant, ou après 23 h. »</p>
+      </article>
+
+      <article class="art">
+        <h3>la poche<span class="g">\la pɔʃ\ · n. f.</span></h3>
+        <p>Le sac. Celui qu'on vous tend à la caisse, et rien d'autre.</p>
+        <p class="ex">« Les planches partent aussi <b>dans la poche</b>, à emporter sur les quais. »</p>
+      </article>
+
+      <article class="art">
+        <h3>l'apéro<span class="g">\la.pe.ʁo\ · n. m. · institution</span></h3>
+        <p>Ici, ce n'est pas un moment de la journée : c'est le format du service.
+           On ouvre à 15 h et ça ne s'arrête plus.</p>
+        <p class="ex">« <b>L'apéro</b> commence à 15 h et finit à 2 h du matin. »</p>
+      </article>
+
+      <article class="art">
+        <h3>la planche<span class="g">\la plɑ̃ʃ\ · n. f.</span></h3>
+        <p>Bois, charcuterie, fromage, et assez pour trois. L'unité de mesure de
+           la maison.</p>
+        <p class="ex">« Une <b>planche</b> mixte, quatre bières, et la table tient la soirée. »</p>
+      </article>
+
+      <article class="art">
+        <h3>le troquet<span class="g">\lə tʁɔ.kɛ\ · n. m.</span></h3>
+        <p>Un café où l'on mange. Ni bar à cocktails, ni restaurant : les deux, sans
+           choisir.</p>
+        <p class="ex">« 4,8 sur Google, 138 avis — pour un <b>troquet</b>, c'est beaucoup. »</p>
+      </article>
+
+      <article class="art">
+        <h3>chocolatine<span class="g">\ʃɔ.kɔ.la.tin\ · n. f. · non négociable</span></h3>
+        <p>Le mot juste. Le débat est clos depuis la Garonne.</p>
+        <p class="ex">« On n'en sert pas. Mais on sait comment ça s'appelle. »</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="planches env" aria-labelledby="t-planches">
+  <h2 id="t-planches">Les planches <span class="avalider">à valider</span></h2>
+  <p>Tout est fait pour être posé au milieu de la table. On commande pour le
+     groupe, pas pour soi.</p>
+  <ul class="pl">
+    <li><span class="n">La landaise</span><span class="d">Jambon de pays, ventrèche grillée, gésiers, pain de campagne</span><span class="p">19 €</span></li>
+    <li><span class="n">La mixte</span><span class="d">Charcuterie et fromages, pour trois ou quatre</span><span class="p">24 €</span></li>
+    <li><span class="n">La fromagère</span><span class="d">Brebis des Pyrénées, tomme, confiture de cerises noires</span><span class="p">17 €</span></li>
+    <li><span class="n">Le pot de rillettes</span><span class="d">Canard, cornichons, toasts — le petit format</span><span class="p">9 €</span></li>
+    <li><span class="n">La pinte du moment</span><span class="d">Brasserie girondine, ça tourne toutes les semaines</span><span class="p">6,50 €</span></li>
+    <li><span class="n">Le cocktail maison</span><span class="d">Armagnac, citron, sirop de pin — la maison en verre</span><span class="p">9 €</span></li>
+  </ul>
+  <p class="note">Carte d'exemple écrite à partir de votre fiche Google et des avis clients.
+     Vos planches et vos prix prennent cette place.</p>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">Ouvert</h3>
+      <p class="amplitude">15 h → 2 h</p>
+      <p style="margin-top:.4rem">Jours d'ouverture <span class="avalider">à confirmer</span></p>
+    </div>
+    <div>
+      <h3>Sur les quais</h3>
+      <p>106 quai des Chartrons<br>33300 Bordeaux</p>
+    </div>
+    <div>
+      <h3>Réserver la grande table</h3>
+      <p>Pour les groupes, mieux vaut prévenir&nbsp;:</p>
+      <a class="tel" href="tel:+33556071394">05 56 07 13 94</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: la rangée de pins et les fonds sont dessinés en SVG et CSS.</p>
+  </div>
+</footer>
+</body>
+</html>

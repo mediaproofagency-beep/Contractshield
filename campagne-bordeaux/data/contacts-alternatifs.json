@@ -1,0 +1,164 @@
+{
+  "genere_le": "2026-08-25 22:44",
+  "regle": "Prospects sans email public. Ne pas fabriquer d'adresse : passer par ces canaux.",
+  "prospects": [
+    {
+      "slug": "chez-ludo",
+      "nom": "Bar des Capucins - Chez Ludo",
+      "raison": "Aucun email public. Presence Facebook uniquement (page 'mangerlanuitabordeaux'). Passer par Messenger ou telephone.",
+      "canaux": [
+        {
+          "type": "messenger",
+          "detail": "Page Facebook de l'etablissement, message direct",
+          "note": "Souvent le canal reel des bistrots sans site."
+        },
+        {
+          "type": "telephone",
+          "detail": "+33 9 81 49 36 47",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "27 Rue Emile Laparra, 33800 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "chez-jean-mi",
+      "nom": "Bistrot a huitres Chez Jean-Mi",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 6 68 69 33 00",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "Marche des Capucins, Pl. des Capucins, 33800 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "l-assiette-du-coin",
+      "nom": "L'assiette du coin",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 6 47 48 24 78",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "200 Av. Thiers, 33100 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "l-oustaou",
+      "nom": "L'Oustaou, Troquet Landais",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 5 56 07 13 94",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "106 Quai des Chartrons, 33300 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "casa-gatti",
+      "nom": "CASA GATTI TRATTORIA",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 7 64 13 37 15",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "53 Cr le Rouzic, 33100 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "le-calixte",
+      "nom": "LE CALIXTE",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 5 56 67 64 15",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "64 Rue Bonnefin, 33100 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "la-mere-michel",
+      "nom": "La Mere Michel",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 5 57 95 67 99",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "22 Pl. Meynard, 33000 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "toopita",
+      "nom": "TOOPITA Saint Michel",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 6 60 31 78 47",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "28 Pl. Meynard, 33800 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    },
+    {
+      "slug": "dat-viet",
+      "nom": "DAT VIET CHARTRONS",
+      "raison": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "canaux": [
+        {
+          "type": "telephone",
+          "detail": "+33 5 47 74 04 47",
+          "note": "Appeler entre 15 h et 17 h, hors service."
+        },
+        {
+          "type": "passage",
+          "detail": "133 Rue Notre Dame, 33300 Bordeaux",
+          "note": "Passer vers 15 h avec la maquette ouverte sur une tablette. Meilleur taux de reponse que l'email sur ce profil."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toopita Saint Michel — mezzés libanais, place Meynard, Bordeaux</title>
+<meta name="description" content="Toopita Saint Michel, 28 place Meynard à Bordeaux. Mezzés libanais, shish tawook, shawarma, falafel, taboulé et vins de la Bekaa. Terrasse place Saint-Michel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sumac:#A32D28; --zaatar:#6E7A38; --craie:#F5F3ED;
+  --nuit:#1F2430; --sable:#D9D4C7;
+  --marge:clamp(1rem,5vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--craie); color:var(--nuit);
+  font:400 clamp(1rem,.95rem + .3vw,1.08rem)/1.62 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Rubik,system-ui,sans-serif; font-weight:800; line-height:1.05;
+  letter-spacing:-.02em; margin:0}
+a{color:var(--sumac)}
+:focus-visible{outline:3px solid var(--zaatar); outline-offset:3px}
+.env{max-width:1060px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--sumac);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.25rem 0}
+.top h1{font-size:clamp(1.35rem,5vw,2rem); color:var(--sumac); letter-spacing:.02em}
+.top p{margin:0; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:#6B7280}
+.mosaique{height:52px; overflow:hidden}
+.mosaique svg{display:block; width:100%; height:52px}
+
+/* --- accroche --- */
+.acc{padding:clamp(2.25rem,7vw,4rem) 0 clamp(1.5rem,4vw,2.5rem)}
+.acc h2{font-size:clamp(1.7rem,6.5vw,3.1rem); max-width:17ch}
+.acc h2 em{font-style:normal; color:var(--sumac)}
+.acc p{max-width:50ch; margin:1.1rem 0 0; color:#414A5C}
+.chiffres{display:flex; flex-wrap:wrap; gap:1.75rem; margin:1.75rem 0 0; padding:0; list-style:none}
+.chiffres b{display:block; font-family:Rubik,sans-serif; font-weight:800; font-size:1.7rem; line-height:1; color:var(--zaatar)}
+.chiffres span{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:#6B7280}
+
+/* --- composeur --- */
+.compo{padding:0 0 clamp(2.5rem,7vw,4rem)}
+.compo h3.tt{font-size:.75rem; letter-spacing:.22em; text-transform:uppercase;
+  font-family:"IBM Plex Sans",sans-serif; font-weight:600; color:var(--zaatar); margin-bottom:1rem}
+.grille-compo{display:grid; gap:clamp(1.25rem,3vw,2rem)}
+@media(min-width:880px){.grille-compo{grid-template-columns:1fr 20rem; align-items:start}}
+.mezzes{display:grid; gap:.6rem; grid-template-columns:repeat(auto-fill,minmax(min(100%,13rem),1fr))}
+.mz{text-align:left; background:#fff; border:2px solid var(--sable); padding:.85rem .9rem;
+  cursor:pointer; font:inherit; color:inherit; display:flex; flex-direction:column; gap:.25rem}
+.mz:hover{border-color:var(--zaatar)}
+.mz[aria-pressed="true"]{border-color:var(--sumac); background:#FBF0EE; box-shadow:inset 0 0 0 1px var(--sumac)}
+.mz .n{font-family:Rubik,sans-serif; font-weight:700; font-size:1rem}
+.mz .d{font-size:.8rem; color:#6B7280; line-height:1.35}
+.mz .p{font-weight:600; color:var(--sumac); font-variant-numeric:tabular-nums; font-size:.9rem}
+.mz .coche{position:absolute; opacity:0}
+
+.recap{background:var(--nuit); color:#E6E8EE; padding:1.4rem 1.35rem; position:sticky; top:1rem}
+.recap h3{color:#fff; font-size:.75rem; letter-spacing:.22em; text-transform:uppercase;
+  font-family:"IBM Plex Sans",sans-serif; font-weight:600; color:#A9B2C4}
+.recap .gros{font-family:Rubik,sans-serif; font-weight:800; font-size:2.4rem; line-height:1;
+  color:#fff; margin:.6rem 0 .2rem}
+.recap .pers{color:var(--zaatar); font-weight:600}
+.recap ul{list-style:none; margin:1rem 0 0; padding:0; font-size:.9rem}
+.recap li{display:flex; justify-content:space-between; gap:.75rem; padding:.3rem 0;
+  border-bottom:1px solid #333B4C; color:#C3C9D6}
+.recap .total{display:flex; justify-content:space-between; margin-top:.9rem;
+  font-family:Rubik,sans-serif; font-weight:700; font-size:1.15rem; color:#fff}
+.recap .vide{color:#8A93A6; font-size:.9rem; margin:1rem 0 0}
+
+/* --- braise --- */
+.braise{background:var(--sumac); color:#F7E9E7; padding:clamp(2.5rem,8vw,4.5rem) 0}
+.braise h2{color:#fff; font-size:clamp(1.5rem,5.5vw,2.5rem)}
+.braise>.env>p{color:#EBC9C6; max-width:48ch; margin:.8rem 0 1.75rem}
+.liste{list-style:none; margin:0; padding:0}
+.liste li{display:flex; flex-wrap:wrap; gap:.4rem 1rem; align-items:baseline;
+  padding:1rem 0; border-bottom:1px solid #B9524D}
+.liste .n{font-family:Rubik,sans-serif; font-weight:700; font-size:1.15rem; flex:1 1 14rem; color:#fff}
+.liste .d{flex:2 1 20rem; font-size:.9rem; color:#EBC9C6}
+.liste .p{font-weight:700; color:#F6D96A; font-variant-numeric:tabular-nums}
+
+/* --- vins --- */
+.vins{padding:clamp(2.5rem,8vw,4rem) 0}
+.vins .env{display:grid; gap:2rem; align-items:center}
+@media(min-width:800px){.vins .env{grid-template-columns:1.05fr .95fr}}
+.vins h2{font-size:clamp(1.5rem,5.5vw,2.4rem); max-width:16ch}
+.vins h2 em{font-style:normal; color:var(--zaatar)}
+.vins p{margin:1rem 0 0; max-width:44ch; color:#414A5C}
+.coteaux svg{width:100%; height:auto; display:block}
+
+/* --- venir --- */
+.venir{background:var(--zaatar); color:#F2F4E8; padding:clamp(2.5rem,7vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase; color:#D3DBB6; margin-bottom:.6rem}
+.venir p{margin:0}
+.tel{display:inline-block; margin-top:.6rem; background:var(--nuit); color:#fff;
+  font-family:Rubik,sans-serif; font-weight:700; font-size:1.05rem; padding:.75rem 1.2rem; text-decoration:none}
+.tel:hover{background:var(--sumac)}
+.avalider{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--nuit); color:#fff;
+  padding:.15rem .45rem; vertical-align:middle}
+.note{font-size:.85rem; color:#6B7280; margin-top:1.25rem}
+
+footer{background:var(--nuit); color:#8A93A6; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#compo">Composer une table</a>
+
+<header>
+  <div class="env top">
+    <h1>Toopita</h1>
+    <p>Libanais · 28 place Meynard, Bordeaux Saint-Michel</p>
+  </div>
+  <div class="mosaique" aria-hidden="true">
+    <svg viewBox="0 0 480 52" preserveAspectRatio="none">
+      <pattern id="mz" width="48" height="52" patternUnits="userSpaceOnUse">
+        <rect width="48" height="52" fill="#A32D28"/>
+        <path d="M24 4 44 26 24 48 4 26Z" fill="none" stroke="#F5F3ED" stroke-width="2"/>
+        <path d="M24 14 34 26 24 38 14 26Z" fill="#6E7A38"/>
+        <path d="M0 26h4M44 26h4" stroke="#F5F3ED" stroke-width="2"/>
+      </pattern>
+      <rect width="480" height="52" fill="url(#mz)"/>
+    </svg>
+  </div>
+</header>
+
+<main>
+<section class="acc env" aria-labelledby="t-acc">
+  <h2 id="t-acc">On ne commande pas un plat chacun. <em>On compose une table.</em></h2>
+  <p>C'est la seule chose qu'il faut comprendre avant de s'asseoir, et c'est
+     exactement ce qu'une carte imprimée n'explique jamais. Alors essayez ici :
+     cochez ce qui vous tente, la page vous dit combien de personnes ça nourrit.</p>
+  <ul class="chiffres">
+    <li><b>4,9</b><span>sur Google</span></li>
+    <li><b>130</b><span>avis</span></li>
+    <li><b>Bekaa</b><span>les vins de la carte</span></li>
+  </ul>
+</section>
+
+<section class="compo env" id="compo" aria-labelledby="t-compo">
+  <h3 class="tt" id="t-compo">Les mezzés <span class="avalider">à valider</span></h3>
+  <div class="grille-compo">
+    <div class="mezzes" id="mezzes">
+      <button type="button" class="mz" aria-pressed="false" data-p="6"><span class="n">Houmous</span><span class="d">Pois chiches, tahini, huile d'olive, pain chaud</span><span class="p">6 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="6.5"><span class="n">Taboulé</span><span class="d">Persil d'abord, boulgour ensuite — le vrai</span><span class="p">6,50 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="7"><span class="n">Falafel (5 pièces)</span><span class="d">Frits à la commande, sauce sésame</span><span class="p">7 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="6"><span class="n">Moutabal</span><span class="d">Aubergine fumée, yaourt, grenade</span><span class="p">6 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="7.5"><span class="n">Kebbé (3 pièces)</span><span class="d">Boulgour, agneau haché, pignons</span><span class="p">7,50 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="6.5"><span class="n">Fatayer</span><span class="d">Chaussons aux épinards, citron, sumac</span><span class="p">6,50 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="7"><span class="n">Rakakat</span><span class="d">Cigares au fromage, croustillants</span><span class="p">7 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="6"><span class="n">Salade fattouche</span><span class="d">Pain grillé, sumac, légumes croquants</span><span class="p">6 €</span></button>
+      <button type="button" class="mz" aria-pressed="false" data-p="5"><span class="n">Labneh</span><span class="d">Fromage frais égoutté, zaatar, olives</span><span class="p">5 €</span></button>
+    </div>
+
+    <aside class="recap" aria-labelledby="t-recap">
+      <h3 id="t-recap">Votre table</h3>
+      <p class="gros" id="nb">0</p>
+      <p class="pers" id="pers">mezzé sélectionné</p>
+      <ul id="choix"></ul>
+      <p class="vide" id="vide">Cochez trois ou quatre mezzés à gauche pour voir
+         ce que ça donne.</p>
+      <p class="total" id="total" hidden><span>Total</span><span id="somme">0 €</span></p>
+    </aside>
+  </div>
+  <p class="note">Prix d'exemple écrits à partir de votre fiche Google et des avis.
+     Les vôtres prennent cette place, et le calcul suit tout seul.</p>
+</section>
+
+<section class="braise" aria-labelledby="t-braise">
+  <div class="env">
+    <h2 id="t-braise">La broche et la braise</h2>
+    <p>Ce qui arrive après les mezzés, quand la table est déjà bien remplie.</p>
+    <ul class="liste">
+      <li><span class="n">Shish tawook</span><span class="d">Poulet mariné au citron et à l'ail, grillé, riz ou frites</span><span class="p">16 €</span></li>
+      <li><span class="n">Shawarma bœuf</span><span class="d">Coupé à la broche, oignons au sumac, sauce blanche</span><span class="p">15 €</span></li>
+      <li><span class="n">Kafta d'agneau</span><span class="d">Haché aux herbes, braise, yaourt à la menthe</span><span class="p">17 €</span></li>
+      <li><span class="n">Assiette végétarienne</span><span class="d">Falafel, houmous, moutabal, fattouche</span><span class="p">14 €</span></li>
+      <li><span class="n">Baklava, café libanais</span><span class="d">Pistache et miel, cardamome</span><span class="p">6 €</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="vins" aria-labelledby="t-vins">
+  <div class="env">
+    <div>
+      <h2 id="t-vins">Les vins viennent de <em>la Bekaa</em></h2>
+      <p>C'est un des plus vieux vignobles du monde, et personne à Bordeaux ne
+         s'y attend. Rouges épais, blancs secs, et l'arak pour ceux qui veulent
+         aller au bout. La carte des vins est un argument à part entière — elle
+         mérite sa page, pas une ligne au dos du menu.</p>
+    </div>
+    <div class="coteaux" aria-hidden="true">
+      <svg viewBox="0 0 400 180" fill="none">
+        <path d="M0 150h400" stroke="#D9D4C7" stroke-width="2"/>
+        <path d="M0 150c60-70 120-70 180 0M120 150c60-90 140-90 200 0" stroke="#6E7A38" stroke-width="2"/>
+        <g stroke="#A32D28" stroke-width="2">
+          <path d="M60 150v-22M60 128l-10-8M60 128l10-8"/>
+          <path d="M150 150v-30M150 120l-11-9M150 120l11-9"/>
+          <path d="M240 150v-26M240 124l-10-8M240 124l10-8"/>
+          <path d="M330 150v-34M330 116l-11-9M330 116l11-9"/>
+        </g>
+        <g fill="#6E7A38">
+          <circle cx="52" cy="140" r="4"/><circle cx="68" cy="140" r="4"/><circle cx="60" cy="147" r="4"/>
+          <circle cx="142" cy="140" r="4"/><circle cx="158" cy="140" r="4"/><circle cx="150" cy="147" r="4"/>
+          <circle cx="232" cy="140" r="4"/><circle cx="248" cy="140" r="4"/><circle cx="240" cy="147" r="4"/>
+          <circle cx="322" cy="140" r="4"/><circle cx="338" cy="140" r="4"/><circle cx="330" cy="147" r="4"/>
+        </g>
+        <path d="M0 166h400" stroke="#D9D4C7" stroke-width="6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">La terrasse</h3>
+      <p>28 place Meynard<br>33800 Bordeaux<br>
+         <span style="color:#D3DBB6">À vingt mètres de la flèche</span></p>
+    </div>
+    <div>
+      <h3>Les services <span class="avalider">à confirmer</span></h3>
+      <p>Midi et soir.<br>
+         <span style="color:#D3DBB6">Vos jours et horaires réels prennent cette place.</span></p>
+    </div>
+    <div>
+      <h3>Réserver, emporter</h3>
+      <p style="color:#D3DBB6;font-size:.95rem">Les grandes tables se réservent&nbsp;:</p>
+      <a class="tel" href="tel:+33660317847">06 60 31 78 47</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: la mosaïque et les coteaux sont dessinés en SVG.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var boutons = Array.prototype.slice.call(document.querySelectorAll('.mz'));
+  var nb    = document.getElementById('nb');
+  var pers  = document.getElementById('pers');
+  var choix = document.getElementById('choix');
+  var vide  = document.getElementById('vide');
+  var total = document.getElementById('total');
+  var somme = document.getElementById('somme');
+
+  function euros(n){ return n.toFixed(2).replace('.00','').replace('.', ',') + ' €'; }
+
+  function recalculer(){
+    var pris = boutons.filter(function(b){ return b.getAttribute('aria-pressed') === 'true'; });
+    nb.textContent = pris.length;
+    choix.innerHTML = '';
+    var t = 0;
+    pris.forEach(function(b){
+      var p = parseFloat(b.dataset.p); t += p;
+      var li = document.createElement('li');
+      li.innerHTML = '<span>' + b.querySelector('.n').textContent + '</span><span>' + euros(p) + '</span>';
+      choix.appendChild(li);
+    });
+    somme.textContent = euros(t);
+    total.hidden = pris.length === 0;
+    vide.hidden   = pris.length !== 0;
+
+    if (pris.length === 0){ pers.textContent = 'mezzé sélectionné'; return; }
+    var gens = Math.max(1, Math.round(pris.length / 1.5));
+    pers.textContent = pris.length + (pris.length > 1 ? ' mezzés' : ' mezzé') +
+      ' — de quoi nourrir ' + gens + (gens > 1 ? ' personnes' : ' personne') +
+      ', soit ' + euros(t / gens) + ' chacun';
+  }
+
+  boutons.forEach(function(b){
+    b.addEventListener('click', function(){
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      recalculer();
+    });
+  });
+  recalculer();
+})();
+</script>
+</body>
+</html>

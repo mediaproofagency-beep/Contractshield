@@ -1,0 +1,30 @@
+{
+  "_lire_avant": "Rien ne part tant qu'un champ marque A_COMPLETER n'est pas rempli. scripts/3-envoyer.py refuse d'armer l'envoi sinon.",
+  "domaine_envoi": "mediaproofagency.fr",
+  "expediteur_email": "A_COMPLETER prenom@mediaproofagency.fr",
+  "expediteur_nom": "A_COMPLETER Prénom Nom",
+  "EXPEDITEUR_PRENOM": "A_COMPLETER",
+  "reply_to": "mediaproofagency@gmail.com",
+  "ADRESSE_AGENCE": "A_COMPLETER adresse postale, 33600 Pessac",
+  "SIREN": "A_COMPLETER 9 chiffres",
+  "base_maquettes": "https://maquettes.mediaproofagency.fr",
+  "base_desinscription": "https://mediaproofagency.fr/desinscription",
+  "cap_quotidien": 6,
+  "_cap": "Domaine neuf : 5 à 8 par jour maximum, montée progressive. Au-delà, le script refuse.",
+  "authentification": {
+    "spf": "A_VERIFIER",
+    "dkim": "A_VERIFIER",
+    "dmarc": "A_VERIFIER",
+    "_note": "Les trois doivent être en place sur le domaine d'envoi avant le premier message. Vérifier avec un outil d'analyse d'en-têtes après un envoi test."
+  },
+  "transport": {
+    "fournisseur": "brevo",
+    "cle_api_env": "BREVO_API_KEY",
+    "_note": "La clé se lit dans la variable d'environnement, jamais dans ce fichier."
+  },
+  "repli_gmail": {
+    "autorise": true,
+    "condition": "Uniquement si le domaine n'est pas prêt. Dix messages écrits et envoyés un par un depuis Gmail, étalés sur trois jours. Jamais en lot par script.",
+    "_note": "Le script refuse l'envoi automatique depuis une adresse gmail.com."
+  }
+}

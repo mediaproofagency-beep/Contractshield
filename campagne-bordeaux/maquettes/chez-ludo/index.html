@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chez Ludo — on mange du Bazas à 2 h du matin — Bar des Capucins, Bordeaux</title>
+<meta name="description" content="Bar des Capucins — Chez Ludo, 27 rue Émile-Laparra à Bordeaux. Cuisine du Sud-Ouest servie de 22 h à 4 h, du mercredi au samedi. Bœuf de Bazas, magret, confit, frites maison.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#14102A; --velours:#241A3E; --sodium:#F2A65A;
+  --os:#EFE9DF; --froid:#7A6E92;
+  --marge:clamp(1rem,5vw,4rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; color:var(--os);
+  background:
+    radial-gradient(120% 70% at 50% 0%, #2A1E4C 0%, transparent 60%),
+    var(--nuit);
+  font:400 clamp(1rem,.95rem + .3vw,1.1rem)/1.65 "Space Grotesk",system-ui,sans-serif;
+  min-height:100vh;
+}
+.dsp,h1,h2,h3{font-family:"Instrument Serif",Georgia,serif; font-weight:400;
+  letter-spacing:-.01em; line-height:1; margin:0}
+a{color:var(--sodium)}
+:focus-visible{outline:2px solid var(--sodium); outline-offset:4px}
+.env{max-width:1000px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--sodium);color:var(--nuit);padding:.6rem 1rem}
+
+/* --- entete --- */
+.top{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between;
+  align-items:center; padding:1.4rem 0}
+.nom{font-size:clamp(1.6rem,5vw,2.2rem)}
+.nom small{display:block; font-family:"Space Grotesk",sans-serif; font-size:.62rem;
+  letter-spacing:.28em; color:var(--froid); margin-top:.35rem}
+.pastille{display:inline-flex; align-items:center; gap:.5rem; font-size:.75rem;
+  letter-spacing:.18em; text-transform:uppercase; border:1px solid var(--froid);
+  border-radius:99px; padding:.4rem .9rem; color:var(--froid)}
+.pastille i{width:.55rem; height:.55rem; border-radius:50%; background:var(--froid); display:block}
+.pastille.ouvert{color:var(--sodium); border-color:var(--sodium)}
+.pastille.ouvert i{background:var(--sodium); box-shadow:0 0 0 0 rgba(242,166,90,.7)}
+@media(prefers-reduced-motion:no-preference){
+  .pastille.ouvert i{animation:pouls 2.4s ease-out infinite}
+}
+@keyframes pouls{to{box-shadow:0 0 0 12px rgba(242,166,90,0)}}
+
+/* --- heure --- */
+.heure{padding:clamp(2rem,7vw,4rem) 0 clamp(1.5rem,5vw,2.5rem); text-align:center}
+.heure .quoi{font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; color:var(--froid)}
+.heure time{display:block; font-family:"Instrument Serif",Georgia,serif;
+  font-size:clamp(4.5rem,22vw,9rem); line-height:.9; color:var(--os);
+  font-variant-numeric:tabular-nums; margin:.4rem 0 .6rem;
+  text-shadow:0 0 60px rgba(242,166,90,.35)}
+.heure .etat{font-size:clamp(1.05rem,3.6vw,1.5rem); color:var(--sodium); font-family:"Instrument Serif",serif}
+.heure .etat em{font-style:italic}
+
+/* --- cadran --- */
+.cadran{padding:0 0 clamp(2.5rem,8vw,4rem)}
+.cadran svg{display:block; width:100%; height:auto; overflow:visible}
+.cadran .lgd{font:500 10px "Space Grotesk",sans-serif; fill:#7A6E92; letter-spacing:1.5px}
+.cadran .lgd.actif{fill:#F2A65A}
+.piste{stroke:#2E2450; stroke-width:10; stroke-linecap:round}
+.service{stroke:url(#g); stroke-width:10; stroke-linecap:round}
+.tete{fill:#EFE9DF}
+
+/* --- moments --- */
+.moments{border-top:1px solid #2E2450; padding:clamp(2.5rem,8vw,4rem) 0}
+.moments h2{font-size:clamp(1.6rem,6vw,2.6rem); margin-bottom:.4rem}
+.moments>.env>p{color:var(--froid); max-width:52ch; margin:0 0 2rem}
+.suite{display:grid; gap:1px; background:#2E2450; border:1px solid #2E2450}
+@media(min-width:760px){.suite{grid-template-columns:repeat(4,1fr)}}
+.mo{background:var(--nuit); padding:1.5rem 1.25rem}
+.mo b{display:block; font-family:"Instrument Serif",serif; font-size:2rem; color:var(--sodium); line-height:1}
+.mo p{margin:.6rem 0 0; font-size:.92rem; color:#C9C1D8}
+
+/* --- carte --- */
+.carte{padding:clamp(2.5rem,8vw,4rem) 0; border-top:1px solid #2E2450}
+.carte h2{font-size:clamp(1.6rem,6vw,2.6rem)}
+.plats{list-style:none; margin:1.75rem 0 0; padding:0; display:grid; gap:0}
+.plats li{display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem 1rem;
+  padding:1rem 0; border-bottom:1px solid #241A3E}
+.plats .n{font-family:"Instrument Serif",serif; font-size:1.4rem; flex:1 1 12rem}
+.plats .d{flex:1 1 100%; font-size:.88rem; color:var(--froid); order:3}
+.plats .p{font-variant-numeric:tabular-nums; color:var(--sodium)}
+@media(min-width:640px){.plats .d{flex:2 1 18rem; order:0}}
+
+/* --- frites --- */
+.frites{background:var(--velours); padding:clamp(2.5rem,8vw,4.5rem) 0; text-align:center}
+.frites h2{font-size:clamp(1.8rem,7vw,3.2rem); max-width:18ch; margin:0 auto}
+.frites h2 em{font-style:italic; color:var(--sodium)}
+.frites p{max-width:46ch; margin:1.25rem auto 0; color:#C9C1D8}
+.lames{display:flex; justify-content:center; gap:.5rem; margin-top:2rem}
+.lames i{width:.5rem; height:2.6rem; background:var(--sodium); opacity:.85; display:block; border-radius:2px}
+.lames i:nth-child(2n){height:3.4rem}
+.lames i:nth-child(3n){height:2rem; opacity:.55}
+
+/* --- venir --- */
+.venir{padding:clamp(2.5rem,8vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:"Space Grotesk",sans-serif; font-size:.7rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--froid); margin-bottom:.75rem}
+.venir p{margin:0}
+.jours{list-style:none; margin:0; padding:0; font-variant-numeric:tabular-nums}
+.jours li{display:flex; justify-content:space-between; gap:1rem; padding:.3rem 0; color:var(--froid)}
+.jours li.on{color:var(--os)}
+.jours li.on b{color:var(--sodium); font-weight:500}
+.bouton{display:inline-block; margin-top:.6rem; background:var(--sodium); color:var(--nuit);
+  padding:.8rem 1.4rem; text-decoration:none; font-weight:700; letter-spacing:.02em}
+.bouton:hover{background:#fff}
+.avalider{display:inline-block; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  border:1px solid var(--froid); color:var(--froid); padding:.1rem .4rem; vertical-align:middle}
+
+footer{border-top:1px solid #2E2450; padding:2rem 0; font-size:.82rem; color:var(--froid)}
+footer strong{color:var(--os)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#carte">Aller à la carte</a>
+
+<header class="env top">
+  <p class="nom">chez ludo<small>BAR DES CAPUCINS · BORDEAUX</small></p>
+  <p class="pastille" id="pastille"><i></i><span id="pastille-txt">horaires</span></p>
+</header>
+
+<main>
+<section class="heure env" aria-labelledby="t-heure">
+  <p class="quoi" id="t-heure">chez vous, à cet instant</p>
+  <time id="horloge" datetime="">23:47</time>
+  <p class="etat" id="etat">La cuisine tourne encore <em>4 h 13</em>.</p>
+</section>
+
+<section class="cadran env" aria-label="Amplitude de service, de 22 h à 4 h">
+  <svg viewBox="0 0 960 90" role="img" aria-label="Cadran de 18 h à 8 h : le service va de 22 h à 4 h du matin">
+    <defs>
+      <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="283" y1="45" x2="678" y2="45">
+        <stop offset="0" stop-color="#F2A65A"/><stop offset=".5" stop-color="#FFD9A0"/><stop offset="1" stop-color="#F2A65A"/>
+      </linearGradient>
+    </defs>
+    <line class="piste" x1="20" y1="45" x2="940" y2="45"/>
+    <line class="service" x1="283" y1="45" x2="678" y2="45"/>
+    <g class="lgd">
+      <text x="20"  y="76">18h</text>
+      <text x="151" y="76">20h</text>
+      <text class="actif" fill="#F2A65A" x="283" y="76">22h</text>
+      <text class="actif" fill="#F2A65A" x="415" y="76">00h</text>
+      <text class="actif" fill="#F2A65A" x="546" y="76">02h</text>
+      <text class="actif" fill="#F2A65A" x="678" y="76">04h</text>
+      <text x="809" y="76">06h</text>
+      <text x="925" y="76">08h</text>
+    </g>
+    <circle class="tete" id="curseur" cx="380" cy="45" r="7"/>
+  </svg>
+</section>
+
+<section class="moments" aria-labelledby="t-mom">
+  <div class="env">
+    <h2 id="t-mom">Ce qui se passe à cette heure-là</h2>
+    <p>La nuit n'est pas un seul service. Elle a quatre temps, et ils ne se
+       ressemblent pas.</p>
+    <div class="suite">
+      <div class="mo"><b>22h</b><p>La salle s'ouvre. Les premiers sont ceux qui sortent du travail : cuisines, salles, plateaux. On sert vite.</p></div>
+      <div class="mo"><b>00h</b><p>Le gros du service. Bœuf de Bazas, magret, andouillette. Les frites n'arrêtent pas.</p></div>
+      <div class="mo"><b>02h</b><p>Le moment où les autres ont fermé. C'est là qu'on est seuls dans Bordeaux à envoyer une pièce de bœuf.</p></div>
+      <div class="mo"><b>03h30</b><p>Dernière commande. Le confit et le verre qui va avec, sans se presser.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="carte env" id="carte" aria-labelledby="t-carte">
+  <h2 id="t-carte">La carte <span class="avalider">à valider</span></h2>
+  <ul class="plats">
+    <li><span class="n">Bœuf de Bazas</span><span class="d">Race locale, pièce du boucher, cuisson à la demande</span><span class="p">24 €</span></li>
+    <li><span class="n">Magret de canard</span><span class="d">Entier, tranché en salle, sauce au poivre</span><span class="p">21 €</span></li>
+    <li><span class="n">Confit de canard</span><span class="d">Cuisse croustillante, pommes de terre à l'ail</span><span class="p">19 €</span></li>
+    <li><span class="n">Andouillette AAAAA</span><span class="d">Moutarde à l'ancienne, la vraie, celle qui divise</span><span class="p">18 €</span></li>
+    <li><span class="n">Salade landaise</span><span class="d">Gésiers, magret fumé, pignons</span><span class="p">14 €</span></li>
+    <li><span class="n">Le verre de Bordeaux</span><span class="d">Rouge, blanc, quatre références au verre</span><span class="p">4,50 €</span></li>
+  </ul>
+  <p style="color:var(--froid);font-size:.85rem;margin-top:1.5rem">Carte d'exemple écrite à partir de vos avis Google. Vos plats et vos prix prennent cette place.</p>
+</section>
+
+<section class="frites" aria-labelledby="t-frites">
+  <div class="env">
+    <h2 id="t-frites">Les frites sont coupées <em>devant vous</em></h2>
+    <p>Pas de sachet, pas de congélateur. La pomme de terre passe à la lame
+       pendant que vous commandez. C'est le genre de détail qu'on ne raconte
+       pas : on le regarde.</p>
+    <div class="lames" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">Les nuits</h3>
+      <ul class="jours" id="jours">
+        <li data-j="1"><span>Lundi</span><span>fermé</span></li>
+        <li data-j="2"><span>Mardi</span><span>fermé</span></li>
+        <li data-j="3"><span>Mercredi</span><b>22h – 4h</b></li>
+        <li data-j="4"><span>Jeudi</span><b>22h – 4h</b></li>
+        <li data-j="5"><span>Vendredi</span><b>22h – 4h</b></li>
+        <li data-j="6"><span>Samedi</span><b>22h – 4h</b></li>
+        <li data-j="0"><span>Dimanche</span><span>fermé</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>L'adresse</h3>
+      <p>27 rue Émile-Laparra<br>33800 Bordeaux<br>
+         <span style="color:var(--froid)">Quartier des Capucins</span></p>
+    </div>
+    <div>
+      <h3>Prévenir Ludo</h3>
+      <p style="color:var(--froid);font-size:.92rem">Une table à 1 h du matin, ça se réserve comme les autres.</p>
+      <a class="bouton" href="tel:+33981493647">09 81 49 36 47</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: cadran, halo et lames sont dessinés en SVG et CSS.
+       Vos photos, ou un reportage, les remplaceront.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var OUV = 22, FER = 4;              // 22h -> 4h
+  var JOURS_SERVICE = [3,4,5,6];      // mercredi..samedi (getDay)
+  var horloge = document.getElementById('horloge');
+  var etat    = document.getElementById('etat');
+  var past    = document.getElementById('pastille');
+  var pastTxt = document.getElementById('pastille-txt');
+  var curseur = document.getElementById('curseur');
+
+  function deuxChiffres(n){ return (n<10?'0':'') + n; }
+
+  function servicePourLaNuit(d){
+    // On sert la nuit du jour J si J est mer-sam (soirée) ou si on est
+    // entre minuit et 4h le lendemain d'un jour de service.
+    var j = d.getDay(), h = d.getHours();
+    if (h >= OUV) return JOURS_SERVICE.indexOf(j) !== -1;
+    if (h < FER)  return JOURS_SERVICE.indexOf((j + 6) % 7) !== -1;
+    return false;
+  }
+
+  function tic(){
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    horloge.textContent = deuxChiffres(h) + ':' + deuxChiffres(m);
+    horloge.setAttribute('datetime', deuxChiffres(h) + ':' + deuxChiffres(m));
+
+    var ouvert = (h >= OUV || h < FER) && servicePourLaNuit(d);
+
+    if (ouvert){
+      var finEnMin = (h >= OUV ? (24 + FER) : FER) * 60;
+      var maintenant = h * 60 + m;
+      var reste = finEnMin - maintenant;
+      etat.innerHTML = 'La cuisine tourne encore <em>' +
+        Math.floor(reste/60) + ' h ' + deuxChiffres(reste%60) + '</em>.';
+      past.classList.add('ouvert');
+      pastTxt.textContent = 'ouvert';
+    } else {
+      past.classList.remove('ouvert');
+      pastTxt.textContent = 'fermé';
+      var prochaine = h < OUV ? (OUV - h) : (24 - h + OUV);
+      etat.innerHTML = JOURS_SERVICE.indexOf(d.getDay()) !== -1
+        ? 'On ouvre dans <em>' + prochaine + ' h</em>.'
+        : 'Fermé ce soir. <em>Mercredi à samedi, 22 h – 4 h.</em>';
+    }
+
+    // curseur sur le cadran : 18h (x=20) -> 8h le lendemain (x=940)
+    var pos = (h + m/60 - 18 + 24) % 24;         // 0 = 18h
+    if (pos <= 14){ curseur.style.display = ''; curseur.setAttribute('cx', 20 + pos * (920/14)); }
+    else { curseur.style.display = 'none'; }
+  }
+
+  tic();
+  setInterval(tic, 20000);
+
+  var j = new Date().getDay();
+  var ligne = document.querySelector('#jours li[data-j="' + j + '"]');
+  if (ligne) ligne.classList.add('on');
+})();
+</script>
+</body>
+</html>

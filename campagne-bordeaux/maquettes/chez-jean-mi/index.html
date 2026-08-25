@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chez Jean-Mi — 6 huîtres et un verre, 11 € — Marché des Capucins, Bordeaux</title>
+<meta name="description" content="Bistrot à huîtres Chez Jean-Mi, dans le marché des Capucins à Bordeaux. Six huîtres et un verre de blanc à 11 €, soupe de poisson maison, debout au comptoir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ardoise:#16302C; --nacre:#EDF1EF; --iode:#2C6E63;
+  --citron:#F5C243; --galet:#B9C4BE;
+  --marge:clamp(1rem,5vw,3.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--nacre); color:var(--ardoise);
+  font:400 clamp(1rem,.95rem + .3vw,1.1rem)/1.6 Karla,system-ui,sans-serif}
+h1,h2,h3,.dsp{font-family:Anton,Impact,sans-serif; font-weight:400;
+  text-transform:uppercase; letter-spacing:.005em; line-height:.92; margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--iode); outline-offset:3px}
+.env{max-width:1040px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--ardoise);color:#fff;padding:.6rem 1rem}
+
+/* --- entete --- */
+.top{display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.1rem 0; border-bottom:2px solid var(--ardoise)}
+.top h1{font-size:clamp(1.3rem,4.5vw,1.9rem)}
+.top p{margin:0; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--iode)}
+
+/* --- ticket --- */
+.ticket{padding:clamp(2rem,7vw,4rem) 0 clamp(2rem,6vw,3rem)}
+.ticket .quoi{font-family:Anton,sans-serif; text-transform:uppercase;
+  font-size:clamp(1.1rem,4.5vw,2rem); line-height:1.05; max-width:14ch; margin:0 0 .4rem}
+.prix{display:inline-block; position:relative; padding:0 .12em; margin:.2rem 0 .6rem}
+.prix::before{content:""; position:absolute; inset:14% -.06em 16%; background:var(--citron); z-index:0}
+.prix span{position:relative; z-index:1; font-family:Anton,Impact,sans-serif;
+  font-size:clamp(5rem,26vw,13rem); line-height:.82; letter-spacing:-.02em; display:block}
+.ticket .ou{font-size:1.05rem; max-width:34ch}
+.ticket .ou b{border-bottom:3px solid var(--citron)}
+.notes{display:flex; flex-wrap:wrap; gap:1.75rem; margin:2rem 0 0; padding:0; list-style:none}
+.notes b{display:block; font-family:Anton,sans-serif; font-size:1.9rem; line-height:1}
+.notes span{font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--iode)}
+
+/* --- ardoise --- */
+.ardoise{background:var(--ardoise); color:var(--nacre); padding:clamp(2.5rem,8vw,4.5rem) 0}
+.ardoise h2{color:var(--citron); font-size:clamp(1.5rem,5.5vw,2.6rem); margin-bottom:1.5rem}
+.lignes{list-style:none; margin:0; padding:0}
+.lignes li{display:grid; grid-template-columns:4.6rem 1fr; gap:1rem; align-items:baseline;
+  padding:.85rem 0; border-bottom:1px solid #27443F}
+@media(min-width:560px){.lignes li{grid-template-columns:6.5rem 1fr}}
+.lignes .p{font-family:Anton,sans-serif; font-size:clamp(1.5rem,5vw,2.2rem);
+  color:var(--citron); line-height:1; font-variant-numeric:tabular-nums}
+.lignes .n{font-size:1.05rem}
+.lignes .n small{display:block; color:var(--galet); font-size:.85rem; margin-top:.15rem}
+.ardoise .note{margin:1.5rem 0 0; font-size:.85rem; color:var(--galet)}
+
+/* --- avis --- */
+.avis{padding:clamp(2.5rem,8vw,4.5rem) 0; text-align:center}
+.avis h2{font-size:clamp(1.6rem,7vw,3.4rem); max-width:20ch; margin:0 auto}
+.avis h2 em{font-style:normal; color:var(--iode)}
+.avis p{max-width:48ch; margin:1.25rem auto 0}
+.coquilles{display:flex; flex-wrap:wrap; justify-content:center; gap:.4rem; margin-top:2rem}
+.coquilles svg{width:26px; height:26px; opacity:.9}
+
+/* --- soupe --- */
+.soupe{background:var(--iode); color:#fff; padding:clamp(2.5rem,8vw,4.5rem) 0}
+.soupe .env{display:grid; gap:1.75rem}
+@media(min-width:780px){.soupe .env{grid-template-columns:1fr 1fr; align-items:center}}
+.soupe h2{font-size:clamp(1.6rem,6vw,2.8rem)}
+.soupe p{margin:0; color:#DCEAE6; max-width:44ch}
+.houle svg{width:100%; height:auto; display:block}
+
+/* --- venir --- */
+.venir{padding:clamp(2.5rem,8vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-size:.85rem; letter-spacing:.16em; color:var(--iode); margin-bottom:.6rem}
+.venir p{margin:0}
+.tel{display:inline-block; margin-top:.6rem; background:var(--ardoise); color:var(--citron);
+  font-family:Anton,sans-serif; font-size:1.2rem; letter-spacing:.03em;
+  padding:.7rem 1.2rem; text-decoration:none}
+.tel:hover{background:var(--iode); color:#fff}
+.avalider{display:inline-block; font-family:Karla,sans-serif; font-size:.65rem; letter-spacing:.1em;
+  text-transform:uppercase; background:var(--citron); color:var(--ardoise);
+  padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:var(--ardoise); color:var(--galet); font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#ardoise">Aller à l'ardoise</a>
+
+<header class="env top">
+  <h1>Chez Jean-Mi</h1>
+  <p>Bistrot à huîtres · Marché des Capucins</p>
+</header>
+
+<main>
+<section class="ticket env" aria-labelledby="t-prix">
+  <p class="quoi" id="t-prix">Six huîtres<br>et un verre de blanc</p>
+  <span class="prix"><span>11&nbsp;€</span></span>
+  <p class="ou">Debout au comptoir, dans le marché, à côté des écaillers.
+     <b>Pas de réservation, pas de nappe.</b></p>
+  <ul class="notes">
+    <li><b>4,6</b><span>sur Google</span></li>
+    <li><b>1&nbsp;209</b><span>avis</span></li>
+    <li><b>Nº1</b><span>des huîtres aux Capucins</span></li>
+  </ul>
+</section>
+
+<section class="ardoise" id="ardoise" aria-labelledby="t-ardoise">
+  <div class="env">
+    <h2 id="t-ardoise">L'ardoise <span class="avalider">à valider</span></h2>
+    <ul class="lignes">
+      <li><span class="p">11 €</span><span class="n">Six huîtres + un verre<small>La formule de la maison, midi et soir</small></span></li>
+      <li><span class="p">9 €</span><span class="n">Soupe de poisson<small>Rouille, croûtons, gruyère — celle que les avis citent</small></span></li>
+      <li><span class="p">14 €</span><span class="n">Douze huîtres<small>Numéro 3 du Bassin, citron, pain de seigle</small></span></li>
+      <li><span class="p">12 €</span><span class="n">Bulots mayonnaise<small>Cuits le matin même</small></span></li>
+      <li><span class="p">18 €</span><span class="n">L'assiette de fruits de mer<small>Crevettes, bulots, huîtres, ce qu'il y a</small></span></li>
+      <li><span class="p">4 €</span><span class="n">Le verre d'entre-deux-mers<small>Sec, frais, celui qui va avec</small></span></li>
+    </ul>
+    <p class="note">Ardoise d'exemple écrite à partir de votre fiche Google et des avis.
+       Vos prix réels prennent cette place — et ils restent le premier élément de la page.</p>
+  </div>
+</section>
+
+<section class="avis env" aria-labelledby="t-avis">
+  <h2 id="t-avis">Mille deux cent neuf personnes ont écrit sur vous. <em>Aucune page pour les lire.</em></h2>
+  <p>Quand quelqu'un cherche « huîtres marché des Capucins », il trouve la fiche
+     Google et s'arrête là. Cette page est ce qui manque entre les deux.</p>
+  <div class="coquilles" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 29C8 24 3 16 3 10c0-4 3-7 6-7 3 0 5 2 7 5 2-3 4-5 7-5 3 0 6 3 6 7 0 6-5 14-13 19Z" stroke="#2C6E63" stroke-width="2" stroke-linejoin="round"/><path d="M16 29V8M16 12l-6-4M16 12l6-4M16 19l-8-5M16 19l8-5" stroke="#2C6E63" stroke-width="1.4"/></svg>
+  </div>
+</section>
+
+<section class="soupe" aria-labelledby="t-soupe">
+  <div class="env">
+    <div>
+      <h2 id="t-soupe">La soupe de poisson</h2>
+      <p>C'est le deuxième plat le plus cité dans vos avis, après les huîtres.
+         Servie brûlante, avec la rouille, les croûtons et le fromage à part —
+         et personne ne la fait comme ça au marché.</p>
+    </div>
+    <div class="houle" aria-hidden="true">
+      <svg viewBox="0 0 400 120" fill="none">
+        <path d="M0 80c33-24 67-24 100 0s67 24 100 0 67-24 100 0 67 24 100 0" stroke="#DCEAE6" stroke-width="3"/>
+        <path d="M0 96c33-24 67-24 100 0s67 24 100 0 67-24 100 0 67 24 100 0" stroke="#DCEAE6" stroke-width="2" opacity=".6"/>
+        <path d="M0 64c33-24 67-24 100 0s67 24 100 0 67-24 100 0 67 24 100 0" stroke="#DCEAE6" stroke-width="2" opacity=".35"/>
+        <circle cx="200" cy="36" r="20" stroke="#F5C243" stroke-width="3"/>
+        <path d="M186 36h28M200 22v28" stroke="#F5C243" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">DANS LE MARCHÉ</h3>
+      <p>Marché des Capucins<br>Place des Capucins<br>33800 Bordeaux</p>
+    </div>
+    <div>
+      <h3>HORAIRES <span class="avalider">à confirmer</span></h3>
+      <p>Aux heures du marché.<br>
+         <span style="color:var(--iode)">Vos horaires réels, jour par jour, prennent cette place.</span></p>
+    </div>
+    <div>
+      <h3>UN PLATEAU À EMPORTER</h3>
+      <p>On prépare, vous passez le prendre&nbsp;:</p>
+      <a class="tel" href="tel:+33668693300">06 68 69 33 00</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: coquilles, houle et ardoise sont dessinées en SVG et CSS.
+       Un reportage photo du banc les remplacera.</p>
+  </div>
+</footer>
+</body>
+</html>

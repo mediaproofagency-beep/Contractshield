@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa Gatti Trattoria — la maison des chats — Bastide, Bordeaux</title>
+<meta name="description" content="Casa Gatti Trattoria, 53 cours Le Rouzic à Bordeaux-Bastide. Burrata, pesto, amatriciana, ragù, tartufo et les pâtes à la pistache. 4,9 sur Google.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Work+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lait:#FBF8F9; --aubergine:#3B2340; --pistache:#7FA65A;
+  --encre:#241726; --cendre:#8C8090;
+  --marge:clamp(1rem,5vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--lait); color:var(--encre);
+  font:400 clamp(1rem,.95rem + .3vw,1.08rem)/1.65 "Work Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Prata,Georgia,serif; font-weight:400; line-height:1.1; margin:0}
+a{color:var(--aubergine)}
+:focus-visible{outline:3px solid var(--pistache); outline-offset:3px}
+.env{max-width:1000px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:20;background:var(--aubergine);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.4rem 0}
+.top h1{font-size:clamp(1.1rem,4vw,1.5rem); letter-spacing:.22em; text-transform:uppercase; color:var(--aubergine)}
+.top p{margin:0; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--cendre)}
+
+/* --- ouverture --- */
+.ouv{padding:clamp(2rem,6vw,3.5rem) 0 clamp(2rem,6vw,3rem)}
+.ouv .env{display:grid; gap:2rem; align-items:center}
+@media(min-width:780px){.ouv .env{grid-template-columns:.9fr 1.1fr}}
+.chat svg{width:100%; max-width:280px; height:auto; display:block}
+.ouv h2{font-size:clamp(1.7rem,6.5vw,3.1rem); max-width:15ch}
+.ouv h2 em{font-style:italic; color:var(--pistache)}
+.ouv p{margin:1.1rem 0 0; max-width:44ch; color:#4A3A50}
+.compteur{display:flex; gap:1.75rem; margin-top:1.75rem; padding:0; list-style:none}
+.compteur b{display:block; font-family:Prata,serif; font-size:1.8rem; line-height:1; color:var(--aubergine)}
+.compteur span{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--cendre)}
+
+/* --- set de table --- */
+.set{padding:0 0 clamp(2.5rem,7vw,4rem)}
+.nappe{position:relative; background:#fff; border:2px solid var(--aubergine); padding:clamp(1.4rem,4vw,2.6rem)}
+.frise{position:absolute; left:0; right:0; height:34px; overflow:hidden}
+.frise.haut{top:0}
+.frise.bas{bottom:0; transform:scaleY(-1)}
+.frise svg{display:block; height:34px; width:100%}
+.dedans{padding:2.4rem 0}
+.dedans h2{text-align:center; font-size:clamp(1.3rem,5vw,2rem); letter-spacing:.06em}
+.dedans .st{text-align:center; font-size:.7rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--cendre); margin:.5rem 0 2rem}
+.deux{display:grid; gap:clamp(1.5rem,4vw,3rem)}
+@media(min-width:720px){.deux{grid-template-columns:1fr 1fr}}
+.bloc h3{font-family:"Work Sans",sans-serif; font-weight:700; font-size:.72rem;
+  letter-spacing:.24em; text-transform:uppercase; color:var(--pistache);
+  border-bottom:1px solid #E4DCE6; padding-bottom:.5rem; margin-bottom:.9rem}
+.bloc ul{list-style:none; margin:0 0 1.75rem; padding:0}
+.bloc li{display:flex; justify-content:space-between; gap:1rem; align-items:baseline; padding:.45rem 0}
+.bloc li b{font-weight:400}
+.bloc li small{display:block; color:var(--cendre); font-size:.82rem}
+.bloc li .p{font-variant-numeric:tabular-nums; color:var(--aubergine)}
+.vedette{margin:2rem 0; padding:1.2rem; background:#F2F6EC; border-left:4px solid var(--pistache)}
+.vedette b{font-family:Prata,serif; font-size:1.15rem; display:block}
+.vedette span{font-size:.9rem; color:#4A3A50}
+
+/* --- pistache --- */
+.pist{background:var(--aubergine); color:#F0E7F2; padding:clamp(2.5rem,8vw,4.5rem) 0}
+.pist .env{display:grid; gap:2rem; align-items:center}
+@media(min-width:800px){.pist .env{grid-template-columns:1.1fr .9fr}}
+.pist h2{color:#fff; font-size:clamp(1.6rem,6vw,2.7rem); max-width:16ch}
+.pist h2 em{font-style:italic; color:var(--pistache)}
+.pist p{margin:1.1rem 0 0; max-width:46ch; color:#D7C8DB}
+.grains{display:grid; grid-template-columns:repeat(6,1fr); gap:.6rem; max-width:280px}
+.grains i{aspect-ratio:1; border-radius:52% 48% 46% 54%; background:var(--pistache); display:block; opacity:.9}
+.grains i:nth-child(3n){opacity:.55}
+.grains i:nth-child(4n){opacity:.72; transform:rotate(18deg)}
+
+/* --- venir --- */
+.venir{padding:clamp(2.5rem,7vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:"Work Sans",sans-serif; font-weight:700; font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--cendre); margin-bottom:.6rem}
+.venir p{margin:0}
+.tel{display:inline-block; margin-top:.6rem; background:var(--aubergine); color:#fff;
+  font-family:Prata,serif; font-size:1.1rem; padding:.75rem 1.2rem; text-decoration:none}
+.tel:hover{background:var(--pistache); color:var(--encre)}
+.avalider{display:inline-block; font-family:"Work Sans",sans-serif; font-weight:700; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--pistache); color:#fff;
+  padding:.15rem .45rem; vertical-align:middle}
+
+footer{background:var(--encre); color:#A091A6; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#carta">Aller à la carte</a>
+
+<header class="env top">
+  <h1>Casa Gatti</h1>
+  <p>Trattoria · 53 cours Le Rouzic, Bordeaux-Bastide</p>
+</header>
+
+<main>
+<section class="ouv" aria-labelledby="t-ouv">
+  <div class="env">
+    <div class="chat" aria-hidden="true">
+      <svg viewBox="0 0 240 200" fill="none" stroke="#3B2340" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M78 74c0-22 8-38 8-38l18 16a56 56 0 0 1 32 0l18-16s8 16 8 38"/>
+        <path d="M70 108c0-24 22-40 50-40s50 16 50 40-22 44-50 44-50-20-50-44Z"/>
+        <circle cx="103" cy="104" r="4.5" fill="#3B2340"/>
+        <circle cx="137" cy="104" r="4.5" fill="#3B2340"/>
+        <path d="M120 118v6M120 124c-4 5-11 4-13 0M120 124c4 5 11 4 13 0"/>
+        <path d="M96 116 66 108M96 122 68 124M144 116l30-8M144 122l28 2"/>
+        <path d="M84 148c-6 20-2 38 10 44M156 148c6 20 2 38-10 44M94 192h52"/>
+        <path d="M170 150c22 4 34 20 26 34-6 10-20 8-22-2s8-16 16-10" stroke="#7FA65A"/>
+      </svg>
+    </div>
+    <div>
+      <h2 id="t-ouv">Casa Gatti, ça veut dire <em>la maison des chats</em>.</h2>
+      <p>Une petite salle cours Le Rouzic, une carte courte, et des pâtes faites
+         pour être mangées le jour même. On y vient pour la burrata, on y revient
+         pour l'amatriciana — et pour un plat vert dont tout le monde parle en
+         sortant.</p>
+      <ul class="compteur">
+        <li><b>4,9</b><span>sur Google</span></li>
+        <li><b>87</b><span>avis</span></li>
+        <li><b>Bastide</b><span>rive droite</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="set env" id="carta" aria-labelledby="t-carta">
+  <div class="nappe">
+    <div class="frise haut" aria-hidden="true">
+      <svg viewBox="0 0 600 34" preserveAspectRatio="none">
+        <pattern id="fh" width="60" height="34" patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="#7FA65A" stroke-width="1.6" stroke-linecap="round">
+            <path d="M18 26c0-8 5-12 12-12s12 4 12 12"/>
+            <path d="M20 16l-2-6 6 3M40 16l2-6-6 3"/>
+            <path d="M26 22h.01M34 22h.01" stroke-width="2.6"/>
+            <path d="M42 26c6-2 8-6 6-9"/>
+          </g>
+        </pattern>
+        <rect width="600" height="34" fill="url(#fh)"/>
+      </svg>
+    </div>
+    <div class="frise bas" aria-hidden="true">
+      <svg viewBox="0 0 600 34" preserveAspectRatio="none"><rect width="600" height="34" fill="url(#fh)"/></svg>
+    </div>
+
+    <div class="dedans">
+      <h2 id="t-carta">La carta</h2>
+      <p class="st">Set de table — Casa Gatti <span class="avalider">à valider</span></p>
+
+      <div class="deux">
+        <div class="bloc">
+          <h3>Antipasti</h3>
+          <ul>
+            <li><span><b>Burrata des Pouilles</b><small>Tomates du marché, basilic, huile verte</small></span><span class="p">12 €</span></li>
+            <li><span><b>Vitello tonnato</b><small>Veau rosé, sauce au thon, câpres</small></span><span class="p">11 €</span></li>
+            <li><span><b>Focaccia du jour</b><small>Sortie du four à 18 h</small></span><span class="p">6 €</span></li>
+          </ul>
+
+          <h3>Dolci</h3>
+          <ul>
+            <li><span><b>Tartufo</b><small>Le vrai, cœur coulant, cacao amer</small></span><span class="p">8 €</span></li>
+            <li><span><b>Tiramisù de la maison</b><small>Fait le matin, servi à la cuillère</small></span><span class="p">7 €</span></li>
+          </ul>
+        </div>
+
+        <div class="bloc">
+          <h3>Primi</h3>
+          <ul>
+            <li><span><b>Amatriciana</b><small>Guanciale, tomate, pecorino, poivre</small></span><span class="p">16 €</span></li>
+            <li><span><b>Ragù de la casa</b><small>Six heures de cuisson, tagliatelles fraîches</small></span><span class="p">18 €</span></li>
+            <li><span><b>Pesto au mortier</b><small>Basilic, pignons, parmesan — rien d'autre</small></span><span class="p">15 €</span></li>
+          </ul>
+
+          <h3>Vini</h3>
+          <ul>
+            <li><span><b>Le verre de rouge</b><small>Toscane ou Sicile, ça change</small></span><span class="p">5 €</span></li>
+            <li><span><b>Le pichet de blanc</b><small>50 cl, bien frais</small></span><span class="p">14 €</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="vedette">
+        <b>Le piatto : pâtes à la pistache — 17 €</b>
+        <span>Crème de pistache de Bronte, éclats grillés, zeste de citron. C'est
+        le plat que vos clients citent en premier dans leurs avis.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pist" aria-labelledby="t-pist">
+  <div class="env">
+    <div>
+      <h2 id="t-pist">Pourquoi la pistache est <em>en vert</em> partout sur cette page</h2>
+      <p>Parce que c'est ce dont on parle en sortant de chez vous. Une maquette
+         n'a pas à montrer toute la carte : elle doit montrer ce dont les gens se
+         souviennent. Ici, la couleur du site vient du plat, pas d'une charte.</p>
+    </div>
+    <div class="grains" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">L'adresse</h3>
+      <p>53 cours Le Rouzic<br>33100 Bordeaux<br>
+         <span style="color:var(--cendre)">Bastide</span></p>
+    </div>
+    <div>
+      <h3>Les services <span class="avalider">à confirmer</span></h3>
+      <p>Midi et soir.<br>
+         <span style="color:var(--cendre)">Vos jours et horaires réels prennent cette place.</span></p>
+    </div>
+    <div>
+      <h3>Réserver</h3>
+      <p>La salle est petite, mieux vaut appeler&nbsp;:</p>
+      <a class="tel" href="tel:+33764133715">07 64 13 37 15</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: le chat, la frise et les grains sont dessinés en SVG et CSS.</p>
+  </div>
+</footer>
+</body>
+</html>

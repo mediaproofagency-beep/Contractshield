@@ -1,0 +1,31 @@
+# Bistrot a huitres Chez Jean-Mi
+# variante        : A — aucun site
+# vérifié sans site : NON — ne pas envoyer avant 1-verifier.py
+# corps            : 102 mots (plafond 120), un seul lien, aucune image
+# maquette         : maquettes/chez-jean-mi/index.html
+# Les {{PLACEHOLDERS}} sont remplis par scripts/3-envoyer.py depuis data/expediteur.json
+
+OBJET: une page pour Chez Jean-Mi
+
+Bonjour,
+
+Je suis passé sur votre fiche Google — six huîtres et un verre à 11 €, et
+1 209 avis pour le dire. C'est une institution du marché.
+
+Mais quand quelqu'un cherche « huîtres Capucins », il n'y a rien à ouvrir : la
+fiche, et puis plus rien.
+
+J'ai pris une heure pour dessiner ce à quoi pourrait ressembler votre page :
+{{URL_MAQUETTE}}
+
+Le prix y arrive avant tout le reste, parce que c'est votre argument.
+
+C'est une maquette, pas un devis. Si ça ne vous parle pas, supprimez ce
+message. Sinon, on en discute dix minutes.
+
+{{EXPEDITEUR_PRENOM}}, MediaProof Agency
+
+--
+MediaProof Agency — {{ADRESSE_AGENCE}} — SIREN {{SIREN}}
+Vos coordonnées sont issues de votre fiche Google Business Profile.
+Ne plus recevoir de message : {{URL_DESINSCRIPTION}}

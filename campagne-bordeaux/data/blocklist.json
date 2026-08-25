@@ -1,0 +1,6 @@
+{
+  "regle": "Toute demande de retrait est honorée immédiatement et l'adresse ajoutée ici. scripts/3-envoyer.py vérifie cette liste avant chaque envoi, y compris en dry-run.",
+  "format": "email en minuscules, date, origine de la demande",
+  "adresses": [],
+  "domaines": []
+}

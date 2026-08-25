@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Calixte — bistrot de quartier, rue Bonnefin — Bordeaux Bastide</title>
+<meta name="description" content="Le Calixte, 64 rue Bonnefin à Bordeaux-Bastide. Bistrot de quartier, carte renouvelée, forte offre végétarienne : carpaccio de veau-abricot, poireaux grillés à l'orange, falafels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rhubarbe:#B33A5B; --olive:#2F3524; --craie:#F4F5F1;
+  --abricot:#DE8B3B; --fumee:#6E7364;
+  --marge:clamp(1rem,5vw,3rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0; background:var(--craie); color:var(--olive);
+  font:400 clamp(1rem,.95rem + .3vw,1.08rem)/1.6 Manrope,system-ui,sans-serif}
+h1,h2,h3{font-family:Syne,system-ui,sans-serif; font-weight:800; line-height:1.03;
+  letter-spacing:-.02em; margin:0}
+a{color:var(--rhubarbe)}
+:focus-visible{outline:3px solid var(--rhubarbe); outline-offset:3px}
+.env{max-width:1060px; margin:0 auto; padding:0 var(--marge)}
+.saut{position:absolute;left:-9999px}
+.saut:focus{left:1rem;top:1rem;position:fixed;z-index:30;background:var(--rhubarbe);color:#fff;padding:.6rem 1rem}
+
+.top{display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; justify-content:space-between;
+  align-items:baseline; padding:1.3rem 0}
+.top h1{font-size:clamp(1.3rem,4.5vw,1.8rem)}
+.top p{margin:0; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--fumee)}
+
+/* --- compteur --- */
+.compte{padding:clamp(2rem,6vw,4rem) 0 clamp(1.5rem,4vw,2.5rem)}
+.compte .gros{font-family:Syne,sans-serif; font-weight:800; line-height:.92;
+  font-size:clamp(2.3rem,11vw,5.5rem); letter-spacing:-.03em; margin:0}
+.compte .gros b{color:var(--rhubarbe); font-weight:800}
+.compte .sous{font-family:Syne,sans-serif; font-weight:600;
+  font-size:clamp(1.1rem,4vw,1.7rem); margin:.6rem 0 0; max-width:22ch}
+.compte p.txt{max-width:50ch; margin:1.2rem 0 0; color:#4B5140}
+.badges{display:flex; flex-wrap:wrap; gap:1.5rem; margin:1.75rem 0 0; padding:0; list-style:none}
+.badges b{display:block; font-family:Syne,sans-serif; font-size:1.6rem; line-height:1}
+.badges span{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fumee)}
+
+/* --- filtre --- */
+.barre{position:sticky; top:0; z-index:10; background:rgba(244,245,241,.94);
+  backdrop-filter:blur(6px); border-top:2px solid var(--olive); border-bottom:2px solid var(--olive)}
+.barre .env{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; padding-top:.75rem; padding-bottom:.75rem}
+.barre button{font:700 .8rem/1 Manrope,sans-serif; letter-spacing:.04em;
+  padding:.6rem 1rem; border:2px solid var(--olive); background:transparent;
+  color:var(--olive); cursor:pointer; border-radius:99px}
+.barre button[aria-pressed="true"]{background:var(--olive); color:var(--craie)}
+.barre button[data-f="vege"][aria-pressed="true"]{background:var(--rhubarbe); border-color:var(--rhubarbe); color:#fff}
+.barre button[data-f="vegan"][aria-pressed="true"]{background:var(--abricot); border-color:var(--abricot); color:#241E14}
+.barre .cpt{margin-left:auto; font-size:.78rem; color:var(--fumee); letter-spacing:.04em}
+
+/* --- carte --- */
+.carte{padding:clamp(2rem,6vw,3.5rem) 0}
+.carte h2{font-size:clamp(1.4rem,5vw,2.2rem); margin-bottom:1.5rem}
+.plats{display:grid; gap:1px; background:#DDDFD7; border:1px solid #DDDFD7; list-style:none; margin:0; padding:0}
+@media(min-width:680px){.plats{grid-template-columns:1fr 1fr}}
+.plat{background:var(--craie); padding:1.35rem 1.25rem; display:flex; flex-direction:column; gap:.5rem}
+.plat[hidden]{display:none}
+.plat .l1{display:flex; justify-content:space-between; gap:1rem; align-items:baseline}
+.plat h3{font-size:1.15rem; letter-spacing:-.01em}
+.plat .p{font-family:Syne,sans-serif; font-weight:700; color:var(--rhubarbe); font-variant-numeric:tabular-nums}
+.plat p{margin:0; font-size:.92rem; color:#4B5140}
+.tags{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.2rem}
+.tag{font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:.2rem .5rem; border-radius:99px}
+.tag.v{background:#F6E3E9; color:var(--rhubarbe)}
+.tag.vg{background:#FAEEDF; color:#8A5518}
+.tag.s{background:#E4E7DE; color:var(--fumee)}
+.vide{padding:2rem 0; color:var(--fumee)}
+.note{font-size:.85rem; color:var(--fumee); margin-top:1.5rem}
+
+/* --- changement --- */
+.chg{background:var(--olive); color:#E5E8DE; padding:clamp(2.5rem,8vw,4.5rem) 0}
+.chg .env{display:grid; gap:1.75rem}
+@media(min-width:820px){.chg .env{grid-template-columns:1.05fr .95fr; align-items:center}}
+.chg h2{color:#fff; font-size:clamp(1.6rem,6vw,2.6rem); max-width:17ch}
+.chg h2 em{font-style:normal; color:var(--rhubarbe)}
+.chg p{margin:1rem 0 0; max-width:44ch; color:#C2C8B8}
+.feuilles svg{width:100%; max-width:320px; height:auto; display:block}
+
+/* --- venir --- */
+.venir{padding:clamp(2.5rem,7vw,4rem) 0}
+.venir .env{display:grid; gap:2rem}
+@media(min-width:720px){.venir .env{grid-template-columns:repeat(3,1fr)}}
+.venir h3{font-family:Manrope,sans-serif; font-weight:700; font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--fumee); margin-bottom:.6rem}
+.venir p{margin:0}
+.tel{display:inline-block; margin-top:.6rem; background:var(--rhubarbe); color:#fff;
+  font-family:Syne,sans-serif; font-weight:700; font-size:1.05rem;
+  padding:.75rem 1.2rem; text-decoration:none; border-radius:99px}
+.tel:hover{background:var(--olive)}
+.avalider{display:inline-block; font-family:Manrope,sans-serif; font-weight:700; font-size:.62rem;
+  letter-spacing:.12em; text-transform:uppercase; background:var(--rhubarbe); color:#fff;
+  padding:.15rem .45rem; vertical-align:middle; border-radius:99px}
+
+footer{background:#241E14; color:#8E9382; font-size:.82rem; padding:2rem 0}
+footer strong{color:#fff}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<a class="saut" href="#carte">Aller à la carte</a>
+
+<header class="env top">
+  <h1>Le Calixte</h1>
+  <p>Bistrot de quartier · 64 rue Bonnefin, Bordeaux-Bastide</p>
+</header>
+
+<main>
+<section class="compte env" aria-labelledby="t-compte">
+  <p class="gros" id="t-compte"><b id="n-vege">8</b> plats sur <b id="n-tot">14</b></p>
+  <p class="sous">se mangent sans viande.</p>
+  <p class="txt">Et ce ne sont pas des garnitures promues au rang de plat : poireaux
+     grillés à l'orange, falafels, légumes de saison traités comme on traite une
+     pièce de viande. L'équipe et la carte ont changé — c'est le bon moment pour
+     que la vitrine change aussi.</p>
+  <ul class="badges">
+    <li><b>4,8</b><span>sur Google</span></li>
+    <li><b>89</b><span>avis</span></li>
+    <li><b>Bastide</b><span>rue Bonnefin</span></li>
+  </ul>
+</section>
+
+<div class="barre">
+  <div class="env">
+    <button type="button" data-f="tout"  aria-pressed="true">Toute la carte</button>
+    <button type="button" data-f="vege"  aria-pressed="false">Végétarien</button>
+    <button type="button" data-f="vegan" aria-pressed="false">Végétalien</button>
+    <span class="cpt" id="compteur" role="status" aria-live="polite">14 plats affichés</span>
+  </div>
+</div>
+
+<section class="carte env" id="carte" aria-labelledby="t-carte">
+  <h2 id="t-carte">La carte <span class="avalider">à valider</span></h2>
+  <ul class="plats" id="plats">
+    <li class="plat" data-tags=""><div class="l1"><h3>Carpaccio de veau, abricot</h3><span class="p">14 €</span></div><p>Veau taillé fin, abricots rôtis, amandes, huile de romarin.</p><div class="tags"><span class="tag s">Entrée</span></div></li>
+    <li class="plat" data-tags="vege"><div class="l1"><h3>Poireaux grillés à l'orange</h3><span class="p">12 €</span></div><p>Poireaux brûlés à la braise, jus d'orange réduit, noisettes.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag s">Entrée</span></div></li>
+    <li class="plat" data-tags="vege vegan"><div class="l1"><h3>Falafels, tahini, herbes</h3><span class="p">13 €</span></div><p>Pois chiches trempés la veille, frits à la commande, sauce sésame.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag vg">Végétalien</span></div></li>
+    <li class="plat" data-tags="vege"><div class="l1"><h3>Œuf parfait, crème de cresson</h3><span class="p">11 €</span></div><p>Basse température, cresson du marché, croûtons à l'ail.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag s">Entrée</span></div></li>
+    <li class="plat" data-tags=""><div class="l1"><h3>Pièce de bœuf, jus corsé</h3><span class="p">23 €</span></div><p>Bœuf du Sud-Ouest, pommes de terre écrasées, jus au poivre long.</p><div class="tags"><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags=""><div class="l1"><h3>Merlu de ligne, beurre blanc</h3><span class="p">21 €</span></div><p>Dos de merlu, légumes du jour, beurre blanc à l'échalote.</p><div class="tags"><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags="vege vegan"><div class="l1"><h3>Courge rôtie entière</h3><span class="p">18 €</span></div><p>Rôtie deux heures, graines torréfiées, huile de coriandre.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag vg">Végétalien</span><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags="vege"><div class="l1"><h3>Risotto d'orge, champignons</h3><span class="p">17 €</span></div><p>Orge perlé, champignons de saison, vieux comté.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags=""><div class="l1"><h3>Cochon confit, chou grillé</h3><span class="p">20 €</span></div><p>Épaule confite douze heures, chou pointu, moutarde ancienne.</p><div class="tags"><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags="vege vegan"><div class="l1"><h3>Aubergine au miso</h3><span class="p">16 €</span></div><p>Laquée au four, sésame, oignons nouveaux, riz complet.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag vg">Végétalien</span><span class="tag s">Plat</span></div></li>
+    <li class="plat" data-tags="vege"><div class="l1"><h3>Tarte fine aux pommes</h3><span class="p">8 €</span></div><p>Pâte feuilletée maison, crème fraîche d'Isigny.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag s">Dessert</span></div></li>
+    <li class="plat" data-tags="vege vegan"><div class="l1"><h3>Sorbet cassis, basilic</h3><span class="p">7 €</span></div><p>Turbiné sur place, feuilles de basilic fraîches.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag vg">Végétalien</span><span class="tag s">Dessert</span></div></li>
+    <li class="plat" data-tags="vege"><div class="l1"><h3>Fromages affinés</h3><span class="p">9 €</span></div><p>Trois fromages, confiture de figues, pain aux noix.</p><div class="tags"><span class="tag v">Végétarien</span><span class="tag s">Dessert</span></div></li>
+    <li class="plat" data-tags=""><div class="l1"><h3>Baba à l'armagnac</h3><span class="p">9 €</span></div><p>Imbibé devant vous, chantilly peu sucrée.</p><div class="tags"><span class="tag s">Dessert</span></div></li>
+  </ul>
+  <p class="vide" id="vide" hidden>Aucun plat ne correspond à ce filtre.</p>
+  <p class="note">Carte d'exemple écrite à partir de votre fiche Google et des avis clients.
+     Vos plats et vos prix prennent cette place — et le compteur du haut se recalcule tout seul.</p>
+</section>
+
+<section class="chg" aria-labelledby="t-chg">
+  <div class="env">
+    <div>
+      <h2 id="t-chg">Une carte qui change mérite une page <em>qui suit</em></h2>
+      <p>Votre équipe a changé, votre carte aussi. Sur Google, rien ne l'indique :
+         les avis parlent encore de l'ancienne maison. Une page à vous, mise à
+         jour quand la carte bouge, c'est ce qui referme cet écart.</p>
+      <p>Le filtre du haut n'est pas un gadget : c'est la première question que se
+         pose une table de quatre dont l'un ne mange pas de viande.</p>
+    </div>
+    <div class="feuilles" aria-hidden="true">
+      <svg viewBox="0 0 320 220" fill="none" stroke="#B33A5B" stroke-width="2" stroke-linecap="round">
+        <path d="M160 210V70"/>
+        <path d="M160 150c-40 0-64-22-64-52 30 0 64 16 64 52ZM160 150c40 0 64-22 64-52-30 0-64 16-64 52Z"/>
+        <path d="M160 104c-32 0-52-18-52-42 24 0 52 13 52 42ZM160 104c32 0 52-18 52-42-24 0-52 13-52 42Z" stroke="#DE8B3B"/>
+        <path d="M160 70c-22 0-36-13-36-30 17 0 36 9 36 30ZM160 70c22 0 36-13 36-30-17 0-36 9-36 30Z" stroke="#E5E8DE"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="venir" aria-labelledby="t-venir">
+  <div class="env">
+    <div>
+      <h3 id="t-venir">L'adresse</h3>
+      <p>64 rue Bonnefin<br>33100 Bordeaux<br>
+         <span style="color:var(--fumee)">Bastide</span></p>
+    </div>
+    <div>
+      <h3>Les services <span class="avalider">à confirmer</span></h3>
+      <p>Midi et soir.<br>
+         <span style="color:var(--fumee)">Vos jours et horaires réels prennent cette place.</span></p>
+    </div>
+    <div>
+      <h3>Réserver</h3>
+      <p>Une table, un menu de groupe, une allergie à signaler&nbsp;:</p>
+      <a class="tel" href="tel:+33556676415">05 56 67 64 15</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="env">
+    <p><strong>Maquette de démonstration — MediaProof Agency.</strong> Textes et visuels à valider.</p>
+    <p>Aucune photographie&nbsp;: le feuillage et les pastilles sont dessinés en SVG et CSS.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var plats    = Array.prototype.slice.call(document.querySelectorAll('#plats .plat'));
+  var boutons  = document.querySelectorAll('.barre button');
+  var compteur = document.getElementById('compteur');
+  var vide     = document.getElementById('vide');
+  var nVege    = document.getElementById('n-vege');
+  var nTot     = document.getElementById('n-tot');
+
+  nTot.textContent  = plats.length;
+  nVege.textContent = plats.filter(function(p){
+    return p.dataset.tags.indexOf('vege') !== -1; }).length;
+
+  function filtrer(f){
+    var visibles = 0;
+    plats.forEach(function(p){
+      var ok = (f === 'tout') || p.dataset.tags.split(' ').indexOf(f) !== -1;
+      p.hidden = !ok;
+      if (ok) visibles++;
+    });
+    vide.hidden = visibles > 0;
+    compteur.textContent = visibles + (visibles > 1 ? ' plats affichés' : ' plat affiché');
+  }
+
+  boutons.forEach(function(b){
+    b.addEventListener('click', function(){
+      boutons.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      filtrer(b.dataset.f);
+    });
+  });
+
+  filtrer('tout');
+})();
+</script>
+</body>
+</html>

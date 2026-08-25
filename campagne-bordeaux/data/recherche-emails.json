@@ -1,0 +1,116 @@
+{
+  "regle": "Ne jamais ecrire une adresse qu'on n'a pas vue ecrite quelque part. Un champ email nul est un resultat valide : le prospect bascule sur contacts-alternatifs.json.",
+  "ordre_de_recherche": [
+    "Fiche Google Business Profile (editorialSummary, posts)",
+    "Page Facebook, section Informations",
+    "Bio Instagram",
+    "societe.com",
+    "Infobel",
+    "PagesJaunes",
+    "restaurants-de-france.com",
+    "Page contact d'un site existant (cas CIBLE_FAIBLE)"
+  ],
+  "entrees": [
+    {
+      "slug": "le-guet-a-pan",
+      "nom": "Le Guet-A-Pan",
+      "email": "paulbatsalle@yahoo.fr",
+      "source": "infobel",
+      "confiance": "moyenne",
+      "vu_le": "2026-08-26",
+      "note": "Adresse personnelle du fondateur relevee sur la fiche Infobel. Confiance moyenne : adresse perso, pas une adresse d'etablissement.",
+      "prenom_contact": "Paul"
+    },
+    {
+      "slug": "chez-ludo",
+      "nom": "Bar des Capucins - Chez Ludo",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "Aucun email public. Presence Facebook uniquement (page 'mangerlanuitabordeaux'). Passer par Messenger ou telephone.",
+      "prenom_contact": "Ludo"
+    },
+    {
+      "slug": "chez-jean-mi",
+      "nom": "Bistrot a huitres Chez Jean-Mi",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "l-assiette-du-coin",
+      "nom": "L'assiette du coin",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "l-oustaou",
+      "nom": "L'Oustaou, Troquet Landais",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "casa-gatti",
+      "nom": "CASA GATTI TRATTORIA",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "le-calixte",
+      "nom": "LE CALIXTE",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "la-mere-michel",
+      "nom": "La Mere Michel",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "toopita",
+      "nom": "TOOPITA Saint Michel",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    },
+    {
+      "slug": "dat-viet",
+      "nom": "DAT VIET CHARTRONS",
+      "email": null,
+      "source": null,
+      "confiance": null,
+      "vu_le": null,
+      "note": "A rechercher. Ordre : fiche Google, page Facebook > Informations, bio Instagram, societe.com, infobel, pagesjaunes. Laisser email a null si rien n'est trouve.",
+      "prenom_contact": null
+    }
+  ],
+  "a_faire": "Completer les entrees dont email vaut null, puis relancer python3 scripts/2-contacts.py"
+}

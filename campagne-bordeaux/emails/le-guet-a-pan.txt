@@ -1,0 +1,29 @@
+# Le Guet-A-Pan
+# variante        : B — page auto-générée / réseau social
+# vérifié sans site : oui
+# corps            : 94 mots (plafond 120), un seul lien, aucune image
+# maquette         : maquettes/le-guet-a-pan/index.html
+# Les {{PLACEHOLDERS}} sont remplis par scripts/3-envoyer.py depuis data/expediteur.json
+
+OBJET: une page pour Le Guet-A-Pan
+
+Bonjour Paul,
+
+Je suis passé sur votre fiche Google — le four Josper, et les produits achetés
+aux étals d'à côté. C'est ce que racontent vos 223 avis.
+
+Vous avez bien une page en ligne, mais c'est un modèle standard qu'on retrouve
+sur des centaines d'établissements. La vôtre pourrait ressembler à ça :
+{{URL_MAQUETTE}}
+
+J'y ai mis le plan du marché, avec la distance jusqu'à chaque fournisseur.
+
+C'est une maquette, pas un devis. Si ça ne vous parle pas, supprimez ce
+message. Si ça vous parle, on en discute dix minutes.
+
+{{EXPEDITEUR_PRENOM}}, MediaProof Agency
+
+--
+MediaProof Agency — {{ADRESSE_AGENCE}} — SIREN {{SIREN}}
+Vos coordonnées sont issues de votre fiche Google Business Profile.
+Ne plus recevoir de message : {{URL_DESINSCRIPTION}}
