@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>File de validation — ContractShield</title>
+<style>
+  :root {
+    --bg: #fbfbfa; --panel: #fff; --ink: #16191d; --muted: #6b7280; --line: #e5e7eb;
+    --ok: #0f7b4f; --ok-bg: #e8f5ee; --bad: #b3261e; --bad-bg: #fdecea;
+    --warn: #8a5a00; --warn-bg: #fdf3e0; --accent: #1f3d7a;
+    --radius: 10px; --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a; --panel: #1b1e24; --ink: #e8eaed; --muted: #9aa3af; --line: #2c313a;
+      --ok: #6ee7a8; --ok-bg: #10291e; --bad: #ff9d94; --bad-bg: #2c1614;
+      --warn: #f0c274; --warn-bg: #2a2212; --accent: #9db8ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 5; background: var(--panel);
+    border-bottom: 1px solid var(--line); padding: 10px 20px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  header h1 { font-size: 15px; margin: 0; font-weight: 650; }
+  .progress { font-variant-numeric: tabular-nums; color: var(--muted); }
+  .spacer { flex: 1; }
+  button {
+    font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); cursor: pointer;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  kbd {
+    font: 11px/1 var(--mono); border: 1px solid var(--line); border-bottom-width: 2px;
+    border-radius: 4px; padding: 3px 5px; color: var(--muted); background: var(--bg);
+  }
+  main { max-width: 780px; margin: 0 auto; padding: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  /* 1. Le verdict du validateur, pleine largeur, avant tout le reste. */
+  .verdict { padding: 12px 18px; font-weight: 600; display: flex; gap: 10px; align-items: flex-start; }
+  .verdict.ok { background: var(--ok-bg); color: var(--ok); }
+  .verdict.bad { background: var(--bad-bg); color: var(--bad); }
+  .verdict ul { margin: 6px 0 0; padding-left: 18px; font-weight: 400; }
+  .verdict code { font: 12px/1.4 var(--mono); }
+  /* 2. Le post tel qu'il apparaîtra. */
+  .post {
+    padding: 18px; white-space: pre-wrap; word-break: break-word;
+    border-bottom: 1px solid var(--line);
+  }
+  .post .truncated { color: var(--muted); }
+  .duel { display: grid; gap: 12px; margin: 14px 0; }
+  @media (min-width: 640px) { .duel { grid-template-columns: 1fr 1fr; } }
+  .duel section { border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+  .duel h3 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .duel .them { background: var(--bg); }
+  .duel .us { background: var(--ok-bg); }
+  /* 3. Les références. */
+  .refs { padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .refs h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
+  .refs a { color: var(--accent); }
+  /* 4. Les métadonnées, en dernier et en petit. */
+  .meta { padding: 10px 18px; font-size: 12px; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; }
+  .actions { padding: 14px 18px; display: flex; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--line); }
+  .empty, .done {
+    text-align: center; padding: 60px 20px; color: var(--muted);
+    border: 1px dashed var(--line); border-radius: var(--radius); background: var(--panel);
+  }
+  .empty strong, .done strong { display: block; color: var(--ink); font-size: 17px; margin-bottom: 6px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--line); }
+  .badge.stale { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+  .toast {
+    position: fixed; left: 50%; transform: translateX(-50%); bottom: 24px; z-index: 20;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 14px; display: flex; gap: 12px; align-items: center;
+    box-shadow: 0 8px 24px rgb(0 0 0 / .14);
+  }
+  dialog {
+    border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel);
+    color: var(--ink); padding: 18px; max-width: 420px; width: calc(100% - 32px);
+  }
+  dialog::backdrop { background: rgb(0 0 0 / .4); }
+  dialog h2 { margin: 0 0 12px; font-size: 15px; }
+  dialog label { display: block; padding: 6px 0; }
+  textarea {
+    width: 100%; min-height: 260px; font: 14px/1.5 var(--mono); padding: 12px;
+    border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  }
+  .counter { font-variant-numeric: tabular-nums; }
+  .counter.over { color: var(--bad); font-weight: 600; }
+  .error { background: var(--bad-bg); color: var(--bad); padding: 12px 18px; border-radius: var(--radius); margin-bottom: 16px; }
+  .error .rem { font-weight: 400; color: var(--ink); display: block; margin-top: 4px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .tabs { display: flex; gap: 6px; }
+  .tabs button[aria-selected="true"] { border-color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>File de validation</h1>
+  <div class="tabs" role="tablist" aria-label="Vues de la file">
+    <button role="tab" id="tab-pending" aria-selected="true" data-tab="pending">En attente <span data-count="pending">0</span></button>
+    <button role="tab" id="tab-blocked" aria-selected="false" data-tab="blocked">Bloqués <span data-count="blocked">0</span></button>
+    <button role="tab" id="tab-decided" aria-selected="false" data-tab="decided">Décidés <span data-count="decided">0</span></button>
+  </div>
+  <span class="progress" id="progress"></span>
+  <span class="spacer"></span>
+  <button id="btn-generate">Générer une semaine</button>
+  <button id="btn-help" aria-label="Aide clavier">?</button>
+</header>
+
+<main>
+  <div id="error" class="error" hidden></div>
+  <div id="content" aria-live="polite"></div>
+  <p class="sr" role="status" id="live"></p>
+</main>
+
+<dialog id="dlg-reject">
+  <h2>Motif du rejet</h2>
+  <form method="dialog" id="form-reject">
+    <label><input type="radio" name="reason" value="citation_fausse" checked /> Citation fausse</label>
+    <label><input type="radio" name="reason" value="ton" /> Ton</label>
+    <label><input type="radio" name="reason" value="angle_faible" /> Angle faible</label>
+    <label><input type="radio" name="reason" value="redondant" /> Redondant</label>
+    <label><input type="radio" name="reason" value="autre" /> Autre</label>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px">
+      <button value="cancel">Annuler</button>
+      <button value="confirm" id="reject-confirm">Rejeter</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-help">
+  <h2>Raccourcis</h2>
+  <p><kbd>J</kbd> / <kbd>K</kbd> item suivant, précédent</p>
+  <p><kbd>A</kbd> approuver <span style="color:var(--muted)">(annulable 5 s)</span></p>
+  <p><kbd>R</kbd> rejeter, avec motif</p>
+  <p><kbd>E</kbd> éditer le corps, <kbd>Échap</kbd> pour sortir</p>
+  <p><kbd>?</kbd> cette aide</p>
+  <p style="color:var(--muted)">Les raccourcis sont désactivés pendant la saisie.</p>
+  <form method="dialog" style="text-align:right"><button>Fermer</button></form>
+</dialog>
+
+<dialog id="dlg-edit">
+  <h2>Éditer le corps</h2>
+  <textarea id="edit-body" aria-label="Corps du post"></textarea>
+  <p>Caractères : <span class="counter" id="edit-counter">0</span> / 3000</p>
+  <form method="dialog" style="display:flex;gap:10px;justify-content:flex-end">
+    <button value="cancel">Annuler</button>
+    <button value="save" id="edit-save">Enregistrer et revalider</button>
+  </form>
+</dialog>
+
+<script type="module">
+const $ = (s) => document.querySelector(s);
+const state = { view: null, tab: 'pending', index: 0, undo: null, busy: false };
+
+const LABEL = {
+  citation_fausse: 'citation fausse', ton: 'ton', angle_faible: 'angle faible',
+  redondant: 'redondant', autre: 'autre',
+};
+
+async function api(path, body) {
+  const res = await fetch(path, {
+    method: body ? 'POST' : 'GET',
+    headers: body ? { 'content-type': 'application/json' } : {},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json().catch(() => ({ error: 'Réponse illisible du serveur.' }));
+  if (!res.ok) throw Object.assign(new Error(data.error || 'Erreur'), { remediation: data.remediation });
+  return data;
+}
+
+function showError(err) {
+  const box = $('#error');
+  box.innerHTML = '';
+  box.append(document.createTextNode(err.message));
+  if (err.remediation) {
+    const span = document.createElement('span');
+    span.className = 'rem';
+    span.textContent = err.remediation;
+    box.append(span);
+  }
+  box.hidden = false;
+}
+function clearError() { $('#error').hidden = true; }
+function announce(msg) { $('#live').textContent = msg; }
+
+async function refresh(keepIndex = true) {
+  const before = state.index;
+  state.view = await api('/api/queue');
+  for (const tab of ['pending', 'blocked', 'decided']) {
+    document.querySelector(`[data-count="${tab}"]`).textContent = state.view[tab].length;
+  }
+  const list = current();
+  state.index = keepIndex ? Math.min(before, Math.max(0, list.length - 1)) : 0;
+  render();
+}
+
+function current() { return state.view ? state.view[state.tab] : []; }
+
+/** Découpe le corps assemblé pour afficher le duel en deux colonnes. */
+function splitDuel(body) {
+  const them = body.match(/Ce que répond un assistant généraliste :\n([\s\S]*?)\n\n/);
+  const us = body.match(/Ce que dit le texte :\n([\s\S]*?)\n\n/);
+  if (!them || !us) return null;
+  const head = body.slice(0, them.index).trim();
+  const tail = body.slice(us.index + us[0].length).trim();
+  return { head, them: them[1].trim(), us: us[1].trim(), tail };
+}
+
+function renderPost(item) {
+  const wrap = document.createElement('div');
+  wrap.className = 'post';
+  const duel = item.format === 'duel' ? splitDuel(item.body) : null;
+  if (!duel) {
+    wrap.textContent = item.body;
+    return wrap;
+  }
+  const head = document.createElement('div');
+  head.textContent = duel.head;
+  const grid = document.createElement('div');
+  grid.className = 'duel';
+  grid.innerHTML =
+    '<section class="them"><h3>Assistant généraliste</h3><p></p></section>' +
+    '<section class="us"><h3>ContractShield</h3><p></p></section>';
+  grid.querySelector('.them p').textContent = duel.them;
+  grid.querySelector('.us p').textContent = duel.us;
+  const tail = document.createElement('div');
+  tail.textContent = duel.tail;
+  wrap.append(head, grid, tail);
+  return wrap;
+}
+
+function render() {
+  const box = $('#content');
+  box.innerHTML = '';
+  const list = current();
+
+  if (!state.view) { box.innerHTML = '<div class="empty"><strong>Chargement…</strong></div>'; return; }
+
+  if (list.length === 0) {
+    box.innerHTML = state.tab === 'pending'
+      ? '<div class="empty"><strong>File vide.</strong>Rien à valider. Génère une semaine de contenu pour remplir la file.</div>'
+      : state.tab === 'blocked'
+        ? '<div class="empty"><strong>Aucun item bloqué.</strong>Toutes les citations générées sont vérifiées.</div>'
+        : '<div class="empty"><strong>Aucune décision encore.</strong>Les items approuvés et rejetés apparaîtront ici.</div>';
+    $('#progress').textContent = '';
+    return;
+  }
+
+  state.index = Math.max(0, Math.min(state.index, list.length - 1));
+  const entry = list[state.index];
+  const { item, angle, approvable, stale, ageHours } = entry;
+  $('#progress').textContent = `${state.index + 1} / ${list.length}`;
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.tabIndex = -1;
+
+  // 1. Verdict du validateur, avant le texte.
+  const errs = item.validationErrors || [];
+  const verdict = document.createElement('div');
+  verdict.className = 'verdict ' + (errs.length ? 'bad' : 'ok');
+  if (errs.length === 0) {
+    const n = angle ? angle.legalRefs.length : 0;
+    verdict.textContent = `Citations vérifiées (${n} référence${n > 1 ? 's' : ''}).`;
+  } else {
+    const div = document.createElement('div');
+    div.textContent = `${errs.length} problème${errs.length > 1 ? 's' : ''} de validation :`;
+    const ul = document.createElement('ul');
+    for (const e of errs) {
+      const li = document.createElement('li');
+      li.textContent = e.message;
+      ul.append(li);
+    }
+    div.append(ul);
+    verdict.append(div);
+  }
+  card.append(verdict);
+
+  // 2. Le post.
+  card.append(renderPost(item));
+
+  // 3. Les références.
+  if (angle && angle.legalRefs.length) {
+    const refs = document.createElement('div');
+    refs.className = 'refs';
+    const h = document.createElement('h2');
+    h.textContent = 'Références de l’angle';
+    refs.append(h);
+    for (const r of angle.legalRefs) {
+      const p = document.createElement('p');
+      p.style.margin = '4px 0';
+      const a = document.createElement('a');
+      a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.textContent = `${r.code}, article ${r.article}`;
+      p.append(a);
+      refs.append(p);
+    }
+    card.append(refs);
+  }
+
+  // 4. Métadonnées, en dernier.
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  const bits = [
+    `#${item.id}`, item.channel, item.format,
+    angle ? `angle : ${angle.title}` : 'angle introuvable',
+    item.generatedBy,
+    `${item.body.length} car.`,
+  ];
+  if (item.editCount) bits.push(`édité ${item.editCount}×`);
+  if (item.status === 'rejected') bits.push(`rejeté : ${LABEL[item.rejectedReason] || item.rejectedReason}`);
+  if (item.status === 'approved') bits.push(`approuvé par ${item.approvedBy}`);
+  for (const b of bits) {
+    const s = document.createElement('span'); s.textContent = b; meta.append(s);
+  }
+  if (stale) {
+    const s = document.createElement('span');
+    s.className = 'badge stale';
+    s.textContent = `en attente depuis ${Math.round(ageHours)} h`;
+    meta.append(s);
+  }
+  card.append(meta);
+
+  // Actions. `A` est désactivé et visiblement désactivé quand le validateur bloque.
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+  const canDecide = item.status === 'pending_review' || item.status === 'draft';
+  const approve = button('Approuver', 'A', () => doApprove(item.id));
+  approve.disabled = !approvable;
+  if (!approvable && canDecide) approve.title = 'Validateur au rouge : édite ou rejette.';
+  const reject = button('Rejeter', 'R', () => openReject(item.id));
+  reject.disabled = !canDecide && item.status !== 'approved';
+  const edit = button('Éditer', 'E', () => openEdit(item));
+  edit.disabled = !canDecide;
+  actions.append(approve, reject, edit);
+  card.append(actions);
+
+  box.append(card);
+  // `focus()` seul ferait défiler la carte, ce qui pousse le verdict du validateur
+  // sous l'en-tête collant. Or le verdict est la première chose à voir : on prend
+  // le focus sans défilement, puis on remonte en haut.
+  card.focus({ preventScroll: true });
+  window.scrollTo({ top: 0 });
+}
+
+function button(label, key, onClick) {
+  const b = document.createElement('button');
+  b.append(document.createTextNode(label + ' '));
+  const k = document.createElement('kbd'); k.textContent = key;
+  b.append(k);
+  b.addEventListener('click', onClick);
+  return b;
+}
+
+async function guard(fn) {
+  if (state.busy) return;
+  state.busy = true;
+  try { clearError(); await fn(); }
+  catch (err) { showError(err); await refresh(); }
+  finally { state.busy = false; }
+}
+
+async function doApprove(id) {
+  await guard(async () => {
+    await api('/api/approve', { id });
+    announce('Approuvé, item suivant.');
+    await refresh();
+    showUndo(id);
+  });
+}
+
+function showUndo(id) {
+  clearUndo();
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.append(document.createTextNode(`Item #${id} approuvé.`));
+  const b = document.createElement('button');
+  b.textContent = 'Annuler';
+  b.addEventListener('click', async () => {
+    clearUndo();
+    await guard(async () => { await api('/api/undo', { id }); announce('Approbation annulée.'); await refresh(); });
+  });
+  t.append(b);
+  document.body.append(t);
+  state.undo = { el: t, timer: setTimeout(clearUndo, 5000) };
+}
+function clearUndo() {
+  if (!state.undo) return;
+  clearTimeout(state.undo.timer);
+  state.undo.el.remove();
+  state.undo = null;
+}
+
+let rejectTarget = null;
+function openReject(id) {
+  rejectTarget = id;
+  $('#dlg-reject').showModal();
+}
+$('#dlg-reject').addEventListener('close', async () => {
+  const dlg = $('#dlg-reject');
+  if (dlg.returnValue !== 'confirm' || rejectTarget == null) return;
+  const reason = $('#form-reject').elements.reason.value;
+  const id = rejectTarget; rejectTarget = null;
+  await guard(async () => {
+    await api('/api/reject', { id, reason });
+    announce('Rejeté, item suivant.');
+    await refresh();
+  });
+});
+
+let editTarget = null;
+function openEdit(item) {
+  editTarget = item.id;
+  const ta = $('#edit-body');
+  ta.value = item.body;
+  updateCounter();
+  $('#dlg-edit').showModal();
+  ta.focus();
+}
+function updateCounter() {
+  const n = $('#edit-body').value.length;
+  const el = $('#edit-counter');
+  el.textContent = n;
+  el.classList.toggle('over', n > 3000);
+}
+$('#edit-body').addEventListener('input', updateCounter);
+$('#dlg-edit').addEventListener('close', async () => {
+  const dlg = $('#dlg-edit');
+  if (dlg.returnValue !== 'save' || editTarget == null) return;
+  const id = editTarget; editTarget = null;
+  const body = $('#edit-body').value;
+  await guard(async () => {
+    const res = await api('/api/edit', { id, body });
+    announce(res.errors.length
+      ? `Enregistré, ${res.errors.length} problème de validation. L'item reste bloqué.`
+      : 'Enregistré et revalidé.');
+    await refresh();
+  });
+});
+
+$('#btn-generate').addEventListener('click', () => guard(async () => {
+  const r = await api('/api/generate', { count: 5 });
+  const parts = [`${r.generated} généré(s)`];
+  if (r.blocked) parts.push(`${r.blocked} bloqué(s) par le validateur`);
+  if (r.duplicates) parts.push(`${r.duplicates} doublon(s) ignoré(s)`);
+  announce(parts.join(', '));
+  if (r.failures.length) showError({ message: r.failures[0].error, remediation: r.failures[0].remediation });
+  await refresh(false);
+}));
+
+$('#btn-help').addEventListener('click', () => $('#dlg-help').showModal());
+
+for (const tab of document.querySelectorAll('[role="tab"]')) {
+  tab.addEventListener('click', () => {
+    state.tab = tab.dataset.tab;
+    state.index = 0;
+    for (const t of document.querySelectorAll('[role="tab"]')) {
+      t.setAttribute('aria-selected', String(t === tab));
+    }
+    render();
+  });
+}
+
+/** Les raccourcis ne se déclenchent jamais dans un champ de saisie. */
+function isEditableTarget(el) {
+  if (!el) return false;
+  const tag = el.tagName;
+  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+}
+
+document.addEventListener('keydown', (ev) => {
+  if (isEditableTarget(ev.target)) return;
+  if (document.querySelector('dialog[open]') && ev.key !== '?') return;
+  if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+
+  const list = current();
+  const entry = list[state.index];
+  const key = ev.key.toLowerCase();
+
+  if (key === 'j') { state.index = Math.min(state.index + 1, list.length - 1); render(); ev.preventDefault(); }
+  else if (key === 'k') { state.index = Math.max(state.index - 1, 0); render(); ev.preventDefault(); }
+  else if (key === 'a' && entry && entry.approvable) { doApprove(entry.item.id); ev.preventDefault(); }
+  else if (key === 'r' && entry) { openReject(entry.item.id); ev.preventDefault(); }
+  else if (key === 'e' && entry) { openEdit(entry.item); ev.preventDefault(); }
+  else if (ev.key === '?') { $('#dlg-help').showModal(); ev.preventDefault(); }
+});
+
+refresh(false).catch(showError);
+</script>
+</body>
+</html>
