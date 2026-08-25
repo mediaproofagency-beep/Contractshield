@@ -14,7 +14,9 @@
     "marketing:generate": "node --experimental-strip-types src/cli/index.ts generate",
     "marketing:queue": "node --experimental-strip-types src/cli/index.ts queue",
     "marketing:doctor": "node --experimental-strip-types src/cli/index.ts doctor",
-    "marketing:review": "node --experimental-strip-types src/server/dev-server.ts"
+    "marketing:review": "node --experimental-strip-types src/server/dev-server.ts",
+    "marketing:tick": "node --experimental-strip-types src/cli/index.ts tick",
+    "marketing:oauth": "node --experimental-strip-types src/cli/index.ts oauth:login linkedin"
   },
   "dependencies": {
     "drizzle-orm": "^0.36.4",

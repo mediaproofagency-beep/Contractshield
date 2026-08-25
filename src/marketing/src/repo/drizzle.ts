@@ -11,22 +11,29 @@
  * mêmes tests de service que la version mémoire dès qu'une base est branchée.
  */
 
-import { and, asc, eq, inArray, sql } from 'drizzle-orm';
+import { and, asc, count, eq, gte, inArray, isNull, lt, lte, or, sql } from 'drizzle-orm';
 import type { MySql2Database } from 'drizzle-orm/mysql2';
-import { contentAngles, contentItems } from '../db/schema.ts';
+import { contentAngles, contentItems, oauthTokens, publishAttempts } from '../db/schema.ts';
 import { bodyHash } from '../domain/hash.ts';
 import { assertTransition } from '../domain/state-machine.ts';
 import type {
+  Channel,
   ContentAngle,
   ContentItem,
   NewContentItem,
+  PublishAttempt,
   Status,
   ValidationError,
 } from '../domain/types.ts';
+import type { StoredToken } from '../oauth/store.ts';
 import type {
   ApproveInput,
+  ClaimInput,
   EditInput,
+  FinishAttempt,
   MarketingRepo,
+  NewAttempt,
+  PublishedInput,
   QueueFilter,
   RejectInput,
 } from './types.ts';
@@ -166,6 +173,273 @@ export class DrizzleRepo implements MarketingRepo {
     });
   }
 
+  // --- diffusion ---
+
+  async schedule(id: number, at: Date): Promise<ContentItem | null> {
+    // Depuis `approved` comme depuis `scheduled` : une replanification après un
+    // 429 ne doit pas échouer parce que l'item est déjà planifié.
+    const [res] = await this.db
+      .update(contentItems)
+      .set({ status: 'scheduled', scheduledAt: at, updatedAt: new Date() })
+      .where(
+        and(
+          eq(contentItems.id, id),
+          inArray(contentItems.status, ['approved', 'scheduled']),
+        ),
+      );
+    if (res.affectedRows === 0) return null;
+    return this.getItem(id);
+  }
+
+  async listDue(now: Date, channel: Channel, limit: number): Promise<ContentItem[]> {
+    const rows = await this.db
+      .select()
+      .from(contentItems)
+      .where(
+        and(
+          eq(contentItems.channel, channel),
+          inArray(contentItems.status, ['approved', 'scheduled']),
+          or(isNull(contentItems.scheduledAt), lte(contentItems.scheduledAt, now)),
+          or(isNull(contentItems.leaseUntil), lte(contentItems.leaseUntil, now)),
+        ),
+      )
+      .orderBy(asc(contentItems.scheduledAt), asc(contentItems.id))
+      .limit(limit);
+    return rows.map(toItem);
+  }
+
+  /**
+   * Claim atomique par bail.
+   *
+   * `GET_LOCK` n'est PAS utilisé : il est lié à la connexion, pas à la
+   * transaction, et avec un pool la connexion qui verrouille n'est pas celle qui
+   * travaille. Une coupure réseau libère le verrou côté serveur pendant que le
+   * worker tourne encore. La seule garantie fiable est cet UPDATE conditionnel,
+   * dont on lit `affectedRows`.
+   */
+  async claim({ id, workerId, leaseUntil, now }: ClaimInput): Promise<ContentItem | null> {
+    const [res] = await this.db
+      .update(contentItems)
+      .set({
+        lockedBy: workerId,
+        leaseUntil,
+        version: sql`${contentItems.version} + 1`,
+        attemptCount: sql`${contentItems.attemptCount} + 1`,
+        updatedAt: now,
+      })
+      .where(
+        and(
+          eq(contentItems.id, id),
+          inArray(contentItems.status, ['approved', 'scheduled']),
+          or(isNull(contentItems.leaseUntil), lte(contentItems.leaseUntil, now)),
+        ),
+      );
+    if (res.affectedRows === 0) return null;
+    return this.getItem(id);
+  }
+
+  async releaseLease(id: number): Promise<void> {
+    await this.db
+      .update(contentItems)
+      .set({ lockedBy: null, leaseUntil: null, updatedAt: new Date() })
+      .where(eq(contentItems.id, id));
+  }
+
+  async markPublished({ id, externalId, mode, at }: PublishedInput): Promise<ContentItem | null> {
+    // L'index unique (channel, external_id) refuse un second item porteur de la
+    // même URN : le double post devient une erreur de contrainte, pas un doublon.
+    const [res] = await this.db
+      .update(contentItems)
+      .set({
+        status: 'published',
+        externalId,
+        publishMode: mode,
+        publishedAt: at,
+        lockedBy: null,
+        leaseUntil: null,
+        updatedAt: at,
+      })
+      .where(
+        and(eq(contentItems.id, id), inArray(contentItems.status, ['approved', 'scheduled'])),
+      );
+    if (res.affectedRows === 0) return null;
+    return this.getItem(id);
+  }
+
+  async markFailed(id: number, note: string): Promise<ContentItem | null> {
+    const [res] = await this.db
+      .update(contentItems)
+      .set({
+        status: 'failed',
+        reviewNote: note,
+        lockedBy: null,
+        leaseUntil: null,
+        updatedAt: new Date(),
+      })
+      .where(
+        and(eq(contentItems.id, id), inArray(contentItems.status, ['approved', 'scheduled'])),
+      );
+    if (res.affectedRows === 0) return null;
+    return this.getItem(id);
+  }
+
+  async backToReview(id: number, note: string): Promise<ContentItem | null> {
+    const [res] = await this.db
+      .update(contentItems)
+      .set({
+        status: 'pending_review',
+        reviewNote: note,
+        scheduledAt: null,
+        lockedBy: null,
+        leaseUntil: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(contentItems.id, id));
+    if (res.affectedRows === 0) return null;
+    return this.getItem(id);
+  }
+
+  async listExpiredLeases(now: Date): Promise<ContentItem[]> {
+    const rows = await this.db
+      .select()
+      .from(contentItems)
+      .where(
+        and(
+          lt(contentItems.leaseUntil, now),
+          isNull(contentItems.publishedAt),
+          inArray(contentItems.status, ['approved', 'scheduled']),
+        ),
+      );
+    return rows.map(toItem);
+  }
+
+  async countPublishedBetween(channel: Channel, start: Date, end: Date): Promise<number> {
+    const [row] = await this.db
+      .select({ n: count() })
+      .from(contentItems)
+      .where(
+        and(
+          eq(contentItems.channel, channel),
+          gte(contentItems.publishedAt, start),
+          lt(contentItems.publishedAt, end),
+        ),
+      );
+    return Number(row?.n ?? 0);
+  }
+
+  // --- audit ---
+
+  async startAttempt(a: NewAttempt): Promise<PublishAttempt> {
+    const [res] = await this.db.insert(publishAttempts).values({
+      contentItemId: a.contentItemId,
+      adapter: a.adapter,
+      attemptNo: a.attemptNo,
+      startedAt: a.startedAt,
+    });
+    return {
+      id: Number(res.insertId),
+      contentItemId: a.contentItemId,
+      adapter: a.adapter,
+      attemptNo: a.attemptNo,
+      startedAt: a.startedAt,
+      finishedAt: null,
+      responseCode: null,
+      errorClass: null,
+      errorDetail: null,
+      degraded: false,
+      externalId: null,
+    };
+  }
+
+  async finishAttempt(input: FinishAttempt): Promise<void> {
+    await this.db
+      .update(publishAttempts)
+      .set({
+        finishedAt: input.finishedAt,
+        responseCode: input.responseCode,
+        errorClass: input.errorClass,
+        errorDetail: input.errorDetail,
+        degraded: input.degraded ? 1 : 0,
+        externalId: input.externalId,
+      })
+      .where(eq(publishAttempts.id, input.id));
+  }
+
+  async listAttempts(contentItemId: number): Promise<PublishAttempt[]> {
+    const rows = await this.db
+      .select()
+      .from(publishAttempts)
+      .where(eq(publishAttempts.contentItemId, contentItemId))
+      .orderBy(asc(publishAttempts.attemptNo));
+    return rows.map((r) => ({
+      id: Number(r.id),
+      contentItemId: Number(r.contentItemId),
+      adapter: r.adapter,
+      attemptNo: r.attemptNo,
+      startedAt: r.startedAt,
+      finishedAt: r.finishedAt,
+      responseCode: r.responseCode,
+      errorClass: r.errorClass,
+      errorDetail: r.errorDetail,
+      degraded: r.degraded === 1,
+      externalId: r.externalId,
+    }));
+  }
+
+  // --- jetons ---
+
+  async getToken(provider: string): Promise<StoredToken | null> {
+    const [row] = await this.db
+      .select()
+      .from(oauthTokens)
+      .where(eq(oauthTokens.provider, provider))
+      .limit(1);
+    if (!row) return null;
+    return {
+      provider: row.provider,
+      accountRef: row.accountRef,
+      access: { keyVersion: row.keyVersion, iv: row.accessIv, tag: row.accessTag, ciphertext: row.accessCiphertext },
+      refresh:
+        row.refreshCiphertext && row.refreshIv && row.refreshTag
+          ? {
+              keyVersion: row.keyVersion,
+              iv: row.refreshIv,
+              tag: row.refreshTag,
+              ciphertext: row.refreshCiphertext,
+            }
+          : null,
+      accessExpiresAt: row.accessExpiresAt,
+      refreshExpiresAt: row.refreshExpiresAt,
+      scopes: (row.scopes as string[] | null) ?? [],
+      status: row.status,
+      lastRefreshedAt: row.lastRefreshedAt,
+      alertLevel: row.alertLevel,
+      lastAlertAt: row.lastAlertAt,
+    };
+  }
+
+  async putToken(token: StoredToken): Promise<void> {
+    const values = {
+      provider: token.provider,
+      accountRef: token.accountRef,
+      accessCiphertext: token.access.ciphertext,
+      accessIv: token.access.iv,
+      accessTag: token.access.tag,
+      refreshCiphertext: token.refresh?.ciphertext ?? null,
+      refreshIv: token.refresh?.iv ?? null,
+      refreshTag: token.refresh?.tag ?? null,
+      keyVersion: token.access.keyVersion,
+      accessExpiresAt: token.accessExpiresAt,
+      refreshExpiresAt: token.refreshExpiresAt,
+      scopes: token.scopes,
+      status: token.status,
+      lastRefreshedAt: token.lastRefreshedAt,
+      alertLevel: token.alertLevel,
+      lastAlertAt: token.lastAlertAt,
+    };
+    await this.db.insert(oauthTokens).values(values).onDuplicateKeyUpdate({ set: values });
+  }
+
   /**
    * UPDATE ... WHERE id = ? AND status = ?. Zéro ligne touchée signifie que
    * quelqu'un d'autre est passé avant : on ne réessaie pas, on le dit.
@@ -200,6 +474,14 @@ function toItem(row: Row): ContentItem {
     approvedAt: row.approvedAt,
     generatedBy: row.generatedBy,
     editCount: row.editCount,
+    scheduledAt: row.scheduledAt,
+    publishedAt: row.publishedAt,
+    externalId: row.externalId,
+    publishMode: row.publishMode,
+    attemptCount: row.attemptCount,
+    lockedBy: row.lockedBy,
+    leaseUntil: row.leaseUntil,
+    version: row.version,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
   };

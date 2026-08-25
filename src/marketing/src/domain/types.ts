@@ -75,6 +75,20 @@ export interface ValidationError {
   evidence?: string;
 }
 
+/** Ce que l'adaptateur a réellement fait, par opposition à ce qu'on lui demandait. */
+export type PublishMode = 'direct' | 'draft';
+
+/** Classes d'erreur de publication. Chacune a un traitement distinct. */
+export const ERROR_CLASSES = [
+  'auth',
+  'rate_limit',
+  'validation',
+  'network',
+  'platform',
+  'unknown',
+] as const;
+export type ErrorClass = (typeof ERROR_CLASSES)[number];
+
 export interface ContentItem {
   id: number;
   angleId: number;
@@ -92,8 +106,46 @@ export interface ContentItem {
   generatedBy: string;
   /** Nombre d'éditions humaines. Signal d'entraînement le plus utile du système. */
   editCount: number;
+
+  // --- diffusion (phase 2) ---
+  /** Quand l'item doit partir. Toujours en UTC. */
+  scheduledAt: Date | null;
+  publishedAt: Date | null;
+  /** URN renvoyée par la plateforme. Unique par canal. */
+  externalId: string | null;
+  publishMode: PublishMode | null;
+  attemptCount: number;
+  /**
+   * Bail de publication. Le claim ne change PAS le statut : la liste de statuts
+   * imposée reste intacte, et deux workers ne peuvent pas publier le même item.
+   */
+  lockedBy: string | null;
+  leaseUntil: Date | null;
+  /** Incrémentée à chaque claim. Sert au diagnostic, pas au verrouillage. */
+  version: number;
+
   createdAt: Date;
   updatedAt: Date;
+}
+
+/**
+ * Trace d'une tentative de publication.
+ *
+ * La ligne est écrite AVANT l'appel réseau et complétée après. Un worker tué en
+ * plein appel laisse donc une tentative ouverte, détectable au tick suivant.
+ */
+export interface PublishAttempt {
+  id: number;
+  contentItemId: number;
+  adapter: string;
+  attemptNo: number;
+  startedAt: Date;
+  finishedAt: Date | null;
+  responseCode: number | null;
+  errorClass: ErrorClass | null;
+  errorDetail: string | null;
+  degraded: boolean;
+  externalId: string | null;
 }
 
 export interface NewContentItem {

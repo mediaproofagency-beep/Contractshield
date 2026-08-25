@@ -10,11 +10,23 @@
 
 import { bodyHash } from '../domain/hash.ts';
 import { assertTransition } from '../domain/state-machine.ts';
-import type { ContentAngle, ContentItem, NewContentItem, Status } from '../domain/types.ts';
+import type {
+  Channel,
+  ContentAngle,
+  ContentItem,
+  NewContentItem,
+  PublishAttempt,
+  Status,
+} from '../domain/types.ts';
+import type { StoredToken } from '../oauth/store.ts';
 import type {
   ApproveInput,
+  ClaimInput,
   EditInput,
+  FinishAttempt,
   MarketingRepo,
+  NewAttempt,
+  PublishedInput,
   QueueFilter,
   RejectInput,
 } from './types.ts';
@@ -22,14 +34,20 @@ import type {
 export class MemoryRepo implements MarketingRepo {
   private angles = new Map<number, ContentAngle>();
   private items = new Map<number, ContentItem>();
+  private attempts = new Map<number, PublishAttempt>();
+  private tokens = new Map<string, StoredToken>();
   private nextAngleId = 1;
   private nextItemId = 1;
+  private nextAttemptId = 1;
 
   async reset(): Promise<void> {
     this.angles.clear();
     this.items.clear();
+    this.attempts.clear();
+    this.tokens.clear();
     this.nextAngleId = 1;
     this.nextItemId = 1;
+    this.nextAttemptId = 1;
   }
 
   async insertAngle(angle: Omit<ContentAngle, 'id' | 'createdAt'>): Promise<ContentAngle> {
@@ -85,6 +103,14 @@ export class MemoryRepo implements MarketingRepo {
       approvedAt: null,
       generatedBy: item.generatedBy,
       editCount: 0,
+      scheduledAt: null,
+      publishedAt: null,
+      externalId: null,
+      publishMode: null,
+      attemptCount: 0,
+      lockedBy: null,
+      leaseUntil: null,
+      version: 0,
       createdAt: now,
       updatedAt: now,
     };
@@ -155,6 +181,181 @@ export class MemoryRepo implements MarketingRepo {
     row.status = next;
     row.updatedAt = new Date();
     return { ...row };
+  }
+
+  // --- diffusion ---
+
+  async schedule(id: number, at: Date): Promise<ContentItem | null> {
+    return this.conditional(id, 'approved', 'scheduled', (row) => {
+      row.scheduledAt = at;
+    });
+  }
+
+  async listDue(now: Date, channel: Channel, limit: number): Promise<ContentItem[]> {
+    return [...this.items.values()]
+      .filter(
+        (r) =>
+          r.channel === channel &&
+          (r.status === 'approved' || r.status === 'scheduled') &&
+          (r.scheduledAt == null || r.scheduledAt.getTime() <= now.getTime()) &&
+          (r.leaseUntil == null || r.leaseUntil.getTime() <= now.getTime()),
+      )
+      .sort(
+        (a, b) =>
+          (a.scheduledAt?.getTime() ?? a.createdAt.getTime()) -
+            (b.scheduledAt?.getTime() ?? b.createdAt.getTime()) || a.id - b.id,
+      )
+      .slice(0, limit)
+      .map((r) => ({ ...r }));
+  }
+
+  /**
+   * Le claim ne touche pas au statut : il pose un bail. Deux workers qui visent le
+   * même item, un seul repart avec la ligne, l'autre reçoit `null`.
+   */
+  async claim({ id, workerId, leaseUntil, now }: ClaimInput): Promise<ContentItem | null> {
+    const row = this.items.get(id);
+    if (!row) return null;
+    if (row.status !== 'approved' && row.status !== 'scheduled') return null;
+    if (row.leaseUntil != null && row.leaseUntil.getTime() > now.getTime()) return null;
+    row.lockedBy = workerId;
+    row.leaseUntil = leaseUntil;
+    row.version += 1;
+    row.attemptCount += 1;
+    row.updatedAt = now;
+    return { ...row };
+  }
+
+  async releaseLease(id: number): Promise<void> {
+    const row = this.items.get(id);
+    if (!row) return;
+    row.lockedBy = null;
+    row.leaseUntil = null;
+  }
+
+  async markPublished({ id, externalId, mode, at }: PublishedInput): Promise<ContentItem | null> {
+    const row = this.items.get(id);
+    if (!row) return null;
+    if (row.status !== 'approved' && row.status !== 'scheduled') return null;
+    // Une seule publication par item et par URN : le doublon est refusé ici.
+    for (const other of this.items.values()) {
+      if (other.id !== id && other.channel === row.channel && other.externalId === externalId) {
+        return null;
+      }
+    }
+    if (row.status === 'approved') assertTransition('approved', 'scheduled');
+    assertTransition('scheduled', 'published');
+    row.status = 'published';
+    row.externalId = externalId;
+    row.publishMode = mode;
+    row.publishedAt = at;
+    row.lockedBy = null;
+    row.leaseUntil = null;
+    row.updatedAt = at;
+    return { ...row };
+  }
+
+  async markFailed(id: number, note: string): Promise<ContentItem | null> {
+    const row = this.items.get(id);
+    if (!row) return null;
+    if (row.status !== 'approved' && row.status !== 'scheduled') return null;
+    if (row.status === 'approved') row.status = 'scheduled';
+    assertTransition('scheduled', 'failed');
+    row.status = 'failed';
+    row.reviewNote = note;
+    row.lockedBy = null;
+    row.leaseUntil = null;
+    row.updatedAt = new Date();
+    return { ...row };
+  }
+
+  async backToReview(id: number, note: string): Promise<ContentItem | null> {
+    const row = this.items.get(id);
+    if (!row) return null;
+    assertTransition(row.status, 'pending_review');
+    row.status = 'pending_review';
+    row.reviewNote = note;
+    row.lockedBy = null;
+    row.leaseUntil = null;
+    row.scheduledAt = null;
+    row.updatedAt = new Date();
+    return { ...row };
+  }
+
+  async listExpiredLeases(now: Date): Promise<ContentItem[]> {
+    return [...this.items.values()]
+      .filter(
+        (r) =>
+          r.leaseUntil != null &&
+          r.leaseUntil.getTime() <= now.getTime() &&
+          r.publishedAt == null &&
+          (r.status === 'approved' || r.status === 'scheduled'),
+      )
+      .map((r) => ({ ...r }));
+  }
+
+  async countPublishedBetween(channel: Channel, start: Date, end: Date): Promise<number> {
+    let n = 0;
+    for (const r of this.items.values()) {
+      if (
+        r.channel === channel &&
+        r.publishedAt != null &&
+        r.publishedAt.getTime() >= start.getTime() &&
+        r.publishedAt.getTime() < end.getTime()
+      ) {
+        n += 1;
+      }
+    }
+    return n;
+  }
+
+  // --- audit ---
+
+  async startAttempt(a: NewAttempt): Promise<PublishAttempt> {
+    const row: PublishAttempt = {
+      id: this.nextAttemptId++,
+      contentItemId: a.contentItemId,
+      adapter: a.adapter,
+      attemptNo: a.attemptNo,
+      startedAt: a.startedAt,
+      finishedAt: null,
+      responseCode: null,
+      errorClass: null,
+      errorDetail: null,
+      degraded: false,
+      externalId: null,
+    };
+    this.attempts.set(row.id, row);
+    return { ...row };
+  }
+
+  async finishAttempt(input: FinishAttempt): Promise<void> {
+    const row = this.attempts.get(input.id);
+    if (!row) return;
+    row.finishedAt = input.finishedAt;
+    row.responseCode = input.responseCode;
+    row.errorClass = input.errorClass;
+    row.errorDetail = input.errorDetail;
+    row.degraded = input.degraded;
+    row.externalId = input.externalId;
+  }
+
+  async listAttempts(contentItemId: number): Promise<PublishAttempt[]> {
+    return [...this.attempts.values()]
+      .filter((a) => a.contentItemId === contentItemId)
+      .sort((a, b) => a.attemptNo - b.attemptNo)
+      .map((a) => ({ ...a }));
+  }
+
+  // --- jetons ---
+
+  async getToken(provider: string): Promise<StoredToken | null> {
+    const t = this.tokens.get(provider);
+    return t ? { ...t } : null;
+  }
+
+  async putToken(token: StoredToken): Promise<void> {
+    this.tokens.set(token.provider, { ...token });
   }
 
   private conditional(

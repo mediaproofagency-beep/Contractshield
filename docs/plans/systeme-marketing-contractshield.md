@@ -1078,3 +1078,37 @@ Total révisé : environ 11 jours humains contre 15, et le risque OAuth sort du 
 - [ ] **T-13 (P1, humain ~0,5 j / CC ~30 min) — publisher** — adaptateur `relay` vers l'outil choisi, avec confirmation de publication avant de poser `published`
 - [ ] **T-14 (P2, humain ~0,5 j / CC ~20 min) — decision** — choisir l'outil (Buffer, Make, n8n) et écrire la ligne de justification exigée par D-15
 - [ ] ~~T-01 colonnes `oauth_tokens` / `key_version`~~ — retiré du périmètre v1
+
+---
+
+# RÉVISION PHASE 2 — retour à l'adaptateur natif
+
+Décision du fondateur, postérieure au gate `/autoplan`.
+
+Le gate avait inversé T1 : la publication devait passer par un outil du marché, ce
+qui sortait R5 (OAuth) du périmètre. La demande de la phase 2 est un adaptateur
+LinkedIn natif. **T1 est donc rétabli dans son sens initial et R5 revient au
+périmètre.** Conséquences appliquées :
+
+- `oauth_tokens`, chiffrement AES-256-GCM avec version de clé, renouvellement
+  automatique et alertes : construits.
+- Le risque F8 (aucun refresh token délivré) redevient actif. Traité dans le code
+  par deux régimes distincts, et `oauth:login` dit lequel s'applique au moment de
+  la connexion plutôt qu'au jour 60.
+- `publisher/relay.ts` (T-13) et le choix d'outil (T-14) sortent du périmètre.
+
+Périmètre livré : LinkedIn uniquement, `/rest/posts`, auteur `urn:li:person`,
+en-têtes `LinkedIn-Version` et `X-Restli-Protocol-Version: 2.0.0`. Pas de
+`ugcPosts`. Brevo reste déclaré sans adaptateur.
+
+## Écart entre le plan et l'implémentation, assumé
+
+Le plan prévoyait un statut de claim par bail sur la ligne : c'est bien ce qui a
+été fait, et `GET_LOCK` n'apparaît nulle part. Deux ajouts non prévus au plan :
+
+- **`LINKEDIN_ESCAPE_COMMENTARY`** : l'échappement du champ `commentary` n'a pas pu
+  être vérifié contre la documentation LinkedIn depuis l'environnement de
+  développement. Plutôt que de parier, le comportement est basculable par variable
+  d'environnement, décidable après le premier post réel.
+- **Dry-run sans jeton** : le mode `--dry-run` affiche le payload même sans OAuth
+  configuré, puisque c'est exactement le moment où on veut le relire.
