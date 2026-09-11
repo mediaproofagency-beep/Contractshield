@@ -256,12 +256,25 @@ après suppression (forks, caches, archives).
 
 ---
 
-## Ce qu'il faut clarifier
+## Le backend réel est désormais versionné
 
-Pour que ce fichier devienne fiable, il manque **le dépôt (ou le chemin serveur) du
-backend réel** : c'est lui qui porte `server/_core/llm.ts`, `magicLinkTokens`,
-`trust proxy`, PM2, Nginx et la configuration SMTP. Tant qu'il n'est pas accessible,
-les points 1 à 5 restent des notes d'exploitation non vérifiables.
+✅ **`mediaproofagency-beep/contractshield-prod` (privé)** porte le code de production :
+`server/_core/llm.ts`, `magicLinkTokens`, `trust proxy`, PM2, Nginx, SMTP.
+
+**Les cinq pièges y ont été vérifiés le 2026-09-11**, références `fichier:ligne` à
+l'appui, dans le `CLAUDE.md` de ce dépôt-là. Résumé :
+
+| Piège | Verdict côté production |
+|---|---|
+| SMTP port 2525 | **réel** — mais le défaut codé est 587, un port bloqué par Scaleway |
+| `--no-frozen-lockfile` | **cause différente** — pnpm 12 sur le VPS vs pnpm 10.4.1 épinglé ; le lockfile est sain |
+| `magicLinkTokens` | **réel** — table déclarée et utilisée, aucune migration n'existe |
+| paramètre `thinking` | **absent** — et le fournisseur n'est pas Anthropic |
+| `trust proxy` | **réel, et déjà correct** (`1`) |
+
+⚠️ Les constats de la section ci-dessus restent valables **pour ce dépôt-ci** : le MVP
+n'a effectivement ni backend, ni pnpm, ni Nginx. Les deux lectures ne se contredisent
+pas — elles portent sur deux bases de code différentes.
 
 Deux corrections à faire quoi qu'il arrive :
 - **Extraire le tarball** et versionner le code réellement, ou retirer le tarball de `main`.
