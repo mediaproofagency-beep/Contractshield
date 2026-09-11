@@ -210,6 +210,52 @@ bien un `:3000` en production, c'est le backend hors dépôt.
 
 ---
 
+## Conventions de travail (gstack)
+
+> Repris de la branche `claude/gstack-install-setup-7qfx5l`, dont le `CLAUDE.md`
+> n'existait pas sur `main`. Ces règles s'appliquent quelle que soit la branche.
+
+gstack est installé dans `~/.claude/skills/gstack` (skills liés dans `~/.claude/skills/`).
+
+### Navigation web
+
+- **Toujours** utiliser le skill `/browse` de gstack pour toute navigation web
+  (ouvrir une page, cliquer, remplir un formulaire, screenshot, QA visuelle,
+  scraping, vérification d'un rendu).
+- **Ne jamais** utiliser les outils `mcp__claude-in-chrome__*`. Si une tâche semble
+  les appeler, passer par `/browse` (ou `/open-gstack-browser` pour un navigateur
+  visible piloté par l'agent).
+
+### Skills gstack disponibles
+
+| Domaine | Skills |
+|---|---|
+| Revue & plan | `/office-hours` `/plan-ceo-review` `/plan-eng-review` `/plan-design-review` `/autoplan` `/review` |
+| Design | `/design-consultation` `/design-shotgun` `/design-html` `/design-review` |
+| Livraison | `/ship` `/land-and-deploy` `/canary` `/benchmark` `/setup-deploy` |
+| Navigateur | `/browse` `/open-gstack-browser` `/setup-browser-cookies` `/pair-agent` |
+| QA | `/qa` `/qa-only` `/investigate` |
+| Documentation | `/document-release` `/document-generate` `/retro` `/learn` |
+| Garde-fous | `/careful` `/freeze` `/guard` `/unfreeze` `/cso` |
+| Divers | `/codex` `/setup-gbrain` `/sync-gbrain` `/gstack-upgrade` |
+
+---
+
+## Sécurité du dépôt
+
+⚠️ **`mediaproofagency-beep/Contractshield` est un dépôt PUBLIC** (vérifié le
+2026-09-11). Tout ce qui y est committé est visible de tous, et le rester même
+après suppression (forks, caches, archives).
+
+- Le backend de production ne doit **pas** y être poussé : il va dans un dépôt
+  **privé** séparé.
+- Vérification faite à cette date : le tarball et les fichiers versionnés ne
+  contiennent **aucun secret réel** (seul `VITE_API_URL=http://localhost:3001/api`,
+  sans risque). L'adresse du VPS n'apparaît nulle part dans le dépôt.
+- Avant tout `git add` sur ce dépôt, se rappeler qu'il est public.
+
+---
+
 ## Ce qu'il faut clarifier
 
 Pour que ce fichier devienne fiable, il manque **le dépôt (ou le chemin serveur) du
@@ -219,5 +265,5 @@ les points 1 à 5 restent des notes d'exploitation non vérifiables.
 
 Deux corrections à faire quoi qu'il arrive :
 - **Extraire le tarball** et versionner le code réellement, ou retirer le tarball de `main`.
-- **Réconcilier les CLAUDE.md** : `claude/gstack-install-setup-7qfx5l` en contient déjà
-  un (conventions gstack, `/browse` obligatoire, liste des skills) qui n'est pas sur `main`.
+- ~~Réconcilier les CLAUDE.md~~ — **fait** : les conventions gstack sont reprises
+  ci-dessus, section « Conventions de travail (gstack) ».
